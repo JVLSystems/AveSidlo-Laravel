@@ -8,7 +8,7 @@
                 </div>
                 <div>
                     <a href="this" class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">{{ auth()->user()->name }}</a>
-                    <div class="text-muted">{ auth()->()->role }</div>
+                    <div class="text-muted">{{} auth()->()->role }}</div>
                 </div>
             </div>
 

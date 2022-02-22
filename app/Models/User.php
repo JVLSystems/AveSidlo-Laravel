@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'last_logged_at',
+        'phone',
     ];
 
     /**
@@ -42,7 +45,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     // ******************************* HELPER METHODS *************************************
+
+    /**
+     * @return string
+     */
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 
     /**
      * @return string
