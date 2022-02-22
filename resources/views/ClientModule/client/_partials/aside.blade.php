@@ -15,7 +15,7 @@
             <div class="py-9">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold mr-2">E-mail:</span>
-                    <a href="mailto:{$loginUser->getEmail()}" class="text-muted text-hover-primary">{{ auth()->user()->email }}</a>
+                    <a href="mailto:{{ auth()->user()->email }}" class="text-muted text-hover-primary">{{ auth()->user()->email }}</a>
                 </div>
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <span class="font-weight-bold mr-2">Telefón:</span>
