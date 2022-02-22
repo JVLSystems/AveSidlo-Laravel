@@ -7,7 +7,7 @@
                     <i class="symbol-badge bg-success"></i>
                 </div>
                 <div>
-                    <a href="{{ route('client') }}" class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">{{ auth()->user()->name }}</a>
+                    <a href="{{ route('my.account') }}" class="font-weight-bolder font-size-h5 text-dark-75 text-hover-primary">{{ auth()->user()->name }}</a>
                     <div class="text-muted">{{ auth()->user()->role->type }}</div>
                 </div>
             </div>
