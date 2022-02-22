@@ -41,4 +41,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // ******************************* HELPER METHODS *************************************
+
+    /**
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        $expName = explode(" ", $this->name);
+        return isset($expName[0]) ? $expName[0] : '';
+    }
+
+
+    /**
+     * @return string|void
+     */
+    public function getFirstLetterFromName()
+    {
+        $split = str_split($this->getFirstName());
+        if (!isset($split[0])) return ;
+
+        return strtoupper($split[0]);
+    }
 }
