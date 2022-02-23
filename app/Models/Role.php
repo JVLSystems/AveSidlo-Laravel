@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model
+class Role extends Model
 {
     use HasFactory;
 
@@ -15,18 +15,7 @@ class Company extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
-        'city_ud',
-        'zip_id',
-        'state_id',
-        'name',
-        'ico',
-        'dic',
-        'icdph',
-        'street',
-        'payment_at',
-        'is_paid',
-        'is_main',
-        'status',
+        'id',
+        'type',
     ];
 }
