@@ -36,7 +36,9 @@
                                 @include('ClientModule.client._partials.aside')
 
                                 <div class="flex-row-fluid ml-lg-8">
-                                    <form class="form" name="userForm">
+                                    <form class="form" action="{{ route('klient.update', auth()->id() ) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
                                         <div class="card card-custom card-stretch">
                                             <div class="card-header py-3">
                                                 <div class="card-title align-items-start flex-column">
@@ -44,7 +46,7 @@
                                                     <span class="text-muted font-weight-bold font-size-sm mt-1">Aktualizujte svoje osobné informácie</span>
                                                 </div>
                                                 <div class="card-toolbar">
-                                                    <button name="submit" class="btn btn-success mr-2">Uložiť zmeny</button>
+                                                    <button class="btn btn-success mr-2">Uložiť zmeny</button>
                                                     <button type="reset" class="btn btn-secondary">Zrušiť</button>
                                                 </div>
                                             </div>
@@ -73,7 +75,7 @@
                                                                 </span>
                                                             </div>
 
-                                                            <input name="phone" class="form-control form-control-lg form-control-solid" placeholder="Telefón"  />
+                                                            <input name="phone" class="form-control form-control-lg form-control-solid" placeholder="Telefón" value="{{ auth()->user()->phone }}"  />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -87,7 +89,7 @@
                                                                 </span>
                                                             </div>
 
-                                                            <input name="email" class="form-control form-control-lg form-control-solid" value="{{ auth()->user()->name }}" disabled readonly />
+                                                            <input name="email" class="form-control form-control-lg form-control-solid" value="{{ auth()->user()->email }}" disabled readonly />
                                                         </div>
                                                     </div>
                                                 </div>

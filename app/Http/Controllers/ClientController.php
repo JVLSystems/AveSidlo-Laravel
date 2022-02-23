@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,21 +16,6 @@ class ClientController extends Controller
     public function index()
     {
         //
-    }
-
-    public function my_account()
-    {
-        return view('ClientModule.client.myAccount');
-    }
-
-    public function settings()
-    {
-        return view('ClientModule.client.settings');
-    }
-
-    public function change_password()
-    {
-        return view('ClientModule.client.changePassword');
     }
 
     /**
@@ -82,9 +68,14 @@ class ClientController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $klient)
     {
-        //
+        $klient->update([
+            'name' => $request->name,
+            'phone' => $request->phone,
+        ]);
+
+        return redirect()->route('my.account')->withStatus('Váš účet bol aktualizovaný!');
     }
 
     /**
@@ -96,5 +87,20 @@ class ClientController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function my_account()
+    {
+        return view('ClientModule.client.myAccount');
+    }
+
+    public function settings()
+    {
+        return view('ClientModule.client.settings');
+    }
+
+    public function change_password()
+    {
+        return view('ClientModule.client.changePassword');
     }
 }

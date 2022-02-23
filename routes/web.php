@@ -32,6 +32,7 @@ Route::middleware('auth')->prefix('klient')->group( function() {
     Route::get('nastavenia', [ClientController::class, 'settings'])->name('settings');
     Route::get('zmena-hesla', [ClientController::class, 'change_password'])->name('change.password');
 
+    Route::resource('klient', ClientController::class);
     Route::resource('spolocnosti', CompanyController::class);
 });
 
