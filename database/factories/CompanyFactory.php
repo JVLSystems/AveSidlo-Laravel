@@ -18,19 +18,19 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => rand(0, 100),
-            'city_id' => rand(0, 100),
-            'zip_id' => rand(0, 100),
-            'state_id' => rand(0, 100),
+            'user_id' => mt_rand(0, 100),
+            'city_id' => mt_rand(0, 100),
+            'zip_id' => mt_rand(0, 100),
+            'state_id' => mt_rand(0, 100),
             'name' => $this->faker->name(),
             'ico' => $this->faker->numerify('########'),
             'dic' => $this->faker->numerify('##########'),
-            'icdph' => 'SK' . $this->faker->numerify('##########'),
+            'icdph' => sprintf("SK%s", $this->faker->numerify('##########')),
             'street' => $this->faker->streetAddress(),
             'payment_at' => now(),
-            'is_paid' => rand(0, 1),
-            'is_main' => rand(0, 1),
-            'status' => rand(0, 1),
+            'is_paid' => mt_rand(0, 1),
+            'is_main' => mt_rand(0, 1),
+            'status' => mt_rand(0, 1),
         ];
     }
 }
