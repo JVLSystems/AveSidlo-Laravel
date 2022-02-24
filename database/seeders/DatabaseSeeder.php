@@ -17,7 +17,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call([RoleSeeder::class]);
         $this->call([UserSeeder::class]);
-        $this->call([CompanySeeder::class]);
+        $this->call([EnumStateSeeder::class]);
+        $this->call([EnumTypePaymentSeeder::class]);
+        $this->call([EnumVatSeeder::class]);
+        $this->call([EnumMjSeeder::class]);
+        // $this->call([CompanySeeder::class]);
 
     }
 }

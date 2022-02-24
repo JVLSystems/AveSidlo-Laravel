@@ -18,10 +18,10 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => mt_rand(0, 100),
-            'city_id' => mt_rand(0, 100),
-            'zip_id' => mt_rand(0, 100),
-            'state_id' => mt_rand(0, 100),
+            'user_id' => mt_rand(0, 1),
+            'city_id' => mt_rand(0, 1),
+            'zip_id' => mt_rand(0, 1),
+            'state_id' => mt_rand(0, 1),
             'name' => $this->faker->name(),
             'ico' => $this->faker->numerify('########'),
             'dic' => $this->faker->numerify('##########'),

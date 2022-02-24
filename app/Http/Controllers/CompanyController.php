@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\EnumState;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -24,7 +25,9 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('ClientModule.company.add');
+        $states = EnumState::all();
+
+        return view('ClientModule.company.add', compact('states') );
     }
 
     /**

@@ -120,7 +120,11 @@
                                                             Štát
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select class="form-control selectpicker" data-size="7" data-live-search="true" name="states"></select>
+                                                        <select class="form-control selectpicker" data-size="7" data-live-search="true" name="states">
+                                                            @foreach ($states as $state)
+                                                                <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
