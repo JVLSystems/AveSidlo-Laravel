@@ -15,7 +15,7 @@
                                 <div class="d-flex flex-column">
                                     <h2 class="text-white font-weight-bold my-2 mr-5">Spoločnosti</h2>
                                     <div class="d-flex align-items-center font-weight-bold my-2">
-                                        <a href="Homepage:default" class="opacity-75 hover-opacity-100">
+                                        <a href="{{ route('client') }}" class="opacity-75 hover-opacity-100">
                                             <i class="flaticon2-shelter text-white icon-1x"></i>
                                         </a>
 

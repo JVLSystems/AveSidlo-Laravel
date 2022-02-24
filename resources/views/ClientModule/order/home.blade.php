@@ -1,6 +1,9 @@
 @extends('ClientModule.layouts.layout')
 
 @section('content')
+
+    @include('ClientModule._partials.headerMobile')
+
     <div class="d-flex flex-column flex-root">
         <div class="d-flex flex-row flex-column-fluid page">
             <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
@@ -11,18 +14,18 @@
                         <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                             <div class="d-flex align-items-center flex-wrap mr-1">
                                 <div class="d-flex flex-column">
-                                    <h2 class="text-white font-weight-bold my-2 mr-5">Spoločnosti</h2>
+                                    <h2 class="text-white font-weight-bold my-2 mr-5">Objednávky</h2>
                                     <div class="d-flex align-items-center font-weight-bold my-2">
                                         <a href="{{ route('client') }}" class="opacity-75 hover-opacity-100">
                                             <i class="flaticon2-shelter text-white icon-1x"></i>
                                         </a>
                                         <span class="label label-dot label-sm bg-white opacity-75 mx-3"></span>
-                                        <a href="{{ route('spolocnosti.index') }}" class="text-white text-hover-white opacity-75 hover-opacity-100">Spoločnosti</a>
+                                        <a href="{{ route('objednavky.index') }}" class="text-white text-hover-white opacity-75 hover-opacity-100">Objednávky</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center">
-                                <a href="{{ route('spolocnosti.create') }}" class="btn btn-white font-weight-bold py-3 px-6 mr-2" data-toggle="tooltip" title="Pridajte si ďalšiu spoločnosť do nášho sídla" data-placement="top">Nová spoločnosť</a>
+                                <a href="{{ route('objednavky.create') }}" class="btn btn-white font-weight-bold py-3 px-6 mr-2" data-toggle="tooltip" title="Vytvorte si novú objednávku" data-placement="top">Nová objednávka</a>
                             </div>
                         </div>
                     </div>
@@ -33,13 +36,13 @@
                                     <div class="card-header">
                                         <div class="card-title">
                                             <h3 class="card-label">
-                                                Spoločnosti
-                                                <small>vaše spoločnosti, ktoré sídlia v našej nehnuteľnosti</small>
+                                                Objednávky
+                                                <small>vaše objednávky, zoznam všetkych objednávok, ktoré ste si u nás vytvorili</small>
                                             </h3>
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        {control companyGrid}
+                                        {control orderGrid}
                                     </div>
                                 </div>
                             </div>
@@ -51,6 +54,5 @@
             </div>
         </div>
     </div>
-
     @include('ClientModule.user')
 @endsection

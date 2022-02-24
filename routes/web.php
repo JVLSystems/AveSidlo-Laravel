@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 
@@ -34,6 +35,7 @@ Route::middleware('auth')->prefix('klient')->group( function() {
 
     Route::resource('klient', ClientController::class);
     Route::resource('spolocnosti', CompanyController::class);
+    Route::resource('objednavky', OrderController::class);
 });
 
 require __DIR__.'/auth.php';
