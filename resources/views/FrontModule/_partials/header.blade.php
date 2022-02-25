@@ -38,16 +38,6 @@
 
 </head>
 <body>
-    {{-- {foreach $flashes as $flash}
-        <script>
-            Swal.fire({
-                title: {$flash->type == 'success' ? 'Úspech!' : 'Chyba!'},
-                text: {$flash->message},
-                icon: {$flash->type},
-                timer: 2000
-            });
-        </script>
-    {/foreach} --}}
 
     <div id="site-preloader" class="site-preloader">
         <div class="loader-wrap">

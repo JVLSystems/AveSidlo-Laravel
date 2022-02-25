@@ -8,7 +8,7 @@
                     <div class="login-box">
                         <div class="login">
                             <div class="content">
-                                <a n:href="Homepage:default"><img src="{{ asset('/assets/img/logo.png') }}" alt="Logo" style="width: 150px;"></a>
+                                <a href="{{ route('home') }}"><img src="{{ asset('/assets/img/logo.png') }}" alt="Logo" style="width: 150px;"></a>
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="row">

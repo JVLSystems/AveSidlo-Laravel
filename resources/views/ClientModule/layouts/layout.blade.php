@@ -60,7 +60,7 @@
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <script syntax="off">
+    <script>
         $(".deleted-confirm").click(function () {
             var confirmLink = $(this).data('link');
 
@@ -87,17 +87,6 @@
     </script>
 </head>
 <body id="kt_body" style="background-image: url({{ asset('/adm/assets/media/bg/bg-10.jpg)')}}" class="quick-panel-right demo-panel-right offcanvas-right header-fixed subheader-enabled page-loading">
-    {{-- {foreach $flashes as $flash}
-        <script>
-            Swal.fire({
-                title: {$flash->type == 'success' ? 'Úspech!' : 'Chyba!'},
-                text: {$flash->message},
-                icon: {$flash->type},
-                timer: 2000
-            });
-        </script>
-    {/foreach} --}}
-
     @include('ClientModule.layouts.messages')
 
     @yield('content')

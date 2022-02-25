@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -49,31 +51,32 @@ class User extends Authenticatable
     // ******************************* HELPER METHODS *************************************
 
     /**
-     * @return string
+     * @return BelongsTo
      */
-    public function role()
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFirstName(): string
+    public function getFirstName():? string
     {
-        $expName = explode(" ", $this->name);
-        return isset($expName[0]) ? $expName[0] : '';
+        $expName = Str::of($this->name)->explode(' ');
+        return Arr::first($expName);
     }
 
 
     /**
-     * @return string|void
+     * @return string|null
      */
-    public function getFirstLetterFromName()
+    public function getFirstLetterFromName():? string
     {
-        $split = str_split($this->getFirstName());
-        if (!isset($split[0])) return ;
-
-        return strtoupper($split[0]);
+        return Str::upper(
+            Arr::first(
+                str_split($this->getFirstName())
+            )
+        );
     }
 }

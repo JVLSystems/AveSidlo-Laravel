@@ -8,8 +8,6 @@ use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
-    const DEFAULT_PASSWORD = 'test1234';
-
     /**
      * Define the model's default state.
      *
@@ -22,7 +20,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'last_logged_at' => now(),
-            'password' => Hash::make(self::DEFAULT_PASSWORD),
+            'password' => Hash::make(env('APP_DEFAULT_PASSWORD', 'test1234')),
             'phone' => $this->faker->phoneNumber(),
             'remember_token' => Str::random(10),
         ];

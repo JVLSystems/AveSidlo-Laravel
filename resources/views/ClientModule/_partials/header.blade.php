@@ -6,9 +6,9 @@
         <div class="d-flex align-items-stretch mr-3">
             <!--begin::Header Logo-->
             <div class="header-logo">
-                <a n:href="Homepage:default">
-                    <img alt="Logo" src="{{ asset('/assets/img/logo-white.png/') }}" class="logo-default max-h-40px"/>
-                    <img alt="Logo" src="{{ asset('/assets/img/logo.png') }}" class="logo-sticky max-h-40px"/>
+                <a href="{{ route('client') }}">
+                    <img alt="Logo" src="{{ asset('/assets/img/logo-white.png') }}" class="logo-default max-h-40px" />
+                    <img alt="Logo" src="{{ asset('/assets/img/logo.png') }}" class="logo-sticky max-h-40px" />
                 </a>
             </div>
             <!--end::Header Logo-->
@@ -21,7 +21,7 @@
                      class="header-menu header-menu-left header-menu-mobile header-menu-layout-default">
                     <!--begin::Header Nav-->
                     <ul class="menu-nav">
-                        <li class="{{ request()->segment(1) == 'klient' && request()->segment(2) == '' ? 'menu-item-here menu-item' : 'menu-item' }}" data-menu-toggle="click">
+                        <li class="{{ request()->is('klient/*') ? 'menu-item-here menu-item' : 'menu-item' }}" data-menu-toggle="click">
                             <a href="{{ route('client') }}" class="menu-link">
                                 <span class="menu-text">Nástenka</span>
                             </a>
@@ -37,7 +37,7 @@
                                 <span class="menu-text">Oprávnené osoby</span>
                             </a>
                         </li>
-                        <li class="{{ request()->segment(2) == 'spolocnosti' ? 'menu-item-here menu-item' : 'menu-item' }}" data-menu-toggle="click">
+                        <li class="{{ request()->is('klient/spolocnosti/*') ? 'menu-item-here menu-item' : 'menu-item' }}" data-menu-toggle="click">
                             <a href="{{ route('spolocnosti.index') }}" class="menu-link">
                                 <span class="menu-text">Spoločnosti</span>
                             </a>

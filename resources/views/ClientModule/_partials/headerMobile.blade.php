@@ -1,7 +1,7 @@
 <div id="kt_header_mobile" class="header-mobile">
     <!--begin::Logo-->
-    <a n:href=":Client:Homepage:default">
-        <img alt="Logo" src="{{ asset('/assets/img/logo-white.png') }}" class="logo-default max-h-30px"/>
+    <a href="{{ route('client') }}">
+        <img alt="Logo" src="{{ asset('/assets/img/logo-white.png') }}" class="logo-default max-h-30px" />
     </a>
     <!--end::Logo-->
     <!--begin::Toolbar-->
