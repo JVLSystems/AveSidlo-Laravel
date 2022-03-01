@@ -200,9 +200,7 @@
 
 
     <script>
-        import { createApp } from 'vue'
-
-        new createApp({
+        new Vue({
             el: '#company',
             data: {
                 ico: '',
