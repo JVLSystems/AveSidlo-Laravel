@@ -12,6 +12,12 @@ use lubosdz\parserOrsr\ConnectorOrsr;
 
 class CompanyController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Company::class, 'spolocnosti');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,9 +25,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::where('user_id', auth()->id() );
-
-        return view('ClientModule.company.home', compact('companies') );
+        return view('ClientModule.company.home');
     }
 
     /**
@@ -139,6 +143,12 @@ class CompanyController extends Controller
     {
         $orsr = new ConnectorOrsr();
 
-        return $orsr->getDetailByICO('31364080');
+        $results = $orsr->getDetailByICO($ico);
+
+        return $results
+            ? response()->json($results, 200)
+            : response()->json(['status' => 'not found'], 404);
+
+
     }
 }
