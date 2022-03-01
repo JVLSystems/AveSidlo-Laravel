@@ -2740,16 +2740,16 @@
         },
         {
             "name": "power-components/livewire-powergrid",
-            "version": "v2.3.3",
+            "version": "v2.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Power-Components/livewire-powergrid.git",
-                "reference": "0d7bae37b8e44c26a54659aa534c14ef0f67cff0"
+                "reference": "8378d0f9a072402f0c752da297138eb978745b20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Power-Components/livewire-powergrid/zipball/0d7bae37b8e44c26a54659aa534c14ef0f67cff0",
-                "reference": "0d7bae37b8e44c26a54659aa534c14ef0f67cff0",
+                "url": "https://api.github.com/repos/Power-Components/livewire-powergrid/zipball/8378d0f9a072402f0c752da297138eb978745b20",
+                "reference": "8378d0f9a072402f0c752da297138eb978745b20",
                 "shasum": ""
             },
             "require": {
@@ -2799,9 +2799,9 @@
             "homepage": "https://github.com/power-components/livewire-powergrid",
             "support": {
                 "issues": "https://github.com/Power-Components/livewire-powergrid/issues",
-                "source": "https://github.com/Power-Components/livewire-powergrid/tree/v2.3.3"
+                "source": "https://github.com/Power-Components/livewire-powergrid/tree/v2.3.4"
             },
-            "time": "2022-02-24T21:53:48+00:00"
+            "time": "2022-03-01T19:09:22+00:00"
         },
         {
             "name": "psr/cache",
@@ -6605,6 +6605,9 @@
             "require": {
                 "php": "^7.1 || ^8.0"
             },
+            "replace": {
+                "myclabs/deep-copy": "self.version"
+            },
             "require-dev": {
                 "doctrine/collections": "^1.0",
                 "doctrine/common": "^2.6",
@@ -8581,16 +8584,16 @@
         },
         {
             "name": "spatie/ignition",
-            "version": "1.0.5",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ignition.git",
-                "reference": "6b7bb804f4834b080f5ac941f6ac6800a485011e"
+                "reference": "8ecde033600064e3ffdbf804deec0dcb05004387"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ignition/zipball/6b7bb804f4834b080f5ac941f6ac6800a485011e",
-                "reference": "6b7bb804f4834b080f5ac941f6ac6800a485011e",
+                "url": "https://api.github.com/repos/spatie/ignition/zipball/8ecde033600064e3ffdbf804deec0dcb05004387",
+                "reference": "8ecde033600064e3ffdbf804deec0dcb05004387",
                 "shasum": ""
             },
             "require": {
@@ -8648,7 +8651,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-17T21:40:47+00:00"
+            "time": "2022-03-01T17:01:33+00:00"
         },
         {
             "name": "spatie/laravel-ignition",
@@ -8797,5 +8800,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.0.0"
 }

@@ -37,6 +37,7 @@ Route::middleware('auth')->prefix('klient')->group( function() {
 
     Route::resource('klient', ClientController::class);
     Route::resource('spolocnosti', CompanyController::class);
+    Route::get('spolocnosti/search-orsr-ico/{ico}', [CompanyController::class, 'getCompanyDetailByIco']);
     Route::resource('objednavky', OrderController::class);
 });
 

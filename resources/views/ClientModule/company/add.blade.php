@@ -200,29 +200,30 @@
 
 
     <script>
-        new Vue({
-            el: '#company',
-            data: {
-                ico: '',
-                dic: '',
-                icdph: '',
-                name: '',
-                address: '',
-                city: '',
-                zip: '',
-                isSpinning: false,
-                spinningClass: 'spinner spinner-white spinner-right'
+        Vue.createApp({
+            data: function () {
+                return {
+                    ico: '',
+                    dic: '',
+                    icdph: '',
+                    name: '',
+                    address: '',
+                    city: '',
+                    zip: '',
+                    isSpinning: false,
+                    spinningClass: 'spinner spinner-white spinner-right'
+                }
             },
             methods: {
                 searchICO() {
                     if (this.ico.length > 3) {
                         this.isSpinning = true
-                        var link = "http://localhost:8000/api/company-detail/" + ico
+                        var link = "/klient/spolocnosti/search-orsr-ico/" + this.ico
                         var _this = this
 
-                        axios.get(link.replace("replaceICO", this.ico))
+                        axios.get(link)
                             .then(function (response) {
-                                _this.name = response.data.name
+                                _this.name = response.data.obchodne_meno
                                 _this.dic = response.data.tax_id
                                 _this.address = response.data.street
                                 _this.city = response.data.city
@@ -233,6 +234,6 @@
                     }
                 }
             }
-        })
+        }).mount('#company')
     </script>
 @endsection

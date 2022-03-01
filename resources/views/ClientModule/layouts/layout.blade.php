@@ -57,7 +57,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.15/dist/js/bootstrap-select.js"></script>
     <script src="{{ asset('/adm/assets/js/pages/bootstrap-select.js') }}"></script>
 
-    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue@3"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>

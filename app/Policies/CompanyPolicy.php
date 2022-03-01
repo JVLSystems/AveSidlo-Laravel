@@ -44,7 +44,7 @@ class CompanyPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**

@@ -21,7 +21,7 @@
                      class="header-menu header-menu-left header-menu-mobile header-menu-layout-default">
                     <!--begin::Header Nav-->
                     <ul class="menu-nav">
-                        <li class="{{ request()->is('klient/*') ? 'menu-item-here menu-item' : 'menu-item' }}" data-menu-toggle="click">
+                        <li class="{{ request()->is('klient') ? 'menu-item-here menu-item' : 'menu-item' }}" data-menu-toggle="click">
                             <a href="{{ route('client') }}" class="menu-link">
                                 <span class="menu-text">Nástenka</span>
                             </a>
@@ -37,7 +37,7 @@
                                 <span class="menu-text">Oprávnené osoby</span>
                             </a>
                         </li>
-                        <li class="{{ request()->is('klient/spolocnosti/*') ? 'menu-item-here menu-item' : 'menu-item' }}" data-menu-toggle="click">
+                        <li class="{{ request()->is('klient/spolocnosti') ? 'menu-item-here menu-item' : 'menu-item' }}" data-menu-toggle="click">
                             <a href="{{ route('spolocnosti.index') }}" class="menu-link">
                                 <span class="menu-text">Spoločnosti</span>
                             </a>

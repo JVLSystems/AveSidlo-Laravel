@@ -139,7 +139,7 @@ class CompanyController extends Controller
         //
     }
 
-    public function get_company_detail($ico)
+    public function getCompanyDetailByIco($ico)
     {
         $orsr = new ConnectorOrsr();
 
