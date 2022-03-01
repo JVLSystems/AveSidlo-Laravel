@@ -18,7 +18,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('ClientModule.company.home');
+        $companies = Company::where('user_id', auth()->id() );
+
+        return view('ClientModule.company.home', compact('companies') );
     }
 
     /**

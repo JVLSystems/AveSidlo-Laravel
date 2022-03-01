@@ -40,7 +40,8 @@
                                     </div>
                                     <div class="card-body">
                                         {{-- {control companyGrid} --}}
-                                        <livewire:company-table/>
+                                        {{-- <livewire:company-table/> --}}
+                                        @livewire('company-table')
                                     </div>
                                 </div>
                             </div>

@@ -32,7 +32,8 @@ final class CompanyTable extends PowerGridComponent
     {
         $this->showPerPage()
             ->showSearchInput();
-            // ->showCheckBox()
+            // ->showToggleColumns()
+            // ->showCheckBox();
             // ->showExportOption('download', ['excel', 'csv']);
     }
 
@@ -51,7 +52,7 @@ final class CompanyTable extends PowerGridComponent
     */
     public function datasource(): ?Builder
     {
-        return Company::query();
+        return Company::query()->where('user_id', auth()->id() );
     }
 
     /*

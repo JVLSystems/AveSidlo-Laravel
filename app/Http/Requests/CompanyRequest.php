@@ -63,9 +63,9 @@ class CompanyRequest extends FormRequest
     public function attributes()
     {
         return [
-            // 'dic' => 'DIČ',
+            'dic' => 'DIČ',
             'ico' => 'IČO',
-            // 'icdph' => 'IČDPH',
+            'icdph' => 'IČDPH',
             'name' => 'názov',
             'address' => 'adresu',
             'city' => 'mesto',
