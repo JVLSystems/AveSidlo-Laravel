@@ -10,4 +10,10 @@ class EnumCity extends Model
     use HasFactory;
 
     protected $table = 'enum__cities';
+
+    protected $fillable = [
+        'name',
+    ];
+
+    public $timestamps = false;
 }

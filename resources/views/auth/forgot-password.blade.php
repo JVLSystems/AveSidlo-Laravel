@@ -16,7 +16,7 @@
                                             <div class="form-group">
                                                 <i class="fas fa-envelope-open"></i> <input type="email" class="form-control" placeholder="E-mail *" name="email" required autofocus />
                                                 @error('email')
-                                                    <div class="invalid-feedback d-inline-block">
+                                                    <div class="invalid-feedback d-inline-block text-left">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror

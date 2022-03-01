@@ -25,9 +25,9 @@ class CreateCompaniesTable extends Migration
             $table->string('icdph', 50)->nullable();
             $table->string('street')->nullable();
             $table->datetime('payment_at')->nullable();
-            $table->tinyInteger('is_paid')->nullable();
-            $table->tinyInteger('is_main')->nullable();
-            $table->integer('status');
+            $table->tinyInteger('is_paid')->default(0)->nullable();
+            $table->tinyInteger('is_main')->default(0)->nullable();
+            $table->integer('status')->default(1);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('city_id')->references('id')->on('enum__cities');

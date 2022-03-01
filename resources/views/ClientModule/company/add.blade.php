@@ -41,7 +41,9 @@
                                         </div>
                                     </div>
 
-                                    <form name="companyForm">
+                                    <form action="{{ route('spolocnosti.store') }}" method="POST">
+                                        @csrf
+
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label>
@@ -49,7 +51,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="input-group">
-                                                    <input name="ico" class="form-control" v-model="ico" @change="searchICO" placeholder="Zadajte IČO vašej spoločnosti..." />
+                                                    <input name="ico" class="form-control" v-model="ico" @change="searchICO" placeholder="Zadajte IČO vašej spoločnosti..." value="{{ old('ico') }}" />
                                                     <div class="input-group-append">
                                                         <span class="input-group-text line-height-0 py-0">
                                                             <span class="svg-icon">
@@ -63,6 +65,11 @@
                                                             </span>
                                                         </span>
                                                     </div>
+                                                    @error('ico')
+                                                        <div class="invalid-feedback d-inline-block">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
 
@@ -72,7 +79,12 @@
                                                         <label>
                                                             DIČ
                                                         </label>
-                                                        <input name="dic" class="form-control" v-model="dic" placeholder="DIČ" />
+                                                        <input name="dic" class="form-control" v-model="dic" placeholder="DIČ" value="{{ old('dic') }}" />
+                                                        @error('dic')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -80,7 +92,12 @@
                                                         <label>
                                                             IČDPH
                                                         </label>
-                                                        <input name="icdph" class="form-control" v-model="icdph" placeholder="IČDPH" />
+                                                        <input name="icdph" class="form-control" v-model="icdph" placeholder="IČDPH" value="{{ old('icdph') }}" />
+                                                        @error('icdph')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -90,7 +107,12 @@
                                                     Názov
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input name="name" class="form-control" v-model="name" placeholder="Názov vašej spoločnosti" />
+                                                <input name="name" class="form-control" v-model="name" placeholder="Názov vašej spoločnosti" value="{{ old('name') }}" />
+                                                @error('name')
+                                                    <div class="invalid-feedback d-inline-block">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
 
                                             <div class="row">
@@ -100,7 +122,12 @@
                                                             Adresa
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <input name="address" class="form-control" v-model="address" placeholder="Adresa vašej spoločnosti" />
+                                                        <input name="address" class="form-control" v-model="address" placeholder="Adresa vašej spoločnosti" value="{{ old('address') }}" />
+                                                        @error('address')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -109,7 +136,12 @@
                                                             Mesto
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <input name="city" class="form-control" v-model="city" />
+                                                        <input name="city" class="form-control" v-model="city" value="{{ old('city') }}" />
+                                                        @error('city')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -120,11 +152,16 @@
                                                             Štát
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select class="form-control selectpicker" data-size="7" data-live-search="true" name="states">
+                                                        <select class="form-control selectpicker" data-size="7" data-live-search="true" name="state">
                                                             @foreach ($states as $state)
                                                                 <option value="{{ $state->id }}">{{ $state->name }}</option>
                                                             @endforeach
                                                         </select>
+                                                        @error('state')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -133,14 +170,19 @@
                                                             PSČ
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <input name="zip" class="form-control" v-model="zip" />
+                                                        <input name="zip" class="form-control" v-model="zip" value="{{ old('zip') }}" />
+                                                        @error('zip')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary mr-2" :class="isSpinning ? 'spinner spinner-white spinner-right' : ''" :disabled="isSpinning">Uložiť</button>
+                                            <button type="submit" class="btn btn-primary mr-2" class="isSpinning ? 'spinner spinner-white spinner-right' : ''" :disabled="isSpinning">Uložiť</button>
                                         </div>
                                     </form>
                                 </div>

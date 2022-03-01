@@ -15,10 +15,10 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/happy-inputs@2.0.4/src/happy.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.2.13/assets/datagrid.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.2.13/assets/datagrid.css"> --}}
 
     <!-- Use this css for ajax spinners -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.2.13/assets/datagrid-spinners.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.2.13/assets/datagrid-spinners.css"> --}}
 
     <!-- Include this css when using FilterMultiSelect (silviomoreto.github.io/bootstrap-select) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.15/dist/css/bootstrap-select.css">
@@ -49,11 +49,11 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-ui-sortable@1.0.0/jquery-ui.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/nette.ajax.js@2.3.0/nette.ajax.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/nette.ajax.js@2.3.0/nette.ajax.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.2.13/assets/datagrid.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/nette-forms@3.0.4/src/assets/netteForms.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.2.13/assets/datagrid-instant-url-refresh.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.2.13/assets/datagrid-spinners.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ublaboo-datagrid@6.2.13/assets/datagrid-spinners.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.15/dist/js/bootstrap-select.js"></script>
     <script src="{{ asset('/adm/assets/js/pages/bootstrap-select.js') }}"></script>
 
@@ -85,6 +85,10 @@
             });
         });
     </script>
+
+    @livewireStyles
+    @powerGridStyles
+
 </head>
 <body id="kt_body" style="background-image: url({{ asset('/adm/assets/media/bg/bg-10.jpg)')}}" class="quick-panel-right demo-panel-right offcanvas-right header-fixed subheader-enabled page-loading">
     @include('ClientModule.layouts.messages')
@@ -102,5 +106,8 @@
             </svg>
         </span>
     </div>
+
+    @livewireScripts
+    @powerGridScripts
 </body>
 </html>

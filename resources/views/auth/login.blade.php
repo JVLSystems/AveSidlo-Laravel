@@ -16,7 +16,7 @@
                                             <div class="form-group">
                                                 <i class="fas fa-envelope-open"></i> <input type="email" class="form-control" placeholder="E-mail *" name="email" value="{{ old('email') }}" required autofocus />
                                                 @error('email')
-                                                    <div class="invalid-feedback d-inline-block">
+                                                    <div class="invalid-feedback d-inline-block text-left">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
@@ -28,7 +28,7 @@
                                             <div class="form-group">
                                                 <i class="fas fa-lock"></i> <input type="password" class="form-control" placeholder="Heslo *" name="password" required autocomplete="current-password" />
                                                 @error('password')
-                                                    <div class="invalid-feedback d-inline-block">
+                                                    <div class="invalid-feedback d-inline-block text-left">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror

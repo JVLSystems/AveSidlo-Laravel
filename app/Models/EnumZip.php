@@ -10,4 +10,10 @@ class EnumZip extends Model
     use HasFactory;
 
     protected $table = 'enum__zip';
+
+    protected $fillable = [
+        'name',
+    ];
+
+    public $timestamps = false;
 }

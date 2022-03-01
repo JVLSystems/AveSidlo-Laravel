@@ -16,7 +16,7 @@
                                             <div class="form-group">
                                                 <i class="fas fa-user"></i> <input type="text" class="form-control" placeholder="Meno priezvisko *" name="name" value="{{ old('name') }}" required autofocus />
                                                 @error('name')
-                                                    <div class="invalid-feedback d-inline-block">
+                                                    <div class="invalid-feedback d-inline-block text-left">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
@@ -28,7 +28,7 @@
                                             <div class="form-group">
                                                 <i class="fas fa-envelope-open"></i> <input type="email" class="form-control" placeholder="E-mail *" name="email" value="{{ old('email') }}" required >
                                                 @error('email')
-                                                    <div class="invalid-feedback d-inline-block">
+                                                    <div class="invalid-feedback d-inline-block text-left">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
@@ -40,7 +40,7 @@
                                             <div class="form-group">
                                                 <i class="fas fa-lock"></i> <input type="password" class="form-control" placeholder="Heslo *" name="password" autocomplete="new-password" required />
                                                 @error('password')
-                                                    <div class="invalid-feedback d-inline-block">
+                                                    <div class="invalid-feedback d-inline-block text-left">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
@@ -52,7 +52,7 @@
                                             <div class="form-group">
                                                 <i class="fas fa-lock"></i> <input type="password" class="form-control" placeholder="Heslo znova *" name="password_confirmation" required />
                                                 @error('password')
-                                                    <div class="invalid-feedback d-inline-block">
+                                                    <div class="invalid-feedback d-inline-block text-left">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror

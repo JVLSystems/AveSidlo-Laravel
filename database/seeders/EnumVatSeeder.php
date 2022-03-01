@@ -19,7 +19,7 @@ class EnumVatSeeder extends Seeder
             'Slovenská DPH' => 20,
         ];
 
-        foreach ( $vat_states as $state => $vat) {
+        foreach ( $vat_states as $state => $vat ) {
             EnumVat::create([
                 'name' => $state,
                 'percentage' => $vat,

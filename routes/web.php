@@ -17,6 +17,8 @@ use App\Http\Controllers\PageController;
 |
 */
 
+Route::view('/powergrid', 'powergrid-demo');
+
 Route::get('/', [PageController::class, 'index'])->name('home');
 Route::get('nasa-spolocnost', [PageController::class, 'about_company'])->name('about.company');
 Route::get('sluzby', [PageController::class, 'services'])->name('services');

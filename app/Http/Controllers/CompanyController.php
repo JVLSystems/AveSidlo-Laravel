@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\EnumZip;
+use App\Models\EnumCity;
 use App\Models\EnumState;
 use Illuminate\Http\Request;
+use App\Http\Requests\CompanyRequest;
 
 class CompanyController extends Controller
 {
@@ -36,9 +39,29 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
-        //
+        $city = EnumCity::create([
+            'name' => $request->city,
+        ]);
+
+        $zip = EnumZip::create([
+            'name' => $request->zip,
+        ]);
+
+        Company::create([
+            'user_id' => auth()->id(),
+            'city_id' => $city->id,
+            'zip_id' => $zip->id,
+            'state_id' => $request->state,
+            'name' => $request->name,
+            'ico' => $request->ico,
+            'dic' => $request->dic,
+            'icdph' => $request->icdph,
+            'street' => $request->address,
+        ]);
+
+        return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne vytvorená, do e-mailu sme Vám zaslali platobné podmienky.');
     }
 
     /**

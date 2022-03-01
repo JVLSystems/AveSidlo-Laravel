@@ -39,7 +39,8 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        {control companyGrid}
+                                        {{-- {control companyGrid} --}}
+                                        <livewire:company-table/>
                                     </div>
                                 </div>
                             </div>
