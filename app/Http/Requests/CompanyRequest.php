@@ -50,7 +50,7 @@ class CompanyRequest extends FormRequest
             // 'icdph.required' => 'Zadajte :attribute vašej spoločnosti.',
             'address.required' => 'Zadajte :attribute vašej spoločnosti.',
             'city.required' => 'Zadajte :attribute vašej spoločnosti.',
-            'state.required' => 'Zadajte :attribute vašej spoločnosti.',
+            'state.required' => 'Vyberte :attribute vašej spoločnosti.',
             'zip.required' => 'Zadajte :attribute vašej spoločnosti.',
         ];
     }

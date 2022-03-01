@@ -8,6 +8,7 @@ use App\Models\EnumCity;
 use App\Models\EnumState;
 use Illuminate\Http\Request;
 use App\Http\Requests\CompanyRequest;
+use lubosdz\parserOrsr\ConnectorOrsr;
 
 class CompanyController extends Controller
 {
@@ -80,34 +81,64 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Company  $spolocnosti
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(Company $spolocnosti)
     {
-        return view('ClientModule.company.edit', compact('company') );
+        $states = EnumState::all();
+        $company = $spolocnosti;
+
+        return view('ClientModule.company.edit', compact('company', 'states') );
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Company  $spoocnosti
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(CompanyRequest $request, Company $spolocnosti)
     {
-        //
+        $company = $spolocnosti;
+
+        $company->zip()->update([
+            'name' => $request->zip,
+        ]);
+
+        $company->city()->update([
+            'name' => $request->city,
+        ]);
+
+        $company->update([
+            'user_id' => auth()->id(),
+            'state_id' => $request->state,
+            'name' => $request->name,
+            'ico' => $request->ico,
+            'dic' => $request->dic,
+            'icdph' => $request->icdph,
+            'street' => $request->address,
+        ]);
+
+        return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne aktualizovaná.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Company  $company
+     * @param  \App\Models\Company  $spolocnosti
      * @return \Illuminate\Http\Response
      */
     public function destroy(Company $company)
     {
         //
+    }
+
+    public function get_company_detail($ico)
+    {
+        $orsr = new ConnectorOrsr();
+
+        return $orsr->getDetailByICO('31364080');
     }
 }

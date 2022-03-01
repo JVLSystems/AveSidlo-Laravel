@@ -11,6 +11,7 @@
         "laravel/framework": "^9.0",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "lubosdz/parser-orsr": "^1.0",
         "power-components/livewire-powergrid": "^2.3"
     },
     "require-dev": {

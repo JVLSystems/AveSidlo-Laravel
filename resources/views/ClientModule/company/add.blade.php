@@ -200,7 +200,9 @@
 
 
     <script>
-        new Vue({
+        import { createApp } from 'vue'
+
+        new createApp({
             el: '#company',
             data: {
                 ico: '',
@@ -217,7 +219,7 @@
                 searchICO() {
                     if (this.ico.length > 3) {
                         this.isSpinning = true
-                        var link = {link search! ico=>'replaceICO'}
+                        var link = "http://localhost:8000/api/company-detail/" + ico
                         var _this = this
 
                         axios.get(link.replace("replaceICO", this.ico))

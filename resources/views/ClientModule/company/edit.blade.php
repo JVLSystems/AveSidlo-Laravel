@@ -23,7 +23,7 @@
                                         <a href="{{ route('spolocnosti.index') }}" class="text-white text-hover-white opacity-75 hover-opacity-100">Spoločnosti</a>
 
                                         <span class="label label-dot label-sm bg-white opacity-75 mx-3"></span>
-                                        <a href="{ route('spolocnosti.edit', $company->id) }" class="text-white text-hover-white opacity-75 hover-opacity-100">Upraviť spoločnosť {$company->getName()}</a>
+                                        <a href="{{ route('spolocnosti.edit', $company->id) }}" class="text-white text-hover-white opacity-75 hover-opacity-100">Upraviť spoločnosť {{ $company->name }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -36,12 +36,15 @@
                                     <div class="card-header">
                                         <div class="card-title">
                                             <h3 class="card-label">
-                                                Upraviť spoločnosť {$company->getName()}
+                                                Upraviť spoločnosť {{ $company->name }}
                                             </h3>
                                         </div>
                                     </div>
 
-                                    <form name="companyForm">
+                                    <form action="{{ route('spolocnosti.update', $company->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label>
@@ -49,7 +52,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="input-group">
-                                                    <input name="ico" class="form-control" v-model="company.ico" @change="searchICO" placeholder="Zadajte IČO vašej spoločnosti..." />
+                                                    <input name="ico" class="form-control" v-model="company.ico" @change="searchICO" placeholder="Zadajte IČO vašej spoločnosti..." value="{{ $company->ico }}" />
                                                     <div class="input-group-append">
                                                         <span class="input-group-text line-height-0 py-0">
                                                             <span class="svg-icon">
@@ -63,6 +66,11 @@
                                                             </span>
                                                         </span>
                                                     </div>
+                                                    @error('ico')
+                                                        <div class="invalid-feedback d-inline-block">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
 
@@ -72,7 +80,12 @@
                                                         <label>
                                                             DIČ
                                                         </label>
-                                                        <input name="dic" class="form-control" v-model="company.dic" placeholder="DIČ" />
+                                                        <input name="dic" class="form-control" v-model="company.dic" placeholder="DIČ" value="{{ $company->dic }}" />
+                                                        @error('dic')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -80,7 +93,12 @@
                                                         <label>
                                                             IČDPH
                                                         </label>
-                                                        <input name="icdph" class="form-control" v-model="company.icdph" placeholder="IČDPH" />
+                                                        <input name="icdph" class="form-control" v-model="company.icdph" placeholder="IČDPH" value="{{ $company->icdph }}" />
+                                                        @error('icdph')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -90,7 +108,12 @@
                                                     Názov
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input name="name" class="form-control" v-model="company.name" placeholder="Názov vašej spoločnosti" />
+                                                <input name="name" class="form-control" v-model="company.name" placeholder="Názov vašej spoločnosti" value="{{ $company->name }}" />
+                                                @error('name')
+                                                    <div class="invalid-feedback d-inline-block">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
 
                                             <div class="row">
@@ -100,7 +123,12 @@
                                                             Adresa
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <input name="address" class="form-control" v-model="company.street" placeholder="Adresa vašej spoločnosti" />
+                                                        <input name="address" class="form-control" v-model="company.street" placeholder="Adresa vašej spoločnosti" value="{{ $company->street }}" />
+                                                        @error('address')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -109,7 +137,12 @@
                                                             Mesto
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <input name="city" class="form-control" v-model="company.city" />
+                                                        <input name="city" class="form-control" v-model="company.city" value="{{ $company->city->name }}" />
+                                                        @error('city')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -120,7 +153,16 @@
                                                             Štát
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select class="form-control selectpicker" data-size="7" data-live-search="true" name="states" v-model="company.state"></select>
+                                                        <select class="form-control selectpicker" data-size="7" data-live-search="true" name="state" v-model="company.state">
+                                                            @foreach ($states as $state)
+                                                                <option value="{{ $state->id }}" {{ $company->state_id == $state->id ? "selected" : "" }}>{{ $state->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('state')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -129,7 +171,12 @@
                                                             PSČ
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <input name="zip" class="form-control" v-model="company.zip" />
+                                                        <input name="zip" class="form-control" v-model="company.zip" value="{{ $company->zip->name }}" />
+                                                        @error('zip')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>

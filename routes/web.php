@@ -5,6 +5,8 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\TestController;
+use App\Http\Resources\OrsrResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +18,6 @@ use App\Http\Controllers\PageController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::view('/powergrid', 'powergrid-demo');
 
 Route::get('/', [PageController::class, 'index'])->name('home');
 Route::get('nasa-spolocnost', [PageController::class, 'about_company'])->name('about.company');
