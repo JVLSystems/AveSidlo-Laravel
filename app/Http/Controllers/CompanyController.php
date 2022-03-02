@@ -135,6 +135,10 @@ class CompanyController extends Controller
     {
         $spolocnosti->delete();
 
+        $spolocnosti->zip()->delete();
+
+        $spolocnosti->city()->delete();
+
         return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne vymazaná.');
     }
 
