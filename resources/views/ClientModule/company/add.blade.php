@@ -223,7 +223,7 @@
 
                         axios.get(link)
                             .then(function (response) {
-                                _this.name = response.data.obchodne_meno
+                                _this.name = response.data.name
                                 _this.dic = response.data.tax_id
                                 _this.address = response.data.street
                                 _this.city = response.data.city

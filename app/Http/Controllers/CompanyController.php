@@ -6,9 +6,10 @@ use App\Models\Company;
 use App\Models\EnumZip;
 use App\Models\EnumCity;
 use App\Models\EnumState;
-use Illuminate\Http\Request;
+use App\Services\OrSR\Fields\BusinessId;
+use App\Services\OrSR\Parser;
 use App\Http\Requests\CompanyRequest;
-use lubosdz\parserOrsr\ConnectorOrsr;
+use Illuminate\Support\Arr;
 
 class CompanyController extends Controller
 {
@@ -141,12 +142,11 @@ class CompanyController extends Controller
 
     public function getCompanyDetailByIco($ico)
     {
-        $orsr = new ConnectorOrsr();
-
-        $results = $orsr->getDetailByICO($ico);
+        $company = new Parser();
+        $results = $company->find(new BusinessId($ico))->getResults();
 
         return $results
-            ? response()->json($results, 200)
+            ? response()->json(Arr::first($results), 200)
             : response()->json(['status' => 'not found'], 404);
 
 
