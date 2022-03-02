@@ -92,9 +92,8 @@ class CompanyController extends Controller
     public function edit(Company $spolocnosti)
     {
         $states = EnumState::all();
-        $company = $spolocnosti;
 
-        return view('ClientModule.company.edit', compact('company', 'states') );
+        return view('ClientModule.company.edit', compact('spolocnosti', 'states') );
     }
 
     /**
@@ -106,18 +105,15 @@ class CompanyController extends Controller
      */
     public function update(CompanyRequest $request, Company $spolocnosti)
     {
-        $company = $spolocnosti;
-
-        $company->zip()->update([
+        $spolocnosti->zip()->update([
             'name' => $request->zip,
         ]);
 
-        $company->city()->update([
+        $spolocnosti->city()->update([
             'name' => $request->city,
         ]);
 
-        $company->update([
-            'user_id' => auth()->id(),
+        $spolocnosti->update([
             'state_id' => $request->state,
             'name' => $request->name,
             'ico' => $request->ico,
@@ -137,9 +133,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $spolocnosti)
     {
-        $company = $spolocnosti;
-
-        $company->delete();
+        $spolocnosti->delete();
 
         return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne vymazaná.');
     }
