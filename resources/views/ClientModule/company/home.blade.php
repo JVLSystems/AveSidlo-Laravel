@@ -27,23 +27,23 @@
                         </div>
                     </div>
 
-                        <div class="d-flex flex-column-fluid">
-                            <div class="container">
-                                <div class="card card-custom gutter-b">
-                                    <div class="card-header">
-                                        <div class="card-title">
-                                            <h3 class="card-label">
-                                                Spoločnosti
-                                                <small>vaše spoločnosti, ktoré sídlia v našej nehnuteľnosti</small>
-                                            </h3>
-                                        </div>
+                    <div class="d-flex flex-column-fluid">
+                        <div class="container">
+                            <div class="card card-custom gutter-b">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <h3 class="card-label">
+                                            Spoločnosti
+                                            <small>vaše spoločnosti, ktoré sídlia v našej nehnuteľnosti</small>
+                                        </h3>
                                     </div>
-                                    <div class="card-body">
-                                        @livewire('company-table')
-                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    @livewire('company-table')
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                 </div>
 
@@ -53,4 +53,32 @@
     </div>
 
     @include('ClientModule.user')
+
+    <script>
+        $(".deleted-confirm").click(function (event) {
+            event.preventDefault();
+            var form = this.closest('form');
+
+            Swal.fire({
+                title: "Ste si istý?",
+                text: "Operácia zmazania nie je možné vrátiť späť!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Áno, chcem zmazať!",
+                cancelButtonText: "Nie, zrušiť!",
+                reverseButtons: true
+            }).then(function(result) {
+                if (result.value) {
+                    form.submit();
+                } else if (result.dismiss === "cancel") {
+                    Swal.fire(
+                        "Zrušené",
+                        "Operácia bola zrušená, záznam nebol zmazaný",
+                        "error"
+                    )
+                }
+            });
+        });
+    </script>
+
 @endsection

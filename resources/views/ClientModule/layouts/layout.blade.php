@@ -33,32 +33,6 @@
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <script>
-        $(".deleted-confirm").click(function () {
-            var confirmLink = $(this).data('link');
-
-            Swal.fire({
-                title: "Ste si istý?",
-                text: "Operácia zmazania nie je možné vrátiť späť!",
-                 icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Áno, chcem zmazať!",
-                cancelButtonText: "Nie, zrušiť!",
-                reverseButtons: true
-            }).then(function(result) {
-                if (result.value) {
-                    window.location = link;
-                } else if (result.dismiss === "cancel") {
-                    Swal.fire(
-                        "Zrušené",
-                        "Operácia bola zrušená, záznam nebol zmazaný",
-                        "error"
-                    )
-                }
-            });
-        });
-    </script>
-
     @livewireStyles
     @powerGridStyles
 
@@ -80,9 +54,9 @@
         </span>
     </div>
 
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
     @livewireScripts
     @powerGridScripts

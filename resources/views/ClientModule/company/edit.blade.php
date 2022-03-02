@@ -52,7 +52,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <div class="input-group">
-                                                    <input name="ico" class="form-control" v-model="company.ico" @change="searchICO" placeholder="Zadajte IČO vašej spoločnosti..." value="{{ $company->ico }}" />
+                                                    <input name="ico" class="form-control" v-model="ico" @change="searchICO" placeholder="Zadajte IČO vašej spoločnosti..." value="{{ $company->ico }}" />
                                                     <div class="input-group-append">
                                                         <span class="input-group-text line-height-0 py-0">
                                                             <span class="svg-icon">
@@ -80,7 +80,7 @@
                                                         <label>
                                                             DIČ
                                                         </label>
-                                                        <input name="dic" class="form-control" v-model="company.dic" placeholder="DIČ" value="{{ $company->dic }}" />
+                                                        <input name="dic" class="form-control" v-model="dic" placeholder="DIČ" value="{{ $company->dic }}" />
                                                         @error('dic')
                                                             <div class="invalid-feedback d-inline-block">
                                                                 {{ $message }}
@@ -93,7 +93,7 @@
                                                         <label>
                                                             IČDPH
                                                         </label>
-                                                        <input name="icdph" class="form-control" v-model="company.icdph" placeholder="IČDPH" value="{{ $company->icdph }}" />
+                                                        <input name="icdph" class="form-control" v-model="icdph" placeholder="IČDPH" value="{{ $company->icdph }}" />
                                                         @error('icdph')
                                                             <div class="invalid-feedback d-inline-block">
                                                                 {{ $message }}
@@ -108,7 +108,7 @@
                                                     Názov
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input name="name" class="form-control" v-model="company.name" placeholder="Názov vašej spoločnosti" value="{{ $company->name }}" />
+                                                <input name="name" class="form-control" v-model="name" placeholder="Názov vašej spoločnosti" value="{{ $company->name }}" />
                                                 @error('name')
                                                     <div class="invalid-feedback d-inline-block">
                                                         {{ $message }}
@@ -123,7 +123,7 @@
                                                             Adresa
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <input name="address" class="form-control" v-model="company.street" placeholder="Adresa vašej spoločnosti" value="{{ $company->street }}" />
+                                                        <input name="address" class="form-control" v-model="address" placeholder="Adresa vašej spoločnosti" value="{{ $company->street }}" />
                                                         @error('address')
                                                             <div class="invalid-feedback d-inline-block">
                                                                 {{ $message }}
@@ -137,7 +137,7 @@
                                                             Mesto
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <input name="city" class="form-control" v-model="company.city" value="{{ $company->city->name }}" />
+                                                        <input name="city" class="form-control" v-model="city" value="{{ $company->city->name }}" />
                                                         @error('city')
                                                             <div class="invalid-feedback d-inline-block">
                                                                 {{ $message }}
@@ -153,7 +153,7 @@
                                                             Štát
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select class="form-control selectpicker" data-size="7" data-live-search="true" name="state" v-model="company.state">
+                                                        <select class="form-control selectpicker" data-size="7" data-live-search="true" name="state">
                                                             @foreach ($states as $state)
                                                                 <option value="{{ $state->id }}" {{ $company->state_id == $state->id ? "selected" : "" }}>{{ $state->name }}</option>
                                                             @endforeach
@@ -171,7 +171,7 @@
                                                             PSČ
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <input name="zip" class="form-control" v-model="company.zip" value="{{ $company->zip->name }}" />
+                                                        <input name="zip" class="form-control" v-model="zip" value="{{ $company->zip->name }}" />
                                                         @error('zip')
                                                             <div class="invalid-feedback d-inline-block">
                                                                 {{ $message }}
@@ -200,52 +200,42 @@
     @include('ClientModule.user')
 
 
-    <script>
-        new Vue({
-            el: '#company',
-            data: {
-                company: {
+    {{-- <script>
+        Vue.createApp({
+            data: function () {
+                return {
                     ico: '',
                     dic: '',
                     icdph: '',
                     name: '',
-                    street: '',
+                    address: '',
                     city: '',
-                    state: '',
-                    zip: ''
-                },
-                isSpinning: false,
-                spinningClass: 'spinner spinner-white spinner-right'
-            },
-            mounted() {
-                this.isSpinning = true
-                var _this = this
-                axios.get({link getData!, id => $company->getId()})
-                    .then(function (response) {
-                        _this.company = response.data
-                        _this.isSpinning = false
-                    })
+                    zip: '',
+                    isSpinning: false,
+                    spinningClass: 'spinner spinner-white spinner-right'
+                }
             },
             methods: {
                 searchICO() {
-                    if (this.company.ico.length > 3) {
+                    if (this.ico.length > 3) {
                         this.isSpinning = true
-                        var link = {link search! ico=>'replaceICO'}
+                        var link = "/klient/spolocnosti/search-orsr-ico/" + this.ico
                         var _this = this
 
-                        axios.get(link.replace("replaceICO", this.company.ico))
+                        axios.get(link)
                             .then(function (response) {
-                                _this.company.name = response.data.name
-                                _this.company.dic = response.data.tax_id
-                                _this.company.address = response.data.street
-                                _this.company.city = response.data.city
-                                _this.company.zip = response.data.zip
+                                _this.name = response.data.name
+                                _this.dic = response.data.tax_id
+                                _this.icdph = response.data.vat_id
+                                _this.address = response.data.street
+                                _this.city = response.data.city
+                                _this.zip = response.data.zip
 
                                 _this.isSpinning = false
                             })
                     }
                 }
             }
-        })
-    </script>
+        }).mount('#company')
+    </script> --}}
 @endsection

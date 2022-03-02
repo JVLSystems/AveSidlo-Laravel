@@ -135,9 +135,13 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $spolocnosti
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(Company $spolocnosti)
     {
-        //
+        $company = $spolocnosti;
+
+        $company->delete();
+
+        return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne vymazaná.');
     }
 
     public function getCompanyDetailByIco($ico)

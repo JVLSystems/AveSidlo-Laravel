@@ -90,19 +90,19 @@
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                         <li>
-                            <a class="{{ request()->segment(1) == '' ? 'active' : '' }}" href="{{ route('home') }}">Úvod</a>
+                            <a class="{{ request()->is('/') ? 'active' : '' }}" href="{{ route('home') }}">Úvod</a>
                         </li>
                         <li>
-                            <a class="{{ request()->segment(1) == 'nasa-spolocnost' ? 'active' : '' }}" href="{{ route('about.company') }}">Naša spoločnosť</a>
+                            <a class="{{ request()->is('nasa-spolocnost') ? 'active' : '' }}" href="{{ route('about.company') }}">Naša spoločnosť</a>
                         </li>
                         <li>
-                            <a class="{{ request()->segment(1) == 'sluzby' ? 'active' : '' }}" href="{{ route('services') }}">Služby</a>
+                            <a class="{{ request()->is('sluzby') ? 'active' : '' }}" href="{{ route('services') }}">Služby</a>
                         </li>
                         <li>
                             <a href="{{ route('home') . '#pricelist' }}">Cenník</a>
                         </li>
                         <li>
-                            <a class="{{ request()->segment(1) == 'kontakt' ? 'active' : '' }}" href="{{ route('contact') }}">Kontakt</a>
+                            <a class="{{ request()->is('kontakt') ? 'active' : '' }}" href="{{ route('contact') }}">Kontakt</a>
                         </li>
                     </ul>
                 </div>

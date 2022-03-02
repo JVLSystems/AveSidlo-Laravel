@@ -18,5 +18,3 @@ use App\Http\Controllers\CompanyController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
-Route::get('/company-detail/{ico}', [CompanyController::class, 'get_company_detail'])->name('get.company.detail');

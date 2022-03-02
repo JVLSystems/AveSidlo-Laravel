@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6 item">
                         <div class="f-item about">
-                            <img src="{$basePath}/assets/img/logo-white.png" alt="Logo" class="logo-footer"/>
+                            <img src="{{ asset('/assets/img/logo-white.png') }}" alt="Logo" class="logo-footer"/>
                             <div class="address">
                                 <ul>
                                     <li>
