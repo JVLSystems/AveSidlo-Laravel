@@ -25,14 +25,14 @@ class CompanyRequest extends FormRequest
     public function rules()
     {
         return [
-            'dic' => 'integer',
-            'ico' => 'required|integer',
+            'dic' => 'integer|digits:10',
+            'ico' => 'required|integer|digits:8',
             // 'icdph' => 'required',
             'name' => 'required|',
             'address' => 'required|',
             'city' => 'required|',
             'state' => 'required|integer',
-            'zip' => 'required|',
+            'zip' => 'required|digits:5',
         ];
     }
 

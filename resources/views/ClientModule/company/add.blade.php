@@ -182,7 +182,7 @@
                                         </div>
 
                                         <div class="card-footer">
-                                            <button type="submit" class="btn btn-primary mr-2" class="isSpinning ? 'spinner spinner-white spinner-right' : ''" :disabled="isSpinning">Uložiť</button>
+                                            <button type="submit" class="btn btn-primary mr-2" :class="isSpinning ? 'spinner spinner-white spinner-right' : ''" :disabled="isSpinning">Uložiť</button>
                                         </div>
                                     </form>
                                 </div>
@@ -225,6 +225,7 @@
                             .then(function (response) {
                                 _this.name = response.data.name
                                 _this.dic = response.data.tax_id
+                                _this.icdph = response.data.vat_id
                                 _this.address = response.data.street
                                 _this.city = response.data.city
                                 _this.zip = response.data.zip

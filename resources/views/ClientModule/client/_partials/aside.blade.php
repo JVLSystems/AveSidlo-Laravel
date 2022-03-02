@@ -24,7 +24,7 @@
             </div>
             <div class="navi navi-bold navi-hover navi-active navi-link-rounded">
                 <div class="navi-item mb-2">
-                    <a href="{{ route('my.account') }}" class="{{ request()->segment(2) == 'moj-ucet' ? 'navi-link py-4 active' : 'navi-link py-4' }}">
+                    <a href="{{ route('my.account') }}" class="{{ request()->is('klient/moj-ucet') ? 'navi-link py-4 active' : 'navi-link py-4' }}">
                         <span class="navi-icon mr-2">
                             <span class="svg-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -40,7 +40,7 @@
                     </a>
                 </div>
                 <div class="navi-item mb-2">
-                    <a href="{{ route('settings') }}" class="{{ request()->segment(2) == 'nastavenia' ? 'navi-link py-4 active' : 'navi-link py-4' }}">
+                    <a href="{{ route('settings') }}" class="{{ request()->is('klient/nastavenia') ? 'navi-link py-4 active' : 'navi-link py-4' }}">
                         <span class="navi-icon mr-2">
                             <span class="svg-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -56,7 +56,7 @@
                     </a>
                 </div>
                 <div class="navi-item mb-2">
-                    <a href="{{ route('change.password') }}" class="{{ request()->segment(2) == 'zmena-hesla' ? 'navi-link py-4 active' : 'navi-link py-4' }}">
+                    <a href="{{ route('change.password') }}" class="{{ request()->is('klient/zmena-hesla') ? 'navi-link py-4 active' : 'navi-link py-4' }}">
                         <span class="navi-icon mr-2">
                             <span class="svg-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
