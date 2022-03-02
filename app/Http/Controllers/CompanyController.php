@@ -133,11 +133,11 @@ class CompanyController extends Controller
      */
     public function destroy(Company $spolocnosti)
     {
-        $spolocnosti->delete();
-
         $spolocnosti->zip()->delete();
 
         $spolocnosti->city()->delete();
+
+        $spolocnosti->delete();
 
         return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne vymazaná.');
     }

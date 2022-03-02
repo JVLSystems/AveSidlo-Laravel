@@ -20,7 +20,7 @@ class EnumVatSeeder extends Seeder
         ];
 
         foreach ( $vat_states as $state => $vat ) {
-            EnumVat::create([
+            EnumVat::updateOrCreate([
                 'name' => $state,
                 'percentage' => $vat,
             ]);

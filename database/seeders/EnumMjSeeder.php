@@ -15,7 +15,7 @@ class EnumMjSeeder extends Seeder
      */
     public function run()
     {
-        EnumMj::create([
+        EnumMj::updateOrCreate([
             'name' => 'mesiac',
             'code' => 'MONTH',
         ]);

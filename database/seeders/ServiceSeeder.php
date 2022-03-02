@@ -15,21 +15,21 @@ class ServiceSeeder extends Seeder
      */
     public function run()
     {
-        Service::create([
+        Service::updateOrCreate([
             'vat_id' => 1,
             'name' => 'Založenie spoločnosti SRO',
             'price_without_vat' => 166.67,
             'price_with_vat' => 200,
         ]);
 
-        Service::create([
+        Service::updateOrCreate([
             'vat_id' => 1,
             'name' => 'Virtuálne sídlo',
             'price_without_vat' => 166.67,
             'price_with_vat' => 200,
         ]);
 
-        Service::create([
+        Service::updateOrCreate([
             'vat_id' => 1,
             'name' => 'Likvidácia spoločnosti',
             'price_without_vat' => null,

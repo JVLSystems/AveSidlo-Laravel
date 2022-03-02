@@ -15,7 +15,7 @@ class EnumTypePaymentSeeder extends Seeder
      */
     public function run()
     {
-        EnumTypePayment::create([
+        EnumTypePayment::updateOrCreate([
             'name' => 'Bankový prevod',
         ]);
     }
