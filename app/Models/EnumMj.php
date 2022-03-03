@@ -9,6 +9,9 @@ class EnumMj extends Model
 {
     use HasFactory;
 
+    /** @const */
+    public const CODE_MONTH = 'MONTH';
+
     protected $table = 'enum__mj';
 
     protected $fillable = [

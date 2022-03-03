@@ -32,7 +32,7 @@ class CompanyRequest extends FormRequest
             'address' => 'required|',
             'city' => 'required|',
             'state' => 'required|integer',
-            'zip' => 'required|digits:5',
+            'zip' => 'required|regex:/\b\d{5}\b/',
         ];
     }
 

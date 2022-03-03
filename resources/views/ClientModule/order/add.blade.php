@@ -42,7 +42,9 @@
                                         </div>
                                     </div>
 
-                                    <form name="orderForm">
+                                    <form action="{{ route('objednavky.store') }}" method="POST">
+                                        @csrf
+
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -51,11 +53,16 @@
                                                             Služba
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select class="form-control selectpicker" data-size="7" data-live-search="true" v-model="service" @change="changeService" name="services">
+                                                        <select class="form-control selectpicker" data-size="7" data-live-search="true" v-model="service" @change="changeService" name="service">
                                                             @foreach ($services as $service)
                                                                 <option value="{{ $service->id }}">{{ $service->name }}</option>
                                                             @endforeach
                                                         </select>
+                                                        @error('service')
+                                                            <div class="invalid-feedback d-inline-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -66,7 +73,16 @@
                                                                     Vaša spoločnosť
                                                                     <span class="text-danger">*</span>
                                                                 </label>
-                                                                <select class="form-control selectpicker" data-size="7" data-live-search="true" name="companies"></select>
+                                                                <select class="form-control selectpicker" data-size="7" data-live-search="true" name="company">
+                                                                    @foreach ($companies as $company)
+                                                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                @error('company')
+                                                                    <div class="invalid-feedback d-inline-block">
+                                                                        {{ $message }}
+                                                                    </div>
+                                                                @enderror
                                                             </div>
 
                                                             <div class="form-group" v-if="!isHiddenPeriod">
@@ -81,6 +97,11 @@
                                                                             m
                                                                         </span>
                                                                     </div>
+                                                                    @error('period')
+                                                                        <div class="invalid-feedback d-inline-block">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -93,20 +114,30 @@
                                                     Vaša správa
                                                 </label>
                                                 <textarea name="note" class="form-control" placeholder="Sem napíšte vaše poznámky"></textarea>
+                                                @error('note')
+                                                    <div class="invalid-feedback d-inline-block">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
 
                                             <div class="form-group">
                                                 <div class="checkbox-inline">
                                                     <label class="checkbox">
-                                                        <input name="accept" />
+                                                        <input type="checkbox" name="accept" />
                                                         <span></span>Súhlasim s obchodnými podmienkami spoločnosti
                                                     </label>
+                                                    @error('accept')
+                                                        <div class="invalid-feedback d-inline-block">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="card-footer">
-                                            <button name="submit" class="btn btn-primary mr-2">Vytvoriť objednávku s povinnosťou platby</button>
+                                            <button class="btn btn-primary mr-2" :class="isSpinning ? 'spinner spinner-white spinner-right' : ''" :disabled="isSpinning">Vytvoriť objednávku s povinnosťou platby</button>
                                         </div>
                                     </form>
                                 </div>
@@ -122,21 +153,26 @@
     @include('ClientModule.user')
 
     <script>
-        new Vue({
-            el: '#company',
-            data: {
-                service: '',
-                isHiddenCompany: true,
-                isHiddenPeriod: true,
-                spinningClass: 'spinner spinner-white spinner-right'
+        Vue.createApp({
+            data: function () {
+                return {
+                    service: '',
+                    isHiddenCompany: true,
+                    isHiddenPeriod: true,
+                    isSpinning: false,
+                    spinningClass: 'spinner spinner-white spinner-right'
+                }
             },
             methods: {
                 changeService() {
+                    this.isSpinning = true
                     this.isHiddenCompany = (this.service == 1) ? true : false
                     this.isHiddenPeriod = (this.service == 2) ? false : true
                     initSelectpicker()
+
+                    this.isSpinning = false
                 }
             }
-        })
+        }).mount('#company')
     </script>
 @endsection

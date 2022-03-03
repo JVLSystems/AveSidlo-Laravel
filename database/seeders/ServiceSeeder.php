@@ -25,8 +25,8 @@ class ServiceSeeder extends Seeder
         Service::updateOrCreate([
             'vat_id' => 1,
             'name' => 'Virtuálne sídlo',
-            'price_without_vat' => 166.67,
-            'price_with_vat' => 200,
+            'price_without_vat' => 4.99,
+            'price_with_vat' => 5.99,
         ]);
 
         Service::updateOrCreate([

@@ -42,7 +42,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
-                                        {control orderGrid}
+                                        @livewire('orders-table')
                                     </div>
                                 </div>
                             </div>
