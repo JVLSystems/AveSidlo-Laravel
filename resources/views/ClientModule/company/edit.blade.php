@@ -155,7 +155,7 @@
                                                         </label>
                                                         <select class="form-control selectpicker" data-size="7" data-live-search="true" name="state">
                                                             @foreach ($states as $state)
-                                                                <option value="{{ $state->id }}" {{ $spolocnosti->state_id == $state->id ? "selected" : "" }}>{{ $state->name }}</option>
+                                                                <option value="{{ $state->id }}" @selected(old('state', $spolocnosti->state_id) == $state->id)>{{ $state->name }}</option>
                                                             @endforeach
                                                         </select>
                                                         @error('state')

@@ -10,6 +10,7 @@ use App\Models\OrderItem;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -46,10 +47,8 @@ class OrderController extends Controller
     {
         $service = Service::findorFail($request->service);
 
-        $number = $this->createNumber();
-
         if ( $request->company ) {
-            $c = Company::findOrFail($request->company);
+            $c = Auth::user()->company()->findOrFail($request->company);
             $company = $request->company;
         } else {
             $company = null;
@@ -58,6 +57,7 @@ class OrderController extends Controller
 
         $priceWithoutVat = $request->period ? (($service->price_without_vat ?? 0) * $request->period) : ($service->price_without_vat ?? 0);
         $priceWithVat = $request->period ? (($service->price_with_vat ?? 0) * $request->period) : ($service->price_with_vat ?? 0);
+        $number = $this->createNumber();
 
         $order = Order::create([
             'user_id' => auth()->id(),
@@ -141,7 +141,7 @@ class OrderController extends Controller
      */
     public function createNumber(): string
     {
-        while(1) {
+        while(true) {
             $number = Str::upper(Str::random(10));
             $order = Order::where('number', $number)->get();
 

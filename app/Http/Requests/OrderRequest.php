@@ -25,7 +25,7 @@ class OrderRequest extends FormRequest
     {
         return [
             'service' => 'required|integer',
-            'company' => 'required_if:service,2,3',
+            'company' => 'required_if:service,2,3|integer',
             'accept' => 'required',
         ];
     }
