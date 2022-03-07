@@ -10,16 +10,24 @@ use App\Services\OrSR\Libs\Results;
 
 class Parser
 {
+
     /**
      * @var Results
      */
     private $results;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->results = new Results();
     }
 
+    /**
+     * @param FieldType $field
+     * @return $this
+     */
     public function find(FieldType $field): Parser
     {
         $orsr = new FindInOrsr();
@@ -33,6 +41,9 @@ class Parser
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getResults(): array
     {
         return $this->results->getAll();

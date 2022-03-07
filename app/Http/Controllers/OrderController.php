@@ -16,7 +16,7 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
@@ -26,7 +26,7 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
@@ -47,13 +47,13 @@ class OrderController extends Controller
         $service = Service::findorFail($request->service);
 
         $number = $this->createNumber();
+        $company = null;
+        $c = null;
+
 
         if ( $request->company ) {
             $c = Company::findOrFail($request->company);
             $company = $request->company;
-        } else {
-            $company = null;
-            $c = null;
         }
 
         $priceWithoutVat = $request->period ? (($service->price_without_vat ?? 0) * $request->period) : ($service->price_without_vat ?? 0);

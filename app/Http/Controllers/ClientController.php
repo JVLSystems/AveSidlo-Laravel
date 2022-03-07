@@ -68,9 +68,9 @@ class ClientController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, User $klient)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $klient->update([
+        $user->update([
             'name' => $request->name,
             'phone' => $request->phone,
         ]);
