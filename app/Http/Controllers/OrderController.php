@@ -47,7 +47,7 @@ class OrderController extends Controller
     {
         $service = Service::findorFail($request->service);
 
-        $number = $this->createNumber();
+        $number = Order::createNumber();
         $company = null;
         $c = null;
 
@@ -58,7 +58,6 @@ class OrderController extends Controller
 
         $priceWithoutVat = $request->period ? (($service->price_without_vat ?? 0) * $request->period) : ($service->price_without_vat ?? 0);
         $priceWithVat = $request->period ? (($service->price_with_vat ?? 0) * $request->period) : ($service->price_with_vat ?? 0);
-        $number = $this->createNumber();
 
         $order = Order::create([
             'user_id' => auth()->id(),
@@ -137,18 +136,4 @@ class OrderController extends Controller
         //
     }
 
-    /**
-     * @return string
-     */
-    public function createNumber(): string
-    {
-        while(true) {
-            $number = Str::upper(Str::random(10));
-            $order = Order::where('number', $number)->get();
-
-            if ($order->isEmpty()) break;
-        }
-
-        return $number;
-    }
 }

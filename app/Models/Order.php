@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
@@ -41,4 +42,20 @@ class Order extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    /**
+     * @return string
+     */
+    public function scopeCreateNumber(): string
+    {
+        while(true) {
+            $number = Str::upper(Str::random(10));
+            $order = Order::where('number', $number)->get();
+
+            if ($order->isEmpty()) break;
+        }
+
+        return $number;
+    }
+
 }

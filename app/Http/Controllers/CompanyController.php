@@ -134,6 +134,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
+        dd($company);
         $company->zip()->delete();
 
         $company->city()->delete();

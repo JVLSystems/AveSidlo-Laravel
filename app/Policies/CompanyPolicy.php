@@ -84,7 +84,7 @@ class CompanyPolicy
      */
     public function restore(User $user, Company $company)
     {
-        //
+
     }
 
     /**
@@ -96,6 +96,6 @@ class CompanyPolicy
      */
     public function forceDelete(User $user, Company $company)
     {
-        //
+
     }
 }
