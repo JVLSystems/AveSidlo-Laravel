@@ -22,7 +22,7 @@ class CompanyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
@@ -32,13 +32,13 @@ class CompanyController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
-        $states = EnumState::all();
-
-        return view('ClientModule.company.add', compact('states') );
+        return view('ClientModule.company.add', [
+            'states' => EnumState::all()
+        ] );
     }
 
     /**
@@ -49,11 +49,11 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request)
     {
-        $city = EnumCity::create([
+        $city = EnumCity::firstOrCreate([
             'name' => $request->city,
         ]);
 
-        $zip = EnumZip::create([
+        $zip = EnumZip::firstOrCreate([
             'name' => $request->zip,
         ]);
 
@@ -86,34 +86,35 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Company  $spolocnosti
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Company  $company
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function edit(Company $spolocnosti)
+    public function edit(Company $company)
     {
-        $states = EnumState::all();
-
-        return view('ClientModule.company.edit', compact('spolocnosti', 'states') );
+        return view('ClientModule.company.edit', [
+            'company' => $company,
+            'states' => EnumState::all()
+        ] );
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Company  $spoocnosti
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(CompanyRequest $request, Company $spolocnosti)
+    public function update(CompanyRequest $request, Company $company)
     {
-        $spolocnosti->zip()->update([
+        $company->zip()->update([
             'name' => $request->zip,
         ]);
 
-        $spolocnosti->city()->update([
+        $company->city()->update([
             'name' => $request->city,
         ]);
 
-        $spolocnosti->update([
+        $company->update([
             'state_id' => $request->state,
             'name' => $request->name,
             'ico' => $request->ico,
@@ -128,16 +129,16 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Company  $spolocnosti
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $spolocnosti)
+    public function destroy(Company $company)
     {
-        $spolocnosti->zip()->delete();
+        $company->zip()->delete();
 
-        $spolocnosti->city()->delete();
+        $company->city()->delete();
 
-        $spolocnosti->delete();
+        $company->delete();
 
         return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne vymazaná.');
     }
