@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
@@ -54,15 +55,6 @@ class Order extends Model
     // ******************************* HELPER METHODS *************************************
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return int|null
-     */
-    public function scopeGetOrderCount($query):? int
-    {
-        return $query->where('user_id', auth()->id())->count();
-    }
-
-     /**
      * @return string
      */
     public function scopeCreateNumber(): string
@@ -75,6 +67,15 @@ class Order extends Model
         }
 
         return $number;
+    }
+
+    /**
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return int|null
+     */
+    public function scopeGetOrderCount($query):? int
+    {
+        return $query->where('user_id', auth()->id())->count();
     }
 
     /**

@@ -209,7 +209,7 @@ final class CompanyTable extends PowerGridComponent
                         <!--end::Svg Icon-->
                     </span>'))
                 ->class('btn btn-icon btn-light btn-hover-primary btn-sm')
-                ->route('spolocnosti.edit', ['spolocnosti' => 'id']),
+                ->route('spolocnosti.edit', ['company' => 'id']),
 
             Button::add('destroy')
                 ->target('')
@@ -224,7 +224,7 @@ final class CompanyTable extends PowerGridComponent
                         </svg>
                     </span>'))
                 ->class('btn btn-icon btn-light btn-hover-primary btn-sm deleted-confirm')
-                ->route('spolocnosti.destroy', ['spolocnosti' => 'id'])
+                ->route('spolocnosti.destroy', ['company' => 'id'])
                 ->method('delete')
         ];
     }
