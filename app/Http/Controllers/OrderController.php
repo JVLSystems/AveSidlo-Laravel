@@ -31,7 +31,7 @@ class OrderController extends Controller
     {
         return view('ClientModule.order.add', [
             'services' => Service::all(),
-            'companies' => Company::where('user_id', auth()->id())->get(),
+            'companies' => Company::getUserCompanies(),
         ]);
     }
 

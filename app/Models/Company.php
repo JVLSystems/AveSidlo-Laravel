@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Requests\CompanyRequest;
+use Barryvdh\Reflection\DocBlock\Type\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -58,6 +59,15 @@ class Company extends Model
     }
 
     // ******************************* HELPER METHODS *************************************
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeGetUserCompanies($query): mixed
+    {
+        return $query->where('user_id', auth()->id())->get();
+    }
 
     /**
      * @param App\Http\Requests\Request $request
