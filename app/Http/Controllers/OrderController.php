@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\EnumMj;
 use App\Models\Company;
 use App\Models\Service;
 use App\Models\OrderItem;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
 use Auth;
@@ -31,10 +29,10 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $services = Service::all();
-        $companies = Company::where('user_id', auth()->id())->get();
-
-        return view('ClientModule.order.add', compact('services', 'companies') );
+        return view('ClientModule.order.add', [
+            'services' => Service::all(),
+            'companies' => Company::where('user_id', auth()->id())->get(),
+        ]);
     }
 
     /**
@@ -47,47 +45,17 @@ class OrderController extends Controller
     {
         $service = Service::findorFail($request->service);
 
-        $number = $this->createNumber();
         $company = null;
-        $c = null;
+        $company_id = null;
 
         if ( $request->company ) {
-            $c = Auth::user()->company()->findOrFail($request->company);
-            $company = $request->company;
+            $company = Auth::user()->company()->findOrFail($request->company);
+            $company_id = $request->company;
         }
 
-        $priceWithoutVat = $request->period ? (($service->price_without_vat ?? 0) * $request->period) : ($service->price_without_vat ?? 0);
-        $priceWithVat = $request->period ? (($service->price_with_vat ?? 0) * $request->period) : ($service->price_with_vat ?? 0);
-        $number = $this->createNumber();
+        $order = Order::insertOrder($request->period, $service, $company_id, $request->note);
 
-        $order = Order::create([
-            'user_id' => auth()->id(),
-            'vat_id' => $service->vat_id,
-            'company_id' => $company,
-            'number' => $number,
-            'price_without_vat' => $priceWithoutVat,
-            'price_with_vat' => $priceWithVat,
-            'note' => $request->note,
-        ]);
-
-        $quantity        = $request->period ?: 1;
-        $vat             = $order->vat->percentage ? $order->vat->percentage : 1;
-
-        $priceMjWithVat  = $service->price_without_vat * (1 + ($vat / 100));
-        $priceWithoutVat = $service->price_without_vat * $quantity;
-        $priceWithVat    = $priceWithoutVat * (1 + ($vat / 100));
-
-        OrderItem::create([
-            'order_id' => $order->id,
-            'mj_id' => EnumMj::where('code', EnumMj::CODE_MONTH)->first()->id,
-            'service_id' => $service->id,
-            'name' => $c ? sprintf("%s - %s", $service->name, $c->name) : $service->name,
-            'price_without_vat' => $priceWithoutVat,
-            'price_with_vat' => $priceWithVat,
-            'price_mj_without_vat' => $service->price_without_vat,
-            'price_mj_with_vat' => $priceMjWithVat,
-            'quantity' => $quantity,
-        ]);
+        OrderItem::insertOrderItem($request->period, $order, $service, $company);
 
         return redirect()->route('objednavky.index')->withStatus('Objednávka bola úspešne odoslaná, v čo najkratšej dobe Vás budeme kontaktovať e-mailom.');
     }
@@ -135,20 +103,5 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
-    }
-
-    /**
-     * @return string
-     */
-    public function createNumber(): string
-    {
-        while(true) {
-            $number = Str::upper(Str::random(10));
-            $order = Order::where('number', $number)->get();
-
-            if ($order->isEmpty()) break;
-        }
-
-        return $number;
     }
 }

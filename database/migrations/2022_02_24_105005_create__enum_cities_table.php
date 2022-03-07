@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('enum__cities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->softDeletes();
         });
     }
 

@@ -119,7 +119,7 @@
                     <div class="navi-text">
                         <div class="font-weight-bold">
                             Objednávky
-                            <span class="label label-light-danger label-inline font-weight-bold">2</span>
+                            <span class="label label-light-danger label-inline font-weight-bold">{{ App\Models\Order::getOrderCount() }}</span>
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                     <div class="navi-text">
                         <div class="font-weight-bold">
                             Faktúry
-                            <span class="label label-light-danger label-inline font-weight-bold">2</span>
+                            <span class="label label-light-danger label-inline font-weight-bold">{{ App\Models\Invoice::getInvoiceCount() }}</span>
                         </div>
                     </div>
                 </div>

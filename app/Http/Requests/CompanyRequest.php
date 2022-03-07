@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Arr;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CompanyRequest extends FormRequest
@@ -25,8 +26,13 @@ class CompanyRequest extends FormRequest
     public function rules()
     {
         return [
-            'dic' => 'integer|digits:10',
-            'ico' => 'required|integer|digits:8',
+            'dic' => 'sometimes|nullable|integer|digits:10',
+            'ico' => [
+                'required',
+                'integer',
+                'digits:8',
+                Rule::unique('companies')->ignore($this->spolocnosti)
+            ],
             // 'icdph' => 'required',
             'name' => 'required|',
             'address' => 'required|',

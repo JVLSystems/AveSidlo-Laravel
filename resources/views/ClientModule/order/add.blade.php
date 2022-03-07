@@ -53,7 +53,7 @@
                                                             Služba
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select class="form-control selectpicker" data-size="7" data-live-search="true" v-model="service" @change="changeService" name="service">
+                                                        <select class="form-control selectpicker" data-size="7" v-model="service" @change="changeService" name="service">
                                                             @foreach ($services as $service)
                                                                 <option value="{{ $service->id }}">{{ $service->name }}</option>
                                                             @endforeach
@@ -73,7 +73,7 @@
                                                                     Vaša spoločnosť
                                                                     <span class="text-danger">*</span>
                                                                 </label>
-                                                                <select class="form-control selectpicker" data-size="7" data-live-search="true" name="company">
+                                                                <select class="form-control selectpicker" data-size="7" name="company">
                                                                     @foreach ($companies as $company)
                                                                         <option value="{{ $company->id }}">{{ $company->name }}</option>
                                                                     @endforeach

@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -48,9 +49,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    // ******************************* HELPER METHODS *************************************
-
     /**
      * @return BelongsTo
      */
@@ -67,6 +65,8 @@ class User extends Authenticatable
         return $this->hasMany(Company::class);
     }
 
+    // ******************************* HELPER METHODS *************************************
+
     /**
      * @return string|null
      */
@@ -75,7 +75,6 @@ class User extends Authenticatable
         $expName = Str::of($this->name)->explode(' ');
         return Arr::first($expName);
     }
-
 
     /**
      * @return string|null
@@ -87,5 +86,18 @@ class User extends Authenticatable
                 str_split($this->getFirstName())
             )
         );
+    }
+
+    /**
+     * @param App\Http\Requests\UpdateUserRequest $request
+     * @param \App\Models\User $user
+     * @return bool
+     */
+    public static function updateUser(UpdateUserRequest $request, User $user): bool
+    {
+        return $user->update([
+            'name' => $request->name,
+            'phone' => $request->phone,
+        ]);
     }
 }

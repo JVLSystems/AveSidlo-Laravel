@@ -70,10 +70,7 @@ class ClientController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update([
-            'name' => $request->name,
-            'phone' => $request->phone,
-        ]);
+        User::updateUser($request, $user);
 
         return redirect()->route('my.account')->withStatus('Váš účet bol aktualizovaný!');
     }

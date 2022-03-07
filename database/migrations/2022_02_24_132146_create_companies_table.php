@@ -33,6 +33,7 @@ class CreateCompaniesTable extends Migration
             $table->foreign('city_id')->references('id')->on('enum__cities');
             $table->foreign('zip_id')->references('id')->on('enum__zip');
             $table->foreign('state_id')->references('id')->on('enum__state');
+            $table->softDeletes();
         });
     }
 

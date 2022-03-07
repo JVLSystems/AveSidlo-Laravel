@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Http\Requests\CompanyRequest;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Company extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -53,5 +55,62 @@ class Company extends Model
     public function state(): BelongsTo
     {
         return $this->belongsTo(EnumState::class);
+    }
+
+    // ******************************* HELPER METHODS *************************************
+
+    /**
+     * @param App\Http\Requests\Request $request
+     * @param string $status
+     * @param \App\Models\Company|null $company
+     * @return mixed
+     */
+    public static function insertOrUpdate(CompanyRequest $request, ?Company $company = null, string $status = 'insert'): mixed
+    {
+        switch($status) {
+            case('insert'):
+
+                $city = EnumCity::firstOrCreate([
+                    'name' => $request->city,
+                ]);
+
+                $zip = EnumZip::firstOrCreate([
+                    'name' => $request->zip,
+                ]);
+
+                return Company::create([
+                    'user_id' => auth()->id(),
+                    'city_id' => $city->id,
+                    'zip_id' => $zip->id,
+                    'state_id' => $request->state,
+                    'name' => $request->name,
+                    'ico' => $request->ico,
+                    'dic' => $request->dic,
+                    'icdph' => $request->icdph,
+                    'street' => $request->address,
+                ]);
+
+            case('update'):
+
+                $city = EnumCity::firstOrCreate([
+                    'name' => $request->city,
+                ]);
+
+                $zip = EnumZip::firstOrCreate([
+                    'name' => $request->zip,
+                ]);
+
+                return $company->update([
+                    'city_id' => $city->id,
+                    'zip_id' => $zip->id,
+                    'state_id' => $request->state,
+                    'name' => $request->name,
+                    'ico' => $request->ico,
+                    'dic' => $request->dic,
+                    'icdph' => $request->icdph,
+                    'street' => $request->address,
+                ]);
+        }
+
     }
 }

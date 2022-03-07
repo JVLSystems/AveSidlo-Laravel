@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
-use App\Models\EnumZip;
-use App\Models\EnumCity;
 use App\Models\EnumState;
 use App\Services\OrSR\Fields\BusinessId;
 use App\Services\OrSR\Parser;
@@ -16,7 +14,7 @@ class CompanyController extends Controller
 
     public function __construct()
     {
-        $this->authorizeResource(Company::class, 'spolocnosti');
+        // $this->authorizeResource(Company::class, 'company');
     }
 
     /**
@@ -49,25 +47,7 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request)
     {
-        $city = EnumCity::firstOrCreate([
-            'name' => $request->city,
-        ]);
-
-        $zip = EnumZip::firstOrCreate([
-            'name' => $request->zip,
-        ]);
-
-        Company::create([
-            'user_id' => auth()->id(),
-            'city_id' => $city->id,
-            'zip_id' => $zip->id,
-            'state_id' => $request->state,
-            'name' => $request->name,
-            'ico' => $request->ico,
-            'dic' => $request->dic,
-            'icdph' => $request->icdph,
-            'street' => $request->address,
-        ]);
+        Company::insertOrUpdate($request);
 
         return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne vytvorená, do e-mailu sme Vám zaslali platobné podmienky.');
     }
@@ -106,22 +86,7 @@ class CompanyController extends Controller
      */
     public function update(CompanyRequest $request, Company $company)
     {
-        $company->zip()->update([
-            'name' => $request->zip,
-        ]);
-
-        $company->city()->update([
-            'name' => $request->city,
-        ]);
-
-        $company->update([
-            'state_id' => $request->state,
-            'name' => $request->name,
-            'ico' => $request->ico,
-            'dic' => $request->dic,
-            'icdph' => $request->icdph,
-            'street' => $request->address,
-        ]);
+        Company::insertOrUpdate($request, $company, 'update');
 
         return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne aktualizovaná.');
     }
@@ -151,7 +116,5 @@ class CompanyController extends Controller
         return $results
             ? response()->json(Arr::first($results), 200)
             : response()->json(['status' => 'not found'], 404);
-
-
     }
 }
