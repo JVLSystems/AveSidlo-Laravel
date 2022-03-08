@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\Http\Requests\CompanyRequest;
-use Barryvdh\Reflection\DocBlock\Type\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Request;
 
 class Company extends Model
 {
@@ -70,57 +70,36 @@ class Company extends Model
     }
 
     /**
-     * @param App\Http\Requests\Request $request
-     * @param string $status
+     * @param Request $request
      * @param \App\Models\Company|null $company
-     * @return mixed
+     * @return Company
      */
-    public static function insertOrUpdate(CompanyRequest $request, ?Company $company = null, string $status = 'insert'): mixed
+    public static function insertOrUpdate(CompanyRequest $request, ?Company $company = null): Company
     {
-        switch($status) {
-            case('insert'):
+        $city = EnumCity::firstOrCreate([
+            'name' => $request->city,
+        ]);
 
-                $city = EnumCity::firstOrCreate([
-                    'name' => $request->city,
-                ]);
+        $zip = EnumZip::firstOrCreate([
+            'name' => $request->zip,
+        ]);
 
-                $zip = EnumZip::firstOrCreate([
-                    'name' => $request->zip,
-                ]);
-
-                return Company::create([
-                    'user_id' => auth()->id(),
-                    'city_id' => $city->id,
-                    'zip_id' => $zip->id,
-                    'state_id' => $request->state,
-                    'name' => $request->name,
-                    'ico' => $request->ico,
-                    'dic' => $request->dic,
-                    'icdph' => $request->icdph,
-                    'street' => $request->address,
-                ]);
-
-            case('update'):
-
-                $city = EnumCity::firstOrCreate([
-                    'name' => $request->city,
-                ]);
-
-                $zip = EnumZip::firstOrCreate([
-                    'name' => $request->zip,
-                ]);
-
-                return $company->update([
-                    'city_id' => $city->id,
-                    'zip_id' => $zip->id,
-                    'state_id' => $request->state,
-                    'name' => $request->name,
-                    'ico' => $request->ico,
-                    'dic' => $request->dic,
-                    'icdph' => $request->icdph,
-                    'street' => $request->address,
-                ]);
-        }
+        return Company::updateOrCreate(
+            [
+                'id' => ($company ? $company->id : null)
+            ],
+            [
+                'user_id' => auth()->id(),
+                'city_id' => $city->id,
+                'zip_id' => $zip->id,
+                'state_id' => $request->state,
+                'name' => $request->name,
+                'ico' => $request->ico,
+                'dic' => $request->dic,
+                'icdph' => $request->icdph,
+                'street' => $request->address,
+            ]
+        );
 
     }
 }
