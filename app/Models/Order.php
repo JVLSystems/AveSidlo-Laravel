@@ -24,7 +24,7 @@ class Order extends Model
         'number',
         'price_without_vat',
         'price_with_vat',
-        'note',
+        'note'
     ];
 
     /**
@@ -77,6 +77,18 @@ class Order extends Model
         return $query->where('user_id', auth()->id())->count();
     }
 
+
+    /**
+     * @param float $price
+     * @param int|null $period
+     * @return float
+     */
+    public function scopePriceCalculation(float $price, int $period = null): float
+    {
+        return $period ? (($price ?? 0) * $period) : ($price ?? 0);
+    }
+
+
     /**
      * @param \App\Models\Service $service
      * @param int|null $company
@@ -87,17 +99,17 @@ class Order extends Model
      * @param string $number
      * @return \App\Models\Order
      */
-    public static function insertOrder(Service $service, ?int $company_id, Invoice $invoice, float $priceWithoutVat, float $priceWithVat, ?string $note, string $number): Order
+    public static function insertOrder(Service $service, Invoice $invoice): Order
     {
         return Order::create([
             'user_id' => auth()->id(),
             'vat_id' => $service->vat_id,
-            'company_id' => $company_id,
+            'company_id' => $invoice->purchaser_id,
             'invoice_id' => $invoice->id,
-            'number' => $number,
-            'price_without_vat' => $priceWithoutVat,
-            'price_with_vat' => $priceWithVat,
-            'note' => $note,
+            'number' => $invoice->number,
+            'price_without_vat' => $invoice->price_without_vat,
+            'price_with_vat' => $invoice->price_with_vat,
+            'note' => $invoice->note,
         ]);
     }
 }

@@ -47,19 +47,15 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        $service = Service::findorFail($request->service);
+        $service = Service::findOrFail($request->service);
+        $company = $request->company ? Company::findOrFail($request->company) : null;
 
-        $company = null;
-        $company_id = null;
         $number = Order::createNumber();
 
-        if ( $request->company ) {
-            $company = Auth::user()->company()->findOrFail($request->company);
-            $company_id = $request->company;
-        }
+        $quantity = $request->period ?: 1;
 
-        $priceWithoutVat = $request->period ? (($service->price_without_vat ?? 0) * $request->period) : ($service->price_without_vat ?? 0);
-        $priceWithVat = $request->period ? (($service->price_with_vat ?? 0) * $request->period) : ($service->price_with_vat ?? 0);
+        $priceWithoutVat = Order::priceCalculation($service->price_without_vat , $request->period);
+        $priceWithVat = Order::priceCalculation($service->price_with_vat , $request->period);
 
 
         // tu ešte spravím insert metódu pre faktúry
@@ -77,10 +73,9 @@ class OrderController extends Controller
             'price_with_vat' => $priceWithVat,
         ]);
 
-        $order = Order::insertOrder($service, $company_id, $invoice, $priceWithoutVat, $priceWithVat, $request->note, $number);
+        $order = Order::insertOrder($service, $invoice);
 
-        $quantity        = $request->period ?: 1;
-        $vat             = $order->vat->percentage ? $order->vat->percentage : 1;
+        $vat = $order->vat->percentage ? $order->vat->percentage : 1;
 
         $priceMjWithVat  = $service->price_without_vat * (1 + ($vat / 100));
         $priceWithoutVat = $service->price_without_vat * $quantity;

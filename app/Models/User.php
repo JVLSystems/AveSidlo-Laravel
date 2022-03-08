@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use App\Http\Requests\UpdateUserRequest;
@@ -89,7 +90,7 @@ class User extends Authenticatable
     }
 
     /**
-     * @param App\Http\Requests\UpdateUserRequest $request
+     * @param Request $request
      * @param \App\Models\User $user
      * @return bool
      */
@@ -97,7 +98,7 @@ class User extends Authenticatable
     {
         return $user->update([
             'name' => $request->name,
-            'phone' => $request->phone,
+            'phone' => $request->phone
         ]);
     }
 }

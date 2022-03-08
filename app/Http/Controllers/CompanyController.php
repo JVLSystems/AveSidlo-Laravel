@@ -121,5 +121,5 @@ class CompanyController extends Controller
             ? response()->json(Arr::first($results), 200)
             : response()->json(['status' => 'not found'], 404);
     }
-    
+
 }
