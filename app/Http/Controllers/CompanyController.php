@@ -89,7 +89,7 @@ class CompanyController extends Controller
      */
     public function update(CompanyRequest $request, Company $company)
     {
-        Company::insertOrUpdate($request, $company, 'update');
+        Company::insertOrUpdate($request, $company);
 
         return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne aktualizovaná.');
     }
@@ -102,15 +102,16 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        $company->zip()->delete();
-
-        $company->city()->delete();
-
         $company->delete();
 
         return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne vymazaná.');
     }
 
+
+    /**
+     * @param $ico
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getCompanyDetailByIco($ico)
     {
         $company = new Parser();
@@ -120,4 +121,5 @@ class CompanyController extends Controller
             ? response()->json(Arr::first($results), 200)
             : response()->json(['status' => 'not found'], 404);
     }
+    
 }
