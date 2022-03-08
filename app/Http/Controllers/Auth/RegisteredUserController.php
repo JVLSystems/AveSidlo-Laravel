@@ -49,7 +49,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user->update([
-            'last_logged_at' => Carbon::now()->toDateTimeString(),
+            'last_logged_at' => Carbon::now(),
         ]);
 
         Mail::to($user)->send(new WelcomeMail);

@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         Auth::user()->update([
-            'last_logged_at' => Carbon::now()->toDateTimeString(),
+            'last_logged_at' => Carbon::now(),
         ]);
 
         return redirect()->intended(RouteServiceProvider::HOME);
@@ -49,7 +49,7 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request)
     {
         Auth::user()->update([
-            'last_logged_at' => Carbon::now()->toDateTimeString(),
+            'last_logged_at' => Carbon::now(),
         ]);
 
         Auth::guard('web')->logout();

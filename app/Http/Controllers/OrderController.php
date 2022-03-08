@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Carbon\Carbon;
 use App\Models\Order;
+use App\Mail\OrderMail;
 use App\Models\Company;
+use App\Models\Invoice;
 use App\Models\Service;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
-use Auth;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -47,15 +51,44 @@ class OrderController extends Controller
 
         $company = null;
         $company_id = null;
+        $number = Order::createNumber();
 
         if ( $request->company ) {
             $company = Auth::user()->company()->findOrFail($request->company);
             $company_id = $request->company;
         }
 
-        $order = Order::insertOrder($request->period, $service, $company_id, $request->note);
+        $priceWithoutVat = $request->period ? (($service->price_without_vat ?? 0) * $request->period) : ($service->price_without_vat ?? 0);
+        $priceWithVat = $request->period ? (($service->price_with_vat ?? 0) * $request->period) : ($service->price_with_vat ?? 0);
 
-        OrderItem::insertOrderItem($request->period, $order, $service, $company);
+
+        // tu ešte spravím insert metódu pre faktúry
+        $invoice = Invoice::create([
+            'purchaser_id' => $request->company,
+            'type_payment_id' => 1,
+            'vat_id' => $service->vat_id,
+            'user_id' => Auth()->id(),
+            'number' => $number,
+            'issue_date_at' => Carbon::now(),
+            'due_date_at' => Carbon::now()->addDays(14),
+            'ss' => Invoice::DEFAULT_SS_SYMBOL,
+            'note' => $request->note,
+            'price_without_vat' => $priceWithoutVat,
+            'price_with_vat' => $priceWithVat,
+        ]);
+
+        $order = Order::insertOrder($service, $company_id, $invoice, $priceWithoutVat, $priceWithVat, $request->note, $number);
+
+        $quantity        = $request->period ?: 1;
+        $vat             = $order->vat->percentage ? $order->vat->percentage : 1;
+
+        $priceMjWithVat  = $service->price_without_vat * (1 + ($vat / 100));
+        $priceWithoutVat = $service->price_without_vat * $quantity;
+        $priceWithVat    = $priceWithoutVat * (1 + ($vat / 100));
+
+        OrderItem::insertOrderItem($quantity, $order, $service, $company, $priceWithoutVat, $priceWithVat, $priceMjWithVat);
+
+        Mail::to($request->user())->send(new OrderMail);
 
         return redirect()->route('objednavky.index')->withStatus('Objednávka bola úspešne odoslaná, v čo najkratšej dobe Vás budeme kontaktovať e-mailom.');
     }

@@ -78,22 +78,23 @@ class Order extends Model
     }
 
     /**
-     * @param int|null $period
      * @param \App\Models\Service $service
      * @param int|null $company
+     * @param \App\Models\Invoice $invoice
+     * @param float $priceWithoutVat
+     * @param float $priceWithVat
      * @param string|null $note
+     * @param string $number
      * @return \App\Models\Order
      */
-    public static function insertOrder(?int $period, Service $service, ?int $company_id, ?string $note): Order
+    public static function insertOrder(Service $service, ?int $company_id, Invoice $invoice, float $priceWithoutVat, float $priceWithVat, ?string $note, string $number): Order
     {
-        $priceWithoutVat = $period ? (($service->price_without_vat ?? 0) * $period) : ($service->price_without_vat ?? 0);
-        $priceWithVat = $period ? (($service->price_with_vat ?? 0) * $period) : ($service->price_with_vat ?? 0);
-
         return Order::create([
             'user_id' => auth()->id(),
             'vat_id' => $service->vat_id,
             'company_id' => $company_id,
-            'number' => Order::createNumber(),
+            'invoice_id' => $invoice->id,
+            'number' => $number,
             'price_without_vat' => $priceWithoutVat,
             'price_with_vat' => $priceWithVat,
             'note' => $note,

@@ -29,7 +29,7 @@ return new class extends Migration
             $table->longText('note')->nullable();
             $table->double('price_without_vat');
             $table->double('price_with_vat');
-            $table->tinyInteger('is_paid');
+            $table->tinyInteger('is_paid')->default(0);
             $table->dateTime('paid_date_at')->nullable();
             $table->timestamps();
             $table->foreign('supplier_id')->references('id')->on('suppliers');
