@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateUserRequest;
 
 class ClientController extends Controller
 {
@@ -86,16 +86,31 @@ class ClientController extends Controller
         //
     }
 
+    /**
+     * Show the form for personal settings.
+     *
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function my_account()
     {
         return view('ClientModule.client.myAccount');
     }
 
+    /**
+     * Show the form for settings.
+     *
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function settings()
     {
         return view('ClientModule.client.settings');
     }
 
+    /**
+     * Show the form for change password.
+     *
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function change_password()
     {
         return view('ClientModule.client.changePassword');

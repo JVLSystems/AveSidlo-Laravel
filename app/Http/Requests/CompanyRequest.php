@@ -31,7 +31,7 @@ class CompanyRequest extends FormRequest
                 'required',
                 'integer',
                 'digits:8',
-                Rule::unique('companies')->ignore($this->spolocnosti)
+                Rule::unique('companies')->ignore($this->company)
             ],
             // 'icdph' => 'required',
             'name' => 'required|',

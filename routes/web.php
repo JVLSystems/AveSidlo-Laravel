@@ -35,8 +35,8 @@ Route::middleware('auth')->prefix('klient')->group( function() {
     Route::get('nastavenia', [ClientController::class, 'settings'])->name('settings');
     Route::get('zmena-hesla', [ClientController::class, 'change_password'])->name('change.password');
 
-    Route::resource('klient', ClientController::class);
-    Route::resource('spolocnosti', CompanyController::class);
+    Route::resource('klient', ClientController::class)->parameters(['klient' => 'user']);
+    Route::resource('spolocnosti', CompanyController::class)->parameters(['spolocnosti' => 'company']);
     Route::get('spolocnosti/search-orsr-ico/{ico}', [CompanyController::class, 'getCompanyDetailByIco']);
     Route::resource('objednavky', OrderController::class);
 });

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use DateTime;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -49,6 +48,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+        Auth::user()->update([
+            'last_logged_at' => Carbon::now()->toDateTimeString(),
+        ]);
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

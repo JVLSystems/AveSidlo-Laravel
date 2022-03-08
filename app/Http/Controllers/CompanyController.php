@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Mail\CompanyMail;
 use App\Models\EnumState;
-use App\Services\OrSR\Fields\BusinessId;
-use App\Services\OrSR\Parser;
-use App\Http\Requests\CompanyRequest;
 use Illuminate\Support\Arr;
+use App\Services\OrSR\Parser;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\CompanyRequest;
+use App\Services\OrSR\Fields\BusinessId;
 
 class CompanyController extends Controller
 {
 
     public function __construct()
     {
-        // $this->authorizeResource(Company::class, 'company');
+        $this->authorizeResource(Company::class, 'company');
     }
 
     /**
@@ -36,7 +38,7 @@ class CompanyController extends Controller
     {
         return view('ClientModule.company.add', [
             'states' => EnumState::all()
-        ] );
+        ]);
     }
 
     /**
@@ -48,6 +50,7 @@ class CompanyController extends Controller
     public function store(CompanyRequest $request)
     {
         Company::insertOrUpdate($request);
+        Mail::to($request->user())->send(new CompanyMail);
 
         return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne vytvorená, do e-mailu sme Vám zaslali platobné podmienky.');
     }
@@ -74,7 +77,7 @@ class CompanyController extends Controller
         return view('ClientModule.company.edit', [
             'company' => $company,
             'states' => EnumState::all()
-        ] );
+        ]);
     }
 
     /**
@@ -99,7 +102,6 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        dd($company);
         $company->zip()->delete();
 
         $company->city()->delete();

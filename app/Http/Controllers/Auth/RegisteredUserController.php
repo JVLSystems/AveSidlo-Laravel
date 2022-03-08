@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Mail\WelcomeMail;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 
@@ -46,13 +48,15 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $user->update([
+            'last_logged_at' => Carbon::now()->toDateTimeString(),
+        ]);
+
+        Mail::to($user)->send(new WelcomeMail);
+
         event(new Registered($user));
 
         Auth::login($user);
-
-        Auth::user()->update([
-            'last_logged_at' => Carbon::now()->toDateTimeString(),
-        ]);
 
         return redirect(RouteServiceProvider::HOME);
     }
