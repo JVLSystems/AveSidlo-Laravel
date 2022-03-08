@@ -76,13 +76,8 @@ class Company extends Model
      */
     public static function insertOrUpdate(CompanyRequest $request, ?Company $company = null): Company
     {
-        $city = EnumCity::firstOrCreate([
-            'name' => $request->city,
-        ]);
-
-        $zip = EnumZip::firstOrCreate([
-            'name' => $request->zip,
-        ]);
+        $city = EnumCity::firstOrCreate(['name' => $request->city]);
+        $zip = EnumZip::firstOrCreate(['name' => $request->zip]);
 
         return Company::updateOrCreate(
             [
