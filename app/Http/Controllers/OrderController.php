@@ -54,8 +54,8 @@ class OrderController extends Controller
 
         $quantity = $request->period ?: 1;
 
-        $priceWithoutVat = Order::priceCalculation($service->price_without_vat , $request->period);
-        $priceWithVat = Order::priceCalculation($service->price_with_vat , $request->period);
+        $priceWithoutVat = Order::priceCalculation($service->price_without_vat, $request->period);
+        $priceWithVat = Order::priceCalculation($service->price_with_vat, $request->period);
 
 
         // tu ešte spravím insert metódu pre faktúry

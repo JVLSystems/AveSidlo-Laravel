@@ -9,6 +9,9 @@ class Invoice extends Model
 {
     use HasFactory;
 
+    /** @const */
+    public const DEFAULT_SS_SYMBOL = '0308';
+
     protected $fillable = [
         'supplier_id',
         'purchaser_id',
@@ -27,9 +30,6 @@ class Invoice extends Model
         'is_paid',
         'paid_date_at',
     ];
-
-    /** @const */
-    public const DEFAULT_SS_SYMBOL = '0308';
 
     // ******************************* HELPER METHODS *************************************
 
