@@ -25,6 +25,9 @@ return new class extends Migration
             $table->double('price_with_vat');
             $table->double('quantity');
             $table->timestamps();
+            $table->foreign('invoice_id')->references('id')->on('invoices');
+            $table->foreign('mj_id')->references('id')->on('enum__mj');
+            $table->foreign('vat_id')->references('id')->on('enum__vat');
         });
     }
 

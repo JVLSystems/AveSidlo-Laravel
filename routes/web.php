@@ -1,12 +1,11 @@
 <?php
 
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\TestController;
-use App\Http\Resources\OrsrResource;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +38,7 @@ Route::middleware('auth')->prefix('klient')->group( function() {
     Route::resource('spolocnosti', CompanyController::class)->parameters(['spolocnosti' => 'company']);
     Route::get('spolocnosti/search-orsr-ico/{ico}', [CompanyController::class, 'getCompanyDetailByIco']);
     Route::resource('objednavky', OrderController::class);
+    Route::resource('faktury', InvoiceController::class)->parameters(['faktury' => 'invoice']);
 });
 
 require __DIR__.'/auth.php';

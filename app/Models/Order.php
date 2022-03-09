@@ -56,7 +56,7 @@ class Order extends Model
     /**
      * @return string
      */
-    public function scopeCreateNumber(): string
+    public function scopeCreateNumber($test): string
     {
         while(true) {
             $number = Str::upper(Str::random(10));
@@ -83,7 +83,7 @@ class Order extends Model
      * @param int|null $period
      * @return float
      */
-    public function scopePriceCalculation(float $price, int $period = null): float
+    public static function PriceCalculation(float $price, int $period = null): float
     {
         return $period ? (($price ?? 0) * $period) : ($price ?? 0);
     }

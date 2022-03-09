@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use Carbon\Carbon;
 use App\Models\Order;
 use App\Mail\OrderMail;
 use App\Models\Company;
@@ -12,6 +11,7 @@ use App\Models\Service;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
+use App\Models\InvoiceItem;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
@@ -48,7 +48,7 @@ class OrderController extends Controller
     public function store(OrderRequest $request)
     {
         $service = Service::findOrFail($request->service);
-        $company = $request->company ? Company::findOrFail($request->company) : null;
+        $company = $request->company ? Auth::user()->company()->findOrFail($request->company) : null;
 
         $number = Order::createNumber();
 
@@ -57,21 +57,7 @@ class OrderController extends Controller
         $priceWithoutVat = Order::priceCalculation($service->price_without_vat, $request->period);
         $priceWithVat = Order::priceCalculation($service->price_with_vat, $request->period);
 
-
-        // tu ešte spravím insert metódu pre faktúry
-        $invoice = Invoice::create([
-            'purchaser_id' => $request->company,
-            'type_payment_id' => 1,
-            'vat_id' => $service->vat_id,
-            'user_id' => Auth()->id(),
-            'number' => $number,
-            'issue_date_at' => Carbon::now(),
-            'due_date_at' => Carbon::now()->addDays(14),
-            'ss' => Invoice::DEFAULT_SS_SYMBOL,
-            'note' => $request->note,
-            'price_without_vat' => $priceWithoutVat,
-            'price_with_vat' => $priceWithVat,
-        ]);
+        $invoice = Invoice::insertInvoice($company, $service, $number, $request->note, $priceWithoutVat, $priceWithVat);
 
         $order = Order::insertOrder($service, $invoice);
 
@@ -81,7 +67,9 @@ class OrderController extends Controller
         $priceWithoutVat = $service->price_without_vat * $quantity;
         $priceWithVat    = $priceWithoutVat * (1 + ($vat / 100));
 
-        OrderItem::insertOrderItem($quantity, $order, $service, $company, $priceWithoutVat, $priceWithVat, $priceMjWithVat);
+        $orderItem = OrderItem::insertOrderItem($quantity, $order, $service, $company, $priceWithoutVat, $priceWithVat, $priceMjWithVat);
+
+        InvoiceItem::insertInvoiceItem($invoice, $order, $orderItem, $service, $priceMjWithVat, $quantity);
 
         Mail::to($request->user())->send(new OrderMail);
 

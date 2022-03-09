@@ -125,7 +125,7 @@
                 </div>
             </a>
 
-            <a href="/metronic/demo2/custom/apps/user/profile-2.html" class="navi-item">
+            <a href="{{ route('faktury.index') }}" class="navi-item">
                 <div class="navi-link">
                     <div class="symbol symbol-40 bg-light mr-3">
                         <div class="symbol-label">

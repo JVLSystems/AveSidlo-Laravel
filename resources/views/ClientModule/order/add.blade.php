@@ -106,6 +106,26 @@
                                                             </div>
                                                         </div>
                                                     </transition>
+
+                                                    <transition>
+                                                        <div v-if="isHiddenCompany">
+                                                            <label>
+                                                                Zvoľte si obchodné meno vašej novej firmy (SRO)
+                                                                <span class="text-danger">*</span>
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <input name="companyNam" class="form-control" placeholder="Napíšte obchodné meno novej spoločnosti" />
+                                                                <div class="input-group-append">
+                                                                    <select class="form-select selectpicker">
+                                                                        <option value="1">s.r.o.</option>
+                                                                        <option value="2">, s.r.o.</option>
+                                                                        <option value="3">, spol. s r.o.</option>
+                                                                    </select>
+                                                                    <button class="btn btn-primary">Overiť</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </transition>
                                                 </div>
                                             </div>
 

@@ -2,17 +2,17 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Order;
+use App\Models\Invoice;
 use Illuminate\Support\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
+use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 
-final class OrdersTable extends PowerGridComponent
+final class InvoicesTable extends PowerGridComponent
 {
     use ActionButton;
 
@@ -50,7 +50,7 @@ final class OrdersTable extends PowerGridComponent
     */
     public function datasource(): ?Builder
     {
-        return Order::query()->where('user_id', auth()->id() );
+        return Invoice::query()->where('user_id', auth()->id() );
     }
 
     /*
@@ -83,16 +83,19 @@ final class OrdersTable extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('number')
-            ->addColumn('company_id', function(Order $model) {
-                return $model->company_id
-                    ? $model->company->name
-                    : new HtmlString('<span class="label label-danger label-inline font-weight-lighter">nie je</span>');
+            ->addColumn('issue_date_at_formatted', function(Invoice $model) {
+                return Carbon::parse($model->issue_date_at)->format('d. m. Y');
             })
-            ->addColumn('price_with_vat', function(Order $model) {
+            ->addColumn('due_date_at_formatted', function(Invoice $model) {
+                return Carbon::parse($model->due_date_at)->format('d. m. Y');
+            })
+            ->addColumn('price_with_vat', function(Invoice $model) {
                 return sprintf("%s €", number_format($model->price_with_vat, 2, ',', ''));
             })
-            ->addColumn('created_at_formatted', function(Order $model) {
-                return Carbon::parse($model->created_at)->format('d. m. Y H:i');
+            ->addColumn('is_paid', function(Invoice $model) {
+                return $model->is_paid == 1
+                    ? new HtmlString('<span class="label label-lg label-light-success label-inline">Uhradené</span>')
+                    : new HtmlString('<span class="label label-lg label-light-danger label-inline">Neuhradené</span>');
             });
     }
 
@@ -114,32 +117,38 @@ final class OrdersTable extends PowerGridComponent
     {
         return [
             Column::add()
-                ->title('Ćíslo objednávky')
+                ->title('Ćíslo faktúry')
                 ->field('number')
                 ->sortable()
                 ->searchable()
                 ->makeInputText(),
 
             Column::add()
-                ->title('Spoločnosť')
-                ->field('company_id')
+                ->title('Dátum vystavenia')
+                ->field('issue_date_at_formatted', 'issue_date_at')
                 ->sortable()
                 ->searchable()
-                ->makeInputText(),
+                ->makeInputDatePicker('issue_date_at'),
 
             Column::add()
-                ->title('Cena s DPH')
+                ->title('Dátum splatnosti')
+                ->field('due_date_at_formatted', 'due_date_at')
+                ->searchable()
+                ->sortable()
+                ->makeInputDatePicker('due_date_at'),
+
+            Column::add()
+                ->title('Výška faktúry')
                 ->field('price_with_vat')
                 ->searchable()
                 ->sortable()
                 ->makeInputText(),
 
             Column::add()
-                ->title('Vytvorená')
-                ->field('created_at_formatted', 'created_at')
-                ->searchable()
+                ->title('Uhradené')
+                ->field('is_paid')
                 ->sortable()
-                ->makeInputDatePicker('created_at'),
+                ->makeBooleanFilter('is_paid', 'Uhradené', 'Neuhradené'),
         ];
     }
 }
