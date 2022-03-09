@@ -13,6 +13,11 @@ class Invoice extends Model
     /** @const */
     public const DEFAULT_SS_SYMBOL = '0308';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'supplier_id',
         'purchaser_id',
@@ -52,7 +57,7 @@ class Invoice extends Model
      * @param float $priceWithVat
      * @return \App\Models\Invoice
      */
-    public static function insertInvoice(?Company $company, Service $service, string $number, ?string $note, float $priceWithoutVat, float $priceWithVat): Invoice
+    public static function insert(?Company $company, Service $service, string $number, ?string $note, float $priceWithoutVat, float $priceWithVat): Invoice
     {
         return Invoice::create([
             'purchaser_id' => ($company ? $company->id : null),

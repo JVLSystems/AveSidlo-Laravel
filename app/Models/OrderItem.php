@@ -39,7 +39,7 @@ class OrderItem extends Model
      * @param float $priceMjWithVat
      * @return \App\Models\OrderItem
      */
-    public static function insertOrderItem(?int $quantity, Order $order, Service $service, ?Company $company, float $priceWithoutVat, float $priceWithVat, float $priceMjWithVat): OrderItem
+    public static function insert(?int $quantity, Order $order, Service $service, ?Company $company, float $priceWithoutVat, float $priceWithVat, float $priceMjWithVat): OrderItem
     {
         return OrderItem::create([
             'order_id' => $order->id,

@@ -9,6 +9,11 @@ class InvoiceItem extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'invoice_id',
         'mj_id',
@@ -32,7 +37,7 @@ class InvoiceItem extends Model
      * @param int $quantity
      * @return \App\Models\InvoiceItem
      */
-    public static function insertInvoiceItem(Invoice $invoice, Order $order, OrderItem $orderItem, Service $service, float $priceMjWithVat, int $quantity): InvoiceItem
+    public static function insert(Invoice $invoice, Order $order, OrderItem $orderItem, Service $service, float $priceMjWithVat, int $quantity): InvoiceItem
     {
         return InvoiceItem::create([
             'invoice_id' => $invoice->id,

@@ -57,9 +57,9 @@ class OrderController extends Controller
         $priceWithoutVat = Order::priceCalculation($service->price_without_vat, $request->period);
         $priceWithVat = Order::priceCalculation($service->price_with_vat, $request->period);
 
-        $invoice = Invoice::insertInvoice($company, $service, $number, $request->note, $priceWithoutVat, $priceWithVat);
+        $invoice = Invoice::insert($company, $service, $number, $request->note, $priceWithoutVat, $priceWithVat);
 
-        $order = Order::insertOrder($service, $invoice);
+        $order = Order::insert($service, $invoice);
 
         $vat = $order->vat->percentage ? $order->vat->percentage : 1;
 
@@ -67,9 +67,9 @@ class OrderController extends Controller
         $priceWithoutVat = $service->price_without_vat * $quantity;
         $priceWithVat    = $priceWithoutVat * (1 + ($vat / 100));
 
-        $orderItem = OrderItem::insertOrderItem($quantity, $order, $service, $company, $priceWithoutVat, $priceWithVat, $priceMjWithVat);
+        $orderItem = OrderItem::insert($quantity, $order, $service, $company, $priceWithoutVat, $priceWithVat, $priceMjWithVat);
 
-        InvoiceItem::insertInvoiceItem($invoice, $order, $orderItem, $service, $priceMjWithVat, $quantity);
+        InvoiceItem::insert($invoice, $order, $orderItem, $service, $priceMjWithVat, $quantity);
 
         Mail::to($request->user())->send(new OrderMail);
 
