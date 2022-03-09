@@ -71,9 +71,10 @@ class OrderController extends Controller
             'note' => $request->note,
             'price_without_vat' => $priceWithoutVat,
             'price_with_vat' => $priceWithVat,
+            'is_paid' => false
         ]);
 
-        $order = Order::insertOrder($service, $invoice);
+        $order = Order::insert($service, $invoice);
 
         $vat = $order->vat->percentage ? $order->vat->percentage : 1;
 

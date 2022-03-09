@@ -27,6 +27,19 @@ class Order extends Model
         'note'
     ];
 
+
+    /**
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'user_id' => 'integer',
+        'vat_id' => 'integer',
+        'company_id' => 'integer',
+        'invoice_id' => 'integer',
+        'price_without_vat' => 'float',
+        'price_with_vat' => 'float',
+    ];
+
     /**
      * @return BelongsTo
      */
@@ -83,7 +96,7 @@ class Order extends Model
      * @param int|null $period
      * @return float
      */
-    public function scopePriceCalculation(float $price, int $period = null): float
+    public static function priceCalculation(float $price, int $period = null): float
     {
         return $period ? (($price ?? 0) * $period) : ($price ?? 0);
     }
@@ -99,7 +112,7 @@ class Order extends Model
      * @param string $number
      * @return \App\Models\Order
      */
-    public static function insertOrder(Service $service, Invoice $invoice): Order
+    public static function insert(Service $service, Invoice $invoice): Order
     {
         return Order::create([
             'user_id' => auth()->id(),
