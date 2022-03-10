@@ -6,6 +6,7 @@ use App\Models\Invoice;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\HtmlString;
 use Illuminate\Database\Eloquent\Builder;
+use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
@@ -29,10 +30,10 @@ final class InvoicesTable extends PowerGridComponent
     public function setUp(): void
     {
         $this->showPerPage()
-            ->showSearchInput()
-            ->showCheckBox()
-            ->showToggleColumns()
-            ->showExportOption('download', ['excel', 'csv']);
+            ->showSearchInput();
+            // ->showCheckBox();
+            // ->showToggleColumns()
+            // ->showExportOption('download', ['excel', 'csv']);
     }
 
     /*
@@ -149,6 +150,35 @@ final class InvoicesTable extends PowerGridComponent
                 ->field('is_paid')
                 ->sortable()
                 ->makeBooleanFilter('is_paid', 'Uhradené', 'Neuhradené'),
+        ];
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Actions Method
+    |--------------------------------------------------------------------------
+    | Enable the method below only if the Routes below are defined in your app.
+    |
+    */
+
+     /**
+     * PowerGrid Invoice Action Buttons.
+     *
+     * @return array<int, \PowerComponents\LivewirePowerGrid\Button>
+     */
+    public function actions(): array
+    {
+        return [
+            Button::add('show')
+            ->caption('Náhľad')
+            ->class('btn btn-light btn-hover-primary btn-sm')
+            ->route('faktury.show', ['invoice' => 'id']),
+
+            Button::add('download')
+                ->target('')
+                ->caption('Stiahnuť')
+                ->class('btn btn-light btn-hover-primary btn-sm')
+                ->route('faktury.download', ['invoice' => 'id']),
         ];
     }
 }

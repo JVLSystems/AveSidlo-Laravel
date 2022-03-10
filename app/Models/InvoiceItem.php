@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class InvoiceItem extends Model
 {
@@ -27,6 +28,14 @@ class InvoiceItem extends Model
     ];
 
     // ******************************* HELPER METHODS *************************************
+
+    /**
+     * @return BelongsTo
+     */
+    public function vat(): BelongsTo
+    {
+        return $this->belongsTo(EnumVat::class);
+    }
 
     /**
      * @param \App\Models\Invoice $invoice

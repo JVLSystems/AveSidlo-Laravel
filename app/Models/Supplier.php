@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Supplier extends Model
 {
@@ -25,4 +26,28 @@ class Supplier extends Model
         'street',
         'active',
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(EnumCity::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function zip(): BelongsTo
+    {
+        return $this->belongsTo(EnumZip::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function state(): BelongsTo
+    {
+        return $this->belongsTo(EnumState::class);
+    }
 }

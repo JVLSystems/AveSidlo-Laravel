@@ -34,11 +34,13 @@ class Order extends Model
     protected $casts = [
         'user_id' => 'integer',
         'vat_id' => 'integer',
-        'company_id' => 'integer',
+        // 'company_id' => 'integer',
         'invoice_id' => 'integer',
         'price_without_vat' => 'float',
         'price_with_vat' => 'float',
     ];
+
+    // ******************************* HELPER METHODS *************************************
 
     /**
      * @return BelongsTo
@@ -63,8 +65,6 @@ class Order extends Model
     {
         return $this->belongsTo(Company::class);
     }
-
-    // ******************************* HELPER METHODS *************************************
 
     /**
      * @return string

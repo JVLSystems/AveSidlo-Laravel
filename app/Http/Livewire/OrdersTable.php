@@ -5,12 +5,12 @@ namespace App\Http\Livewire;
 use App\Models\Order;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\HtmlString;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
+use Illuminate\Support\HtmlString;
 
 final class OrdersTable extends PowerGridComponent
 {
@@ -50,7 +50,7 @@ final class OrdersTable extends PowerGridComponent
     */
     public function datasource(): ?Builder
     {
-        return Order::query()->where('user_id', auth()->id() );
+        return Order::with('company')->where('user_id', auth()->id() );
     }
 
     /*

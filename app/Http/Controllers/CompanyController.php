@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 use App\Services\OrSR\Parser;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\CompanyRequest;
+use App\Services\OrSR\Fields\FieldType;
 use App\Services\OrSR\Fields\BusinessId;
 
 class CompanyController extends Controller
@@ -106,7 +107,6 @@ class CompanyController extends Controller
 
         return redirect()->route('spolocnosti.index')->withStatus('Spoločnosť bola úspešne vymazaná.');
     }
-
 
     /**
      * @param $ico

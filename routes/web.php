@@ -39,6 +39,7 @@ Route::middleware('auth')->prefix('klient')->group( function() {
     Route::get('spolocnosti/search-orsr-ico/{ico}', [CompanyController::class, 'getCompanyDetailByIco']);
     Route::resource('objednavky', OrderController::class);
     Route::resource('faktury', InvoiceController::class)->parameters(['faktury' => 'invoice']);
+    Route::get('faktury/{invoice}/stiahnut', [InvoiceController::class, 'download'])->name('faktury.download');
 });
 
 require __DIR__.'/auth.php';

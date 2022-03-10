@@ -34,6 +34,8 @@ class Company extends Model
         'status',
     ];
 
+    // ******************************* HELPER METHODS *************************************
+
     /**
      * @return BelongsTo
      */
@@ -57,8 +59,6 @@ class Company extends Model
     {
         return $this->belongsTo(EnumState::class);
     }
-
-    // ******************************* HELPER METHODS *************************************
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
