@@ -50,6 +50,62 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
+        $invoice = $this->invoice($invoice);
+
+        return $invoice->stream();
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Invoice  $invoice
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Invoice $invoice)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Invoice  $invoice
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Invoice $invoice)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Invoice  $invoice
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Invoice $invoice)
+    {
+        //
+    }
+
+    /**
+     * @param  \App\Models\Invoice  $invoice
+     * @return Response
+     */
+    public function download(Invoice $invoice)
+    {
+        $invoice = $this->invoice($invoice);
+
+        return $invoice->download();
+    }
+
+     /**
+     * @param  \App\Models\Invoice  $invoice
+     * @return LaravelDaily\Invoices\Invoice
+     */
+    public function invoice(Invoice $invoice)
+    {
         $customer = $invoice->purchaser_id
             ? new Buyer([
                 'aboutCompany' => [
@@ -99,103 +155,9 @@ class InvoiceController extends Controller
             ->payUntilDays(14)
             ->dateFormat('d.m.Y')
             ->serialNumberFormat($invoice->number)
-            ->addItem($item);
-
-        return $invoice->stream();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Invoice $invoice)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Invoice $invoice)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Invoice $invoice)
-    {
-        //
-    }
-
-    /**
-     *
-     * @param  \App\Models\Invoice  $invoice
-     * @return Response
-     */
-    public function download(Invoice $invoice)
-    {
-        $customer = $invoice->purchaser_id
-            ? new Buyer([
-                'aboutCompany' => [
-                    'name'       => $invoice->purchaser->name,
-                    'address'    => $invoice->purchaser->street,
-                    'zipAndCity' => sprintf('%s %s', $invoice->purchaser->zip->name, $invoice->purchaser->city->name),
-                    'state'      => $invoice->purchaser->state->name,
-                ],
-                'company' => [
-                    'IČO'        => $invoice->purchaser->ico,
-                    'DIČ'        => $invoice->purchaser->dic,
-                    'IČDPH'      => $invoice->purchaser->icdph,
-                ],
-            ])
-            : new Buyer([
-                'user' => $invoice->user,
-            ]);
-
-        $supplier = $invoice->supplier_id
-            ? new Party([
-                'aboutSupplier' => [
-                    'name'       => $invoice->supplier->name,
-                    'address'    => $invoice->supplier->street,
-                    'zipAndCity' => sprintf('%s %s', $invoice->supplier->zip->name, $invoice->supplier->city->name),
-                    'state'      => $invoice->supplier->state->name,
-                ],
-                'supplier' => [
-                    'IČO'        => $invoice->supplier->ico,
-                    'DIČ'        => $invoice->supplier->dic,
-                    'IČDPH'      => $invoice->supplier->icdph,
-                ],
-            ])
-            : new Party([
-                // 'user' => $invoice->user,
-            ]);
-
-
-        $item = (new InvoiceItem())
-                    ->title($invoice->item->name)
-                    ->pricePerUnit($invoice->item->price_mj_without_vat)
-                    ->quantity($invoice->item->quantity);
-
-        $invoice = LdInvoice::make()
-            ->buyer($customer)
-            ->seller($supplier)
-            ->taxRate($invoice->item->vat->percentage)
-            ->payUntilDays(14)
-            ->serialNumberFormat($invoice->number)
             ->addItem($item)
-            ->filename( sprintf('Faktura_%s', $invoice->number) );
+            ->filename(sprintf('Faktura_%s', $invoice->number));
 
-        return $invoice->download();
+        return $invoice;
     }
 }
