@@ -14,6 +14,7 @@ class Invoice extends Model
 
     /** @const */
     public const DEFAULT_SS_SYMBOL = '0308';
+    public const PAY_UNTIL_DAYS = 14;
 
     /**
      * The attributes that are mass assignable.

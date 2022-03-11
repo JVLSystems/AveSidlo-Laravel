@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Invoice;
+
 return [
     'date' => [
         /*
@@ -9,7 +11,7 @@ return [
         /*
          * Due date for payment since invoice's date.
          */
-        'pay_until_days' => 14,
+        'pay_until_days' => Invoice::PAY_UNTIL_DAYS,
     ],
 
     'serial_number' => [

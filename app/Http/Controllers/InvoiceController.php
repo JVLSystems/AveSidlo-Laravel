@@ -148,7 +148,6 @@ class InvoiceController extends Controller
             ->buyer($customer)
             ->seller($supplier)
             ->taxRate($invoice->item->vat->percentage)
-            ->payUntilDays(14)
             ->serialNumberFormat($invoice->number)
             ->addItem($item)
             ->filename(sprintf('Faktura_%s', $invoice->number));
