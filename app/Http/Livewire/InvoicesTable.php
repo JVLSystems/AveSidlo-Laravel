@@ -30,9 +30,9 @@ final class InvoicesTable extends PowerGridComponent
     public function setUp(): void
     {
         $this->showPerPage()
-            ->showSearchInput();
+            ->showSearchInput()
+            ->showToggleColumns();
             // ->showCheckBox();
-            // ->showToggleColumns()
             // ->showExportOption('download', ['excel', 'csv']);
     }
 
@@ -171,13 +171,13 @@ final class InvoicesTable extends PowerGridComponent
         return [
             Button::add('show')
             ->caption('Náhľad')
-            ->class('btn btn-light btn-hover-primary btn-sm')
+            ->class('btn btn-primary btn-sm')
             ->route('faktury.show', ['invoice' => 'id']),
 
             Button::add('download')
                 ->target('')
                 ->caption('Stiahnuť')
-                ->class('btn btn-light btn-hover-primary btn-sm')
+                ->class('btn btn-primary btn-sm')
                 ->route('faktury.download', ['invoice' => 'id']),
         ];
     }

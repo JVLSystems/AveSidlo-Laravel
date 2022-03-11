@@ -25,7 +25,6 @@ Route::get('kontakt', [PageController::class, 'contact'])->name('contact');
 Route::get('ochrana-osobnych-udajov', [PageController::class, 'privacy_policy'])->name('privacy.policy');
 Route::get('obchodne-podmienky', [PageController::class, 'terms_and_conditions'])->name('terms.and.conditions');
 
-
 Route::middleware('auth')->prefix('klient')->group( function() {
 
     Route::get('/', [PageController::class, 'client'])->name('client');

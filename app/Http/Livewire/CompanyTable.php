@@ -33,9 +33,9 @@ final class CompanyTable extends PowerGridComponent
     {
         $this->showPerPage()
             ->showSearchInput()
-            ->showCheckBox()
-            ->showToggleColumns()
-            ->showExportOption('download', ['excel', 'csv']);
+            ->showToggleColumns();
+            // ->showCheckBox()
+            // ->showExportOption('download', ['excel', 'csv']);
     }
 
     /*
@@ -101,7 +101,9 @@ final class CompanyTable extends PowerGridComponent
                     : new HtmlString('<span class="label label-lg label-light-danger label-inline">Nie</span>');
             })
             ->addColumn('payment_at_formatted', function(Company $model) {
-                return Carbon::parse($model->payment_at)->format('d. m. Y');
+                return $model->payment_at
+                ? Carbon::parse($model->payment_at)->format('d. m. Y')
+                : '';
             });
     }
 

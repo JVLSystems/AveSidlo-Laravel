@@ -50,9 +50,7 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
-        $invoice = $this->invoice($invoice);
-
-        return $invoice->stream();
+        return $this->invoice($invoice)->stream();
     }
 
     /**
@@ -95,9 +93,7 @@ class InvoiceController extends Controller
      */
     public function download(Invoice $invoice)
     {
-        $invoice = $this->invoice($invoice);
-
-        return $invoice->download();
+        return $this->invoice($invoice)->download();
     }
 
      /**
@@ -153,7 +149,6 @@ class InvoiceController extends Controller
             ->seller($supplier)
             ->taxRate($invoice->item->vat->percentage)
             ->payUntilDays(14)
-            ->dateFormat('d.m.Y')
             ->serialNumberFormat($invoice->number)
             ->addItem($item)
             ->filename(sprintf('Faktura_%s', $invoice->number));

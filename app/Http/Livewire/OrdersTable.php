@@ -30,9 +30,9 @@ final class OrdersTable extends PowerGridComponent
     {
         $this->showPerPage()
             ->showSearchInput()
-            ->showCheckBox()
-            ->showToggleColumns()
-            ->showExportOption('download', ['excel', 'csv']);
+            ->showToggleColumns();
+            // ->showCheckBox()
+            // ->showExportOption('download', ['excel', 'csv']);
     }
 
     /*
