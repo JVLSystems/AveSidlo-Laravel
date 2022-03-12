@@ -29,8 +29,8 @@ final class OrdersTable extends PowerGridComponent
     public function setUp(): void
     {
         $this->showPerPage()
-            ->showSearchInput()
-            ->showToggleColumns();
+            ->showSearchInput();
+            //->showToggleColumns()
             // ->showCheckBox()
             // ->showExportOption('download', ['excel', 'csv']);
     }
@@ -83,16 +83,16 @@ final class OrdersTable extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('number')
-            ->addColumn('company_id', function(Order $model) {
-                return $model->company_id
-                    ? $model->company->name
+            ->addColumn('company_id', function(Order $order) {
+                return $order->company_id
+                    ? $order->company->name
                     : new HtmlString('<span class="label label-danger label-inline font-weight-lighter">nie je</span>');
             })
-            ->addColumn('price_with_vat', function(Order $model) {
-                return sprintf("%s €", number_format($model->price_with_vat, 2, ',', ''));
+            ->addColumn('price', function(Order $order) {
+                return sprintf("%s €", number_format($order->price_with_vat, 2, ',', ''));
             })
-            ->addColumn('created_at_formatted', function(Order $model) {
-                return Carbon::parse($model->created_at)->format('d. m. Y H:i');
+            ->addColumn('created_at_formatted', function(Order $order) {
+                return Carbon::parse($order->created_at)->format('d. m. Y H:i');
             });
     }
 
@@ -117,29 +117,29 @@ final class OrdersTable extends PowerGridComponent
                 ->title('Ćíslo objednávky')
                 ->field('number')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
+                //->makeInputText(),
 
             Column::add()
                 ->title('Spoločnosť')
                 ->field('company_id')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
+                //->makeInputText(),
 
             Column::add()
                 ->title('Cena s DPH')
-                ->field('price_with_vat')
+                ->field('price')
                 ->searchable()
-                ->sortable()
-                ->makeInputText(),
+                ->sortable(),
+                //->makeInputText(),
 
             Column::add()
                 ->title('Vytvorená')
                 ->field('created_at_formatted', 'created_at')
                 ->searchable()
-                ->sortable()
-                ->makeInputDatePicker('created_at'),
+                ->sortable(),
+                //->makeInputDatePicker('created_at'),
         ];
     }
 }

@@ -32,8 +32,8 @@ final class CompanyTable extends PowerGridComponent
     public function setUp(): void
     {
         $this->showPerPage()
-            ->showSearchInput()
-            ->showToggleColumns();
+            ->showSearchInput();
+            //->showToggleColumns()
             // ->showCheckBox()
             // ->showExportOption('download', ['excel', 'csv']);
     }
@@ -85,24 +85,26 @@ final class CompanyTable extends PowerGridComponent
     public function addColumns(): ?PowerGridEloquent
     {
         return PowerGrid::eloquent()
-            ->addColumn('name')
+            ->addColumn('name', function (Company $company) {
+                return new HtmlString(sprintf('<a href="%s">%s</a>', route('spolocnosti.edit', ['company' => $company->id]), $company->name));
+            })
             ->addColumn('ico')
             ->addColumn('dic')
             ->addColumn('icdph')
             ->addColumn('street')
-            ->addColumn('is_paid', function(Company $model) {
-                return $model->is_paid == 1
+            ->addColumn('is_paid', function(Company $company) {
+                return $company->is_paid == 1
                     ? new HtmlString('<span class="label label-lg label-light-success label-inline">Uhradené</span>')
                     : new HtmlString('<span class="label label-lg label-light-danger label-inline">Neuhradené</span>');
             })
-            ->addColumn('is_main', function(Company $model) {
-                return $model->is_main == 1
+            ->addColumn('is_main', function(Company $company) {
+                return $company->is_main == 1
                     ? new HtmlString('<span class="label label-lg label-light-success label-inline">Áno</span>')
                     : new HtmlString('<span class="label label-lg label-light-danger label-inline">Nie</span>');
             })
-            ->addColumn('payment_at_formatted', function(Company $model) {
-                return $model->payment_at
-                ? Carbon::parse($model->payment_at)->format('d. m. Y')
+            ->addColumn('payment_at_formatted', function(Company $company) {
+                return $company->payment_at
+                ? Carbon::parse($company->payment_at)->format('d. m. Y')
                 : '';
             });
     }
@@ -128,17 +130,17 @@ final class CompanyTable extends PowerGridComponent
                 ->title('Názov spoločnosti')
                 ->field('name')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
+                //->makeInputText()
 
             Column::add()
                 ->title('IČO')
                 ->field('ico')
                 ->sortable()
-                ->searchable()
-                ->makeInputText(),
+                ->searchable(),
+                //->makeInputText(),
 
-            Column::add()
+            /*Column::add()
                 ->title('DIČ')
                 ->field('dic')
                 ->sortable()
@@ -157,7 +159,7 @@ final class CompanyTable extends PowerGridComponent
                 ->field('street')
                 ->sortable()
                 ->searchable()
-                ->makeInputText(),
+                ->makeInputText(),*/
 
             Column::add()
                 ->title('Uhradené')
@@ -175,8 +177,8 @@ final class CompanyTable extends PowerGridComponent
                 ->title('Doba úhrady')
                 ->field('payment_at_formatted', 'payment_at')
                 ->searchable()
-                ->sortable()
-                ->makeInputDatePicker('payment_at'),
+                ->sortable(),
+                //->makeInputDatePicker('payment_at'),
         ];
     }
 

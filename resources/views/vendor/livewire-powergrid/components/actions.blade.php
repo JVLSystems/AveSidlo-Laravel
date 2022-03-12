@@ -8,7 +8,7 @@
     @if(isset($actions) && count($actions) && $row !== '')
         @foreach($actions as $key => $action)
             <td class="pg-actions {{ $theme->table->tdBodyClass }}"
-                style="{{ $theme->table->tdBodyStyle }}">
+                style="{{ $theme->table->tdBodyStyle }} text-align: center;">
                 @php
                     $class            = filled($action->class) ? $action->class : $theme->actions->headerBtnClass;
                     if($action->singleParam) {

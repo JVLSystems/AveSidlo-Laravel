@@ -11,11 +11,11 @@
         <tbody class="{{$theme->tbodyClass}}"
                style="{{$theme->tbodyStyle}}">
                 {{ $rows }}
-                <tr>
+                {{--<tr>
                     <td colspan="3">
                         <div id="accordion" class="collapse">Hidden by default</div>
                     </td>
-                </tr>
+                </tr>--}}
         </tbody>
     </table>
 </div>
