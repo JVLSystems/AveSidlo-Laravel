@@ -48,7 +48,7 @@ class OrderController extends Controller
     public function store(OrderRequest $request)
     {
         $service = Service::findOrFail($request->service);
-        $company = $request->company ? Auth::user()->company()->findOrFail($request->company) : null;
+        $company = Auth::user()->company()->findOrFail($request->company);
 
         $number = Order::createNumber();
 
