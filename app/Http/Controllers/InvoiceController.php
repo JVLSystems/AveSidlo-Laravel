@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use LaravelDaily\Invoices\Classes\Buyer;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
 use LaravelDaily\Invoices\Classes\Party;
@@ -89,16 +90,17 @@ class InvoiceController extends Controller
 
     /**
      * @param  \App\Models\Invoice  $invoice
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function download(Invoice $invoice)
     {
         return $this->invoice($invoice)->download();
     }
 
+
      /**
      * @param  \App\Models\Invoice  $invoice
-     * @return LaravelDaily\Invoices\Invoice
+     * @return \LaravelDaily\Invoices\Invoice
      */
     public function invoice(Invoice $invoice)
     {

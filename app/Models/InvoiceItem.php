@@ -37,6 +37,25 @@ class InvoiceItem extends Model
         return $this->belongsTo(EnumVat::class);
     }
 
+
+    /**
+     * @return BelongsTo
+     */
+    public function mj(): BelongsTo
+    {
+        return $this->belongsTo(EnumMj::class);
+    }
+
+
+    /**
+     * @return BelongsTo
+     */
+    public function invoice(): BelongsTo
+    {
+        return $this->belongsTo(Invoice::class);
+    }
+
+
     /**
      * @param \App\Models\Invoice $invoice
      * @param \App\Models\Order $order
