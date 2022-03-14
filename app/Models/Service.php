@@ -19,6 +19,7 @@ class Service extends Model
         'name',
         'price_without_vat',
         'price_with_vat',
+        'namespace',
     ];
 
     public $timestamps = false;

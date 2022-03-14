@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->double('price_without_vat')->nullable();
             $table->double('price_with_vat')->nullable();
+            $table->string('namespace')->nullable();
             $table->foreign('vat_id')->references('id')->on('enum__vat');
         });
     }

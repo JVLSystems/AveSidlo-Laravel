@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -37,17 +38,17 @@ class Order extends Model
         // 'company_id' => 'integer',
         'invoice_id' => 'integer',
         'price_without_vat' => 'float',
-        'price_with_vat' => 'float',
+        // 'price_with_vat' => 'float',
     ];
 
     // ******************************* HELPER METHODS *************************************
 
     /**
-     * @return BelongsTo
+     * @return HasOne
      */
-    public function role(): BelongsTo
+    public function item(): HasOne
     {
-        return $this->belongsTo(Role::class);
+        return $this->hasOne(OrderItem::class);
     }
 
     /**
@@ -104,12 +105,7 @@ class Order extends Model
 
     /**
      * @param \App\Models\Service $service
-     * @param int|null $company
      * @param \App\Models\Invoice $invoice
-     * @param float $priceWithoutVat
-     * @param float $priceWithVat
-     * @param string|null $note
-     * @param string $number
      * @return \App\Models\Order
      */
     public static function insert(Service $service, Invoice $invoice): Order

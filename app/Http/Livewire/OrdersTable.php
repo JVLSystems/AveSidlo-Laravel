@@ -50,7 +50,7 @@ final class OrdersTable extends PowerGridComponent
     */
     public function datasource(): ?Builder
     {
-        return Order::with('company')->where('user_id', auth()->id() );
+        return Order::with('item')->with('company')->where('user_id', auth()->id() );
     }
 
     /*
@@ -88,7 +88,7 @@ final class OrdersTable extends PowerGridComponent
                     ? $order->company->name
                     : new HtmlString('<span class="label label-danger label-inline font-weight-lighter">nie je</span>');
             })
-            ->addColumn('price', function(Order $order) {
+            ->addColumn('price_with_vat', function(Order $order) {
                 return sprintf("%s €", number_format($order->price_with_vat, 2, ',', ''));
             })
             ->addColumn('created_at_formatted', function(Order $order) {
@@ -129,7 +129,7 @@ final class OrdersTable extends PowerGridComponent
 
             Column::add()
                 ->title('Cena s DPH')
-                ->field('price')
+                ->field('price_with_vat')
                 ->searchable()
                 ->sortable(),
                 //->makeInputText(),

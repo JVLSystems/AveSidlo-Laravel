@@ -91,7 +91,7 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function my_account()
+    public function myAccount()
     {
         return view('ClientModule.client.myAccount');
     }
@@ -111,7 +111,7 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function change_password()
+    public function changePassword()
     {
         return view('ClientModule.client.changePassword');
     }

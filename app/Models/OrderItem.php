@@ -34,6 +34,7 @@ class OrderItem extends Model
      * @param int|null $quantity
      * @param \App\Models\Order $Order
      * @param \App\Models\Service $service
+     * @param \App\Models\Company|null $service
      * @param float $priceWithoutVat
      * @param float $priceWithVat
      * @param float $priceMjWithVat

@@ -11,11 +11,6 @@
         <tbody class="{{$theme->tbodyClass}}"
                style="{{$theme->tbodyStyle}}">
                 {{ $rows }}
-                {{--<tr>
-                    <td colspan="3">
-                        <div id="accordion" class="collapse">Hidden by default</div>
-                    </td>
-                </tr>--}}
         </tbody>
     </table>
 </div>

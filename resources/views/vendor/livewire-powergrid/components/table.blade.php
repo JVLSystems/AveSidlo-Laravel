@@ -79,8 +79,13 @@
                     }
                 @endphp
                 <tr class="{{ $class }}"
-                    style="{{ $theme->table->trBodyStyle }}"
-                    wire:key="{{ md5($row->{$primaryKey} ?? $loop->index) }}">
+                    wire:key="{{ md5($row->{$primaryKey} ?? $loop->index) }}"
+                    @if (get_class($row) == 'App\Models\Order')
+                        style="{{ $theme->table->trBodyStyle }}; cursor:pointer;"
+                        data-toggle="collapse" data-target="{{ sprintf('#collapse%s', $row->id) }}"
+                    @else
+                        style="{{ $theme->table->trBodyStyle }}"
+                    @endif>
                     @if($checkbox)
                         @php
                             $rules            = $helperClass->makeActionRules('pg:checkbox', $row);

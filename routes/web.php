@@ -19,19 +19,19 @@ use App\Http\Controllers\InvoiceController;
 */
 
 Route::get('/', [PageController::class, 'index'])->name('home');
-Route::get('nasa-spolocnost', [PageController::class, 'about_company'])->name('about.company');
+Route::get('nasa-spolocnost', [PageController::class, 'aboutCompany'])->name('about.company');
 Route::get('sluzby', [PageController::class, 'services'])->name('services');
 Route::get('kontakt', [PageController::class, 'contact'])->name('contact');
-Route::get('ochrana-osobnych-udajov', [PageController::class, 'privacy_policy'])->name('privacy.policy');
-Route::get('obchodne-podmienky', [PageController::class, 'terms_and_conditions'])->name('terms.and.conditions');
+Route::get('ochrana-osobnych-udajov', [PageController::class, 'privacyPolicy'])->name('privacy.policy');
+Route::get('obchodne-podmienky', [PageController::class, 'termsAndConditions'])->name('terms.and.conditions');
 
 Route::middleware('auth')->prefix('klient')->group( function() {
 
     Route::get('/', [PageController::class, 'client'])->name('client');
 
-    Route::get('moj-ucet', [ClientController::class, 'my_account'])->name('my.account');
+    Route::get('moj-ucet', [ClientController::class, 'myAccount'])->name('my.account');
     Route::get('nastavenia', [ClientController::class, 'settings'])->name('settings');
-    Route::get('zmena-hesla', [ClientController::class, 'change_password'])->name('change.password');
+    Route::get('zmena-hesla', [ClientController::class, 'changePassword'])->name('change.password');
 
     Route::resource('klient', ClientController::class)->parameters(['klient' => 'user']);
     Route::resource('spolocnosti', CompanyController::class)->parameters(['spolocnosti' => 'company']);

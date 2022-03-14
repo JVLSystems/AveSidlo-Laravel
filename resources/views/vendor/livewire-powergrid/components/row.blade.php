@@ -54,3 +54,26 @@
     </td>
 @endforeach
 
+@if (get_class($row) == 'App\Models\Order')
+    <tr id="{{ sprintf('collapse%s', $row->id) }}" class="collapse">
+        <td colspan="4">
+            <table class="table table-borderless">
+                <tbody>
+                    <tr class="d-flex justify-content-between border-bottom border-dark">
+                        <th scope="row">Služba</th>
+                        <td>{{ $row->item->name }}</td>
+                    </tr>
+                    <tr class="d-flex justify-content-between border-bottom border-dark">
+                        <th scope="row">Množstvo</th>
+                        <td>{{ $row->item->quantitz ?? 1 }}</td>
+                    </tr>
+                    <tr class="d-flex justify-content-between border-bottom border-dark">
+                        <th scope="row">Vaša správa</th>
+                        <td>{{ $row->note }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+@endif
+

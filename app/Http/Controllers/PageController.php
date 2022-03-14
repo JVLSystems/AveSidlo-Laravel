@@ -14,36 +14,57 @@ use App\Models\EnumBankAccount;
 
 class PageController extends Controller
 {
+    /**
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function index()
     {
         return view('FrontModule.home');
     }
 
-    public function about_company()
+    /**
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
+    public function aboutcompany()
     {
         return view('FrontModule.aboutCompany');
     }
 
+    /**
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function services()
     {
         return view('FrontModule.services');
     }
 
+    /**
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function contact()
     {
         return view('FrontModule.contact');
     }
 
-    public function privacy_policy()
+    /**
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
+    public function privacyPolicy()
     {
         return view('FrontModule.privacyPolicy');
     }
 
-    public function terms_and_conditions()
+    /**
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
+    public function termsAndConditions()
     {
         return view('FrontModule.termsAndConditions');
     }
 
+    /**
+     * @return \Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function client()
     {
         return view('ClientModule.home');
