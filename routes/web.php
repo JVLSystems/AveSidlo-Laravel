@@ -37,6 +37,7 @@ Route::middleware('auth')->prefix('klient')->group( function() {
     Route::resource('spolocnosti', CompanyController::class)->parameters(['spolocnosti' => 'company']);
     Route::get('spolocnosti/search-orsr-ico/{ico}', [CompanyController::class, 'getCompanyDetailByIco']);
     Route::resource('objednavky', OrderController::class);
+    Route::get('objednavky/get-service-data/{service}', [OrderController::class, 'getServiceData']);
     Route::resource('faktury', InvoiceController::class)->parameters(['faktury' => 'invoice']);
     Route::get('faktury/{invoice}/stiahnut', [InvoiceController::class, 'download'])->name('faktury.download');
 });

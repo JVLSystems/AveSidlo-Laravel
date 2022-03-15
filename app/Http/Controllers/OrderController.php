@@ -120,4 +120,17 @@ class OrderController extends Controller
     {
         //
     }
+
+
+    /**
+     * @param string $service
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getServiceData($service)
+    {
+        $service = Service::findOrFail($service);
+
+        return response()->json($service->toArray());
+    }
+
 }

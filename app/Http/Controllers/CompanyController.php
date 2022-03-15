@@ -108,10 +108,10 @@ class CompanyController extends Controller
     }
 
     /**
-     * @param $ico
+     * @param string $ico
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getCompanyDetailByIco($ico)
+    public function getCompanyDetailByIco(string $ico)
     {
         $company = new Parser();
         $results = $company->find(new BusinessId($ico))->getResults();
