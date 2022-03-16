@@ -1,74 +1,93 @@
 <div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <label>
-                Vaša spoločnosť
-                <span class="text-danger">*</span>
-            </label>
-            <select class="form-control selectpicker" data-size="7" name="company">
-                @foreach ($companies as $company)
-                    <option value="{{ $company->id }}">{{ $company->name }}</option>
-                @endforeach
-            </select>
-            @error('company')
-            <div class="invalid-feedback d-inline-block">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-
-        <div class="form-group">
-            <label>
-                Obdobie
-                <span class="text-danger">*</span>
-            </label>
-            <div class="input-group">
-                <input name="period" class="form-control" placeholder="Zadajte počet mesiac"/>
-                <div class="input-group-append">
-                    <span class="input-group-text line-height-0 py-0">
-                        m
-                    </span>
-                </div>
-                @error('period')
-                <div class="invalid-feedback d-inline-block">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>
-                Zvoľte si obchodné meno vašej novej firmy (SRO)
-                <span class="text-danger">*</span>
-            </label>
-            <div class="input-group">
-                <input name="companyNam" class="form-control" placeholder="Napíšte obchodné meno novej spoločnosti"/>
-                <div class="input-group-append">
-                    <select class="form-control selectpicker">
-                        <option value="1">s.r.o.</option>
-                        <option value="2">, s.r.o.</option>
-                        <option value="3">, spol. s r.o.</option>
-                    </select>
-                    <button class="btn btn-primary">Overiť</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="col-md 12">
         <div class="row">
+
+            <div class="col-md-12">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>
+                                Zvoľte si obchodné meno vašej novej firmy (SRO)
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-2">
+                                    <input name="companyName" class="form-control" placeholder="Napíšte obchodné meno novej spoločnosti" value="{{ old('companyName') }}" />
+                                    @error('companyName')
+                                        <div class="invalid-feedback d-inline-block">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <select class="form-control" name="companyType">
+                                        <option value="1" @selected(old('companyType') == 1)>s.r.o.</option>
+                                        <option value="2" @selected(old('companyType') == 2) selected>, s.r.o.</option>
+                                        <option value="3" @selected(old('companyType') == 3)>, spol. s r.o.</option>
+                                    </select>
+                                    @error('companyType')
+                                        <div class="invalid-feedback d-inline-block">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 mb-2">
+                                    <button class="btn btn-primary btn-block">Overiť</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>
+                        Váš email
+                    </label>
+                    <input name="email" class="form-control" placeholder="E-mail" value="{{ old('email') }}" />
+                    @error('email')
+                        <div class="invalid-feedback d-inline-block">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>
+                        Sídlo spoločnosti
+                    </label>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="seatType" value="1" checked  @checked(old('seatType') == 1)>
+                            Vlastné alebo prenajaté
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="seatType" value="2" @checked(old('seatType') == 2)>
+                            Virtuálne sídlo
+                            <a href data-toggle="tooltip" data-placement="right" title="Virtuálne sídlo podľa vášho výberu poskytuje partner portálu avesidlo.sk.">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                        </label>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-md-6">
                 <div class="form-group">
                     <label>
                         Ulica
                     </label>
-                    <input name="street" class="form-control" placeholder="Ulica" value="{{ old('street') }}"/>
+                    <input name="street" class="form-control" placeholder="Ulica" value="{{ old('street') }}" />
                     @error('street')
-                    <div class="invalid-feedback d-inline-block">
-                        {{ $message }}
-                    </div>
+                        <div class="invalid-feedback d-inline-block">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
             </div>
@@ -78,11 +97,11 @@
                     <label>
                         Súpisné číslo
                     </label>
-                    <input name="number" class="form-control" placeholder="Súpisné číslo" value="{{ old('number') }}"/>
-                    @error('number')
-                    <div class="invalid-feedback d-inline-block">
-                        {{ $message }}
-                    </div>
+                    <input name="streetRegisterNumber" class="form-control" placeholder="Súpisné číslo" value="{{ old('streetRegisterNumber') }}" />
+                    @error('streetRegisterNumber')
+                        <div class="invalid-feedback d-inline-block">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
             </div>
@@ -92,12 +111,11 @@
                     <label>
                         Orientačné číslo
                     </label>
-                    <input name="streetNumm" class="form-control" placeholder="Orientačné číslo"
-                           value="{{ old('streetNumm') }}"/>
-                    @error('streetNumm')
-                    <div class="invalid-feedback d-inline-block">
-                        {{ $message }}
-                    </div>
+                    <input name="streetNumber" class="form-control" placeholder="Orientačné číslo" value="{{ old('streetNumber') }}" />
+                    @error('streetNumber')
+                        <div class="invalid-feedback d-inline-block">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
             </div>
@@ -107,11 +125,11 @@
                     <label>
                         Obec
                     </label>
-                    <input name="city" class="form-control" placeholder="Obec" value="{{ old('city') }}"/>
+                    <input name="city" class="form-control" placeholder="Obec" value="{{ old('city') }}" />
                     @error('city')
-                    <div class="invalid-feedback d-inline-block">
-                        {{ $message }}
-                    </div>
+                        <div class="invalid-feedback d-inline-block">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
             </div>
@@ -121,11 +139,11 @@
                     <label>
                         PSČ
                     </label>
-                    <input name="zip" class="form-control" placeholder="PSČ" value="{{ old('zip') }}"/>
+                    <input name="zip" class="form-control" placeholder="PSČ" value="{{ old('zip') }}" />
                     @error('zip')
-                    <div class="invalid-feedback d-inline-block">
-                        {{ $message }}
-                    </div>
+                        <div class="invalid-feedback d-inline-block">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
             </div>
@@ -135,17 +153,17 @@
                     <label>
                         Druh priestoru
                     </label>
-                    <select name="type_of_space" class="form-control selectpicker" placeholder="Druh priestoru">
-                        <option value="">Nebytový priestor</option>
-                        <option value="">Byt v bytovom dome</option>
-                        <option value="">Iná budova</option>
-                        <option value="">Rodinný dom</option>
-                        <option value="">Samostatne stojaca garáž</option>
+                    <select name="typeOfSpace" class="form-control" placeholder="Druh priestoru">
+                        <option value="1" @selected(old('typeOfSpace') == 1)>Nebytový priestor</option>
+                        <option value="2" @selected(old('typeOfSpace') == 2)>Byt v bytovom dome</option>
+                        <option value="3" @selected(old('typeOfSpace') == 3)>Iná budova</option>
+                        <option value="4" @selected(old('typeOfSpace') == 4)>Rodinný dom</option>
+                        <option value="5" @selected(old('typeOfSpace') == 5)>Samostatne stojaca garáž</option>
                     </select>
-                    @error('type_of_space')
-                    <div class="invalid-feedback d-inline-block">
-                        {{ $message }}
-                    </div>
+                    @error('typeOfSpace')
+                        <div class="invalid-feedback d-inline-block">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
             </div>
@@ -155,14 +173,84 @@
                     <label>
                         Vlastník priestoru
                     </label>
-                    <input name="space_owner" class="form-control" placeholder="Vlastník priestoru"
-                           value="{{ old('space_owner') }}"/>
-                    @error('space_owner')
-                    <div class="invalid-feedback d-inline-block">
-                        {{ $message }}
-                    </div>
+                    <input name="spaceOwner" class="form-control" placeholder="Vlastník priestoru" value="{{ old('spaceOwner') }}" />
+                    @error('spaceOwner')
+                        <div class="invalid-feedback d-inline-block">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
+            </div>
+
+            {{-- toto sa ma zobrazit len ak si pouzivatelov vyberie "virutalne sidlo" --}}
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>
+                        Sídlo
+                    </label>
+                    <select name="seat" class="form-control">
+                        <option selected>Vyberte sídlo...</option>
+                       @foreach ($suppliers as $supplier)
+                           <option value="{{ $supplier->id }}" @selected(old('seat') == $supplier->id)>{{ $supplier->name }}</option>
+                       @endforeach
+                    </select>
+                    @error('seat')
+                        <div class="invalid-feedback d-inline-block">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="col-md-12 text-center">
+                <div class="card-title">
+                    <h3>
+                        Základné imanie
+                    </h3>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>
+                        Výška
+                    </label>
+                    <input class="form-control" name="capital" value="{{ old('capital') }}" />
+                    @error('capital')
+                        <div class="invalid-feedback d-inline-block">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>
+                        Rozsah splatenia
+                    </label>
+                    <input class="form-control" name="paid" value="{{ old('paid') }}" />
+                    @error('paid')
+                        <div class="invalid-feedback d-inline-block">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card-title">
+                    <h3>
+                        Zakladatelia (Spoločníci)
+                    </h3>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <button class="btn btn-primary text-uppercase">
+                    <span class="fas fa-plus"></span>
+                    Vložiť nového zakladateľa
+                </button>
             </div>
 
         </div>

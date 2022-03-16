@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call([EnumVatSeeder::class]);
         $this->call([EnumMjSeeder::class]);
         $this->call([ServiceSeeder::class]);
+        $this->call([SupplierSeeder::class]);
         // $this->call([CompanySeeder::class]);
 
     }

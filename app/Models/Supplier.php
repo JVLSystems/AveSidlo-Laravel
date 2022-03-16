@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\BelongsToCity;
+use App\Traits\BelongsToState;
+use App\Traits\BelongsToZip;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Supplier extends Model
 {
-    use HasFactory;
+    use HasFactory, BelongsToCity, BelongsToZip, BelongsToState;
 
     /**
      * The attributes that are mass assignable.
@@ -27,27 +30,4 @@ class Supplier extends Model
         'active',
     ];
 
-    /**
-     * @return BelongsTo
-     */
-    public function city(): BelongsTo
-    {
-        return $this->belongsTo(EnumCity::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function zip(): BelongsTo
-    {
-        return $this->belongsTo(EnumZip::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function state(): BelongsTo
-    {
-        return $this->belongsTo(EnumState::class);
-    }
 }

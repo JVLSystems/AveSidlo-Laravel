@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Carbon\Carbon;
 use App\Models\Order;
 use App\Mail\OrderMail;
 use App\Models\Company;
 use App\Models\Invoice;
 use App\Models\Service;
+use App\Models\Supplier;
+use App\Models\EnumState;
 use App\Models\OrderItem;
+use App\Models\InvoiceItem;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
-use App\Models\InvoiceItem;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
@@ -36,6 +39,9 @@ class OrderController extends Controller
         return view('ClientModule.order.add', [
             'services' => Service::all(),
             'companies' => Company::getUserCompanies(),
+            'suppliers' => Supplier::all(),
+            'states' => EnumState::all(),
+            'year' => Carbon::now()->format('Y') - 18,
         ]);
     }
 
@@ -47,6 +53,7 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
+        // return $request->all();
         $service = Service::findOrFail($request->service);
         $company = Auth::user()->company()->findOrFail($request->company);
 

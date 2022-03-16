@@ -70,8 +70,16 @@
 
 
 
-                                            <div>
-                                                {{-- tu bude include z vue --}}
+                                            <div v-if="form == 'create_company_form'">
+                                               @include('ClientModule.order._forms.create_company_form')
+                                            </div>
+
+                                            <div v-if="form == 'create_virtual_form'">
+                                               @include('ClientModule.order._forms.create_virtual_form')
+                                            </div>
+
+                                            <div v-if="form == 'create_liquidation_form'">
+                                               @include('ClientModule.order._forms.create_liquidation_form')
                                             </div>
 
 
@@ -124,8 +132,7 @@
             data: function () {
                 return {
                     service: '',
-                    isHiddenCompany: true,
-                    isHiddenPeriod: true,
+                    form: '',
                     isSpinning: false,
                     spinningClass: 'spinner spinner-white spinner-right'
                 }
@@ -138,7 +145,9 @@
                     axios.get(link)
                         .then(function (response) {
                             console.log(response.data.form_resource)
+                            _this.form = response.data.form_resource
                         })
+
                 }
             }
         }).mount('#company')

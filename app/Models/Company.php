@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Http\Requests\CompanyRequest;
+use App\Traits\BelongsToCity;
+use App\Traits\BelongsToState;
+use App\Traits\BelongsToZip;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +14,7 @@ use Illuminate\Support\Facades\Request;
 
 class Company extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, BelongsToCity, BelongsToZip, BelongsToState;
 
     /**
      * The attributes that are mass assignable.
@@ -35,30 +38,6 @@ class Company extends Model
     ];
 
     // ******************************* HELPER METHODS *************************************
-
-    /**
-     * @return BelongsTo
-     */
-    public function city(): BelongsTo
-    {
-        return $this->belongsTo(EnumCity::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function zip(): BelongsTo
-    {
-        return $this->belongsTo(EnumZip::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function state(): BelongsTo
-    {
-        return $this->belongsTo(EnumState::class);
-    }
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
