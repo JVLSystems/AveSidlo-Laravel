@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="seat">
 
     <div class="col-md 12">
         <div class="row">
@@ -62,13 +62,13 @@
                     </label>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="seatType" value="1" checked  @checked(old('seatType') == 1)>
+                            <input class="form-check-input" type="radio" name="seatType" value="1" checked @change="changeSeat($event)" @checked(old('seatType') == 1)>
                             Vlastné alebo prenajaté
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="seatType" value="2" @checked(old('seatType') == 2)>
+                            <input class="form-check-input" type="radio" name="seatType" value="2" @change="changeSeat($event)" @checked(old('seatType') == 2)>
                             Virtuálne sídlo
                             <a href data-toggle="tooltip" data-placement="right" title="Virtuálne sídlo podľa vášho výberu poskytuje partner portálu avesidlo.sk.">
                                 <i class="fas fa-info-circle"></i>
@@ -183,7 +183,7 @@
             </div>
 
             {{-- toto sa ma zobrazit len ak si pouzivatelov vyberie "virutalne sidlo" --}}
-            <div class="col-md-6">
+            <div v-if="seat == true" class="col-md-6">
                 <div class="form-group">
                     <label>
                         Sídlo
@@ -257,3 +257,4 @@
     </div>
 
 </div>
+

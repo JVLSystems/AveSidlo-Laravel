@@ -23,4 +23,16 @@ class Service extends Model
     ];
 
     public $timestamps = false;
+
+    // ******************************* HELPER METHODS *************************************
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param int|null $service
+     * @return string|null
+     */
+    public function scopeGetServiceResource($query, ?int $service): string
+    {
+        return $query->where('id', $service)->first()->form_resource ?? '';
+    }
 }

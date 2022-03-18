@@ -53,10 +53,10 @@
                                                             Služba
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select class="form-control" v-model="service" @change="changeService" name="service">
+                                                        <select class="form-control" :value="select" @change="changeService($event)" name="service">
                                                             <option value="">Vyberte službu...</option>
                                                             @foreach ($services as $service)
-                                                                <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                                                <option value="{{ $service->id }}" >{{ $service->name }}</option>
                                                             @endforeach
                                                         </select>
                                                         @error('service')
@@ -81,8 +81,6 @@
                                             <div v-if="form == 'create_liquidation_form'">
                                                @include('ClientModule.order._forms.create_liquidation_form')
                                             </div>
-
-
 
                                             <div class="form-group">
                                                 <label>
@@ -131,23 +129,36 @@
         Vue.createApp({
             data: function () {
                 return {
-                    service: '',
-                    form: '',
+                    form: '{{ App\Models\Service::getServiceResource(old('service'))}}',
+                    select: '{{ old('service') }}',
                     isSpinning: false,
-                    spinningClass: 'spinner spinner-white spinner-right'
+                    seat: false,
+                    spinningClass: 'spinner spinner-white spinner-right',
+
+
                 }
             },
             methods: {
-                changeService() {
-                    var link = "/klient/objednavky/get-service-data/" + this.service
+                changeService(event) {
+                    var link = "/klient/objednavky/get-service-data/" + event.target.value
                     var _this = this
 
                     axios.get(link)
                         .then(function (response) {
                             console.log(response.data.form_resource)
                             _this.form = response.data.form_resource
+                            _this.select = response.data.id
                         })
 
+                },
+                changeSeat(event) {
+                    var _this = this
+
+                    if ( event.target.value == 2 ) {
+                        _this.seat = true
+                     } else {
+                        _this.seat = false
+                    }
                 }
             }
         }).mount('#company')
