@@ -62,13 +62,13 @@
                     </label>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="seatType" value="1" checked @change="changeSeat($event)" @checked(old('seatType') == 1)>
+                            <input class="form-check-input" type="radio" name="seatType" value="1" checked @change="changeSeat" @checked(old('seatType') == 1)>
                             Vlastné alebo prenajaté
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="seatType" value="2" @change="changeSeat($event)" @checked(old('seatType') == 2)>
+                            <input class="form-check-input" type="radio" name="seatType" value="2" @change="changeSeat" @checked(old('seatType') == 2)>
                             Virtuálne sídlo
                             <a href data-toggle="tooltip" data-placement="right" title="Virtuálne sídlo podľa vášho výberu poskytuje partner portálu avesidlo.sk.">
                                 <i class="fas fa-info-circle"></i>
@@ -78,111 +78,115 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>
-                        Ulica
-                    </label>
-                    <input name="street" class="form-control" placeholder="Ulica" value="{{ old('street') }}" />
-                    @error('street')
-                        <div class="invalid-feedback d-inline-block">
-                            {{ $message }}
+            <div v-if="seat == false" class="col-md-12">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Ulica
+                            </label>
+                            <input name="street" class="form-control" placeholder="Ulica" value="{{ old('street') }}" />
+                            @error('street')
+                                <div class="invalid-feedback d-inline-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
-                    @enderror
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>
+                                Súpisné číslo
+                            </label>
+                            <input name="streetRegisterNumber" class="form-control" placeholder="Súpisné číslo" value="{{ old('streetRegisterNumber') }}" />
+                            @error('streetRegisterNumber')
+                                <div class="invalid-feedback d-inline-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>
+                                Orientačné číslo
+                            </label>
+                            <input name="streetNumber" class="form-control" placeholder="Orientačné číslo" value="{{ old('streetNumber') }}" />
+                            @error('streetNumber')
+                                <div class="invalid-feedback d-inline-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Obec
+                            </label>
+                            <input name="city" class="form-control" placeholder="Obec" value="{{ old('city') }}" />
+                            @error('city')
+                                <div class="invalid-feedback d-inline-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                PSČ
+                            </label>
+                            <input name="zip" class="form-control" placeholder="PSČ" value="{{ old('zip') }}" />
+                            @error('zip')
+                                <div class="invalid-feedback d-inline-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Druh priestoru
+                            </label>
+                            <select name="typeOfSpace" class="form-control" placeholder="Druh priestoru">
+                                <option value="1" @selected(old('typeOfSpace') == 1)>Nebytový priestor</option>
+                                <option value="2" @selected(old('typeOfSpace') == 2)>Byt v bytovom dome</option>
+                                <option value="3" @selected(old('typeOfSpace') == 3)>Iná budova</option>
+                                <option value="4" @selected(old('typeOfSpace') == 4)>Rodinný dom</option>
+                                <option value="5" @selected(old('typeOfSpace') == 5)>Samostatne stojaca garáž</option>
+                            </select>
+                            @error('typeOfSpace')
+                                <div class="invalid-feedback d-inline-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                Vlastník priestoru
+                            </label>
+                            <input name="spaceOwner" class="form-control" placeholder="Vlastník priestoru" value="{{ old('spaceOwner') }}" />
+                            @error('spaceOwner')
+                                <div class="invalid-feedback d-inline-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>
-                        Súpisné číslo
-                    </label>
-                    <input name="streetRegisterNumber" class="form-control" placeholder="Súpisné číslo" value="{{ old('streetRegisterNumber') }}" />
-                    @error('streetRegisterNumber')
-                        <div class="invalid-feedback d-inline-block">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label>
-                        Orientačné číslo
-                    </label>
-                    <input name="streetNumber" class="form-control" placeholder="Orientačné číslo" value="{{ old('streetNumber') }}" />
-                    @error('streetNumber')
-                        <div class="invalid-feedback d-inline-block">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>
-                        Obec
-                    </label>
-                    <input name="city" class="form-control" placeholder="Obec" value="{{ old('city') }}" />
-                    @error('city')
-                        <div class="invalid-feedback d-inline-block">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>
-                        PSČ
-                    </label>
-                    <input name="zip" class="form-control" placeholder="PSČ" value="{{ old('zip') }}" />
-                    @error('zip')
-                        <div class="invalid-feedback d-inline-block">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>
-                        Druh priestoru
-                    </label>
-                    <select name="typeOfSpace" class="form-control" placeholder="Druh priestoru">
-                        <option value="1" @selected(old('typeOfSpace') == 1)>Nebytový priestor</option>
-                        <option value="2" @selected(old('typeOfSpace') == 2)>Byt v bytovom dome</option>
-                        <option value="3" @selected(old('typeOfSpace') == 3)>Iná budova</option>
-                        <option value="4" @selected(old('typeOfSpace') == 4)>Rodinný dom</option>
-                        <option value="5" @selected(old('typeOfSpace') == 5)>Samostatne stojaca garáž</option>
-                    </select>
-                    @error('typeOfSpace')
-                        <div class="invalid-feedback d-inline-block">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>
-                        Vlastník priestoru
-                    </label>
-                    <input name="spaceOwner" class="form-control" placeholder="Vlastník priestoru" value="{{ old('spaceOwner') }}" />
-                    @error('spaceOwner')
-                        <div class="invalid-feedback d-inline-block">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-            </div>
-
-            {{-- toto sa ma zobrazit len ak si pouzivatelov vyberie "virutalne sidlo" --}}
             <div v-if="seat == true" class="col-md-6">
                 <div class="form-group">
                     <label>

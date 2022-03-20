@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use App\Http\Requests\CompanyRequest;
+use App\Traits\BelongsToZip;
 use App\Traits\BelongsToCity;
 use App\Traits\BelongsToState;
-use App\Traits\BelongsToZip;
+use App\Http\Requests\CompanyRequest;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Request;
 
 class Company extends Model
 {
@@ -41,7 +41,7 @@ class Company extends Model
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function scopeGetUserCompanies($query): mixed
     {

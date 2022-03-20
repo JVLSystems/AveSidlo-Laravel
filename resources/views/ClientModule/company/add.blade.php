@@ -219,18 +219,17 @@
                     if (this.ico.length > 3) {
                         this.isSpinning = true
                         var link = "/klient/spolocnosti/search-orsr-ico/" + this.ico
-                        var _this = this
 
                         axios.get(link)
-                            .then(function (response) {
-                                _this.name = response.data.name
-                                _this.dic = response.data.tax_id
-                                _this.icdph = response.data.vat_id
-                                _this.address = response.data.street
-                                _this.city = response.data.city
-                                _this.zip = response.data.zip
+                            .then(response => {
+                                this.name = response.data.name
+                                this.dic = response.data.tax_id
+                                this.icdph = response.data.vat_id
+                                this.address = response.data.street
+                                this.city = response.data.city
+                                this.zip = response.data.zip
 
-                                _this.isSpinning = false
+                                this.isSpinning = false
                             })
                     }
                 }

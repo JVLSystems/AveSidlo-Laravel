@@ -28,11 +28,10 @@ class Service extends Model
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int|null $service
      * @return string|null
      */
-    public function scopeGetServiceResource($query, ?int $service): string
+    public function scopeGetServiceResource($query): string
     {
-        return $query->where('id', $service)->first()->form_resource ?? '';
+        return $query->where('id', old('service'))->first()->form_resource ?? '';
     }
 }

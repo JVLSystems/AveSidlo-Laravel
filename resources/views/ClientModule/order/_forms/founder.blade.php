@@ -351,18 +351,17 @@
                     </label>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="usersBenefits" value="1" checked  @checked(old('usersBenefits') == 1)>
+                            <input class="form-check-input" type="radio" name="usersBenefits" value="1" @change="changeOtherPersons" checked  @checked(old('usersBenefits') == 1)>
                             Spoločníci / zakladatelia
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="usersBenefits" value="2" @checked(old('usersBenefits') == 2)>
+                            <input class="form-check-input" type="radio" name="usersBenefits" value="2" @change="changeOtherPersons" @checked(old('usersBenefits') == 2)>
                             Iné osoby
                         </label>
                     </div>
-                    {{-- toto sa ma zobrazit ak si uzivatel vyberie "ine osoby" --}}
-                    <div class="row mt-7">
+                    <div v-if="otherPersons == true" class="row mt-7">
                         <div class="col-md-12">
                             <textarea name="otherPersons" class="form-control" placeholder="Uveďte mená a priezviská, adresu bydliska, dátum narodenia, rodné číslo, číslo pasu alebo občianskeho preukazu.">{{ old('otherPersons') }}</textarea>
                         </div>
@@ -377,18 +376,17 @@
                     </label>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="managersMethod" value="1" checked  @checked(old('managersMethod') == 1)>
+                            <input class="form-check-input" type="radio" name="managersMethod" value="1" @change="changeOtherMethod" checked  @checked(old('managersMethod') == 1)>
                             V mene spoločnosti koná a podpisuje každý konateľ samostatne
                         </label>
                     </div>
                     <div class="form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="managersMethod" value="2" @checked(old('managersMethod') == 2)>
+                            <input class="form-check-input" type="radio" name="managersMethod" value="2" @change="changeOtherMethod" @checked(old('managersMethod') == 2)>
                             Iné
                         </label>
                     </div>
-                    {{-- toto sa ma zobrazit ak si uzivatel vyberie "ine" --}}
-                    <div class="row mt-7">
+                    <div v-if="otherMethod == true" class="row mt-7">
                         <div class="col-md-12">
                             <textarea name="otherMethod" class="form-control">{{ old('otherMethod') }}</textarea>
                         </div>

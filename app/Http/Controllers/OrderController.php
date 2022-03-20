@@ -36,12 +36,18 @@ class OrderController extends Controller
      */
     public function create()
     {
+        old('seatType')
+            ? ( old('seatType') == 1 ? $oldSeatType = false : $oldSeatType = true )
+            : $oldSeatType = false;
+
         return view('ClientModule.order.add', [
             'services' => Service::all(),
             'companies' => Company::getUserCompanies(),
             'suppliers' => Supplier::all(),
             'states' => EnumState::all(),
             'year' => Carbon::now()->format('Y') - 18,
+            'oldService' => Service::getServiceResource(),
+            'oldSeatType' => $oldSeatType,
         ]);
     }
 
