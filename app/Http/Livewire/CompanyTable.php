@@ -177,8 +177,8 @@ final class CompanyTable extends PowerGridComponent
                 ->title('Doba úhrady')
                 ->field('payment_at_formatted', 'payment_at')
                 ->searchable()
-                ->sortable(),
-                //->makeInputDatePicker('payment_at'),
+                ->sortable()
+                ->makeInputDatePicker('payment_at'),
         ];
     }
 

@@ -5,7 +5,7 @@
             <div class="modal-header">
             <h5 class="modal-title" id="founderLabel">Vložiť zakladateľa</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="d-block">&times;</span>
                 </button>
             </div>
 

@@ -70,9 +70,9 @@
 
 
 
-                                            <div v-if="form == 'create_company_form'">
+                                            {{-- <div v-if="form == 'create_company_form'"> --}}
                                                @include('ClientModule.order._forms.create_company_form')
-                                            </div>
+                                            {{-- </div> --}}
 
                                             <div v-if="form == 'create_virtual_form'">
                                                @include('ClientModule.order._forms.create_virtual_form')
