@@ -251,11 +251,13 @@
             </div>
 
             <div class="col-md-6">
-                <button class="btn btn-primary text-uppercase">
+                <button class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#founder" @click.prevent>
                     <span class="fas fa-plus"></span>
                     Vložiť nového zakladateľa
                 </button>
             </div>
+
+            @include('ClientModule.order._forms.founder')
 
         </div>
     </div>
