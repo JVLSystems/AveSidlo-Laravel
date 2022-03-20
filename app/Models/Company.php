@@ -41,7 +41,7 @@ class Company extends Model
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function scopeGetUserCompanies($query): mixed
     {
@@ -51,7 +51,7 @@ class Company extends Model
     /**
      * @param Request $request
      * @param \App\Models\Company|null $company
-     * @return Company
+     * @return \App\Models\Company
      */
     public static function insertOrUpdate(CompanyRequest $request, ?Company $company = null): Company
     {
