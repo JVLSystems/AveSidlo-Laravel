@@ -32,7 +32,6 @@
     <!--begin::Page Scripts(used by this page)-->
     <script src="{{ asset('/adm/assets/js/pages/widgets.js?v=7.2.8') }}"></script>
 
-
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 

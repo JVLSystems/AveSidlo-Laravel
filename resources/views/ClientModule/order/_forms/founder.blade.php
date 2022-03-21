@@ -56,7 +56,7 @@
                                     <label>
                                         Titul pred menom
                                     </label>
-                                    <input name="founderTitleBeforeName" class="form-control" value="{{ old('founderTitleBeforeName') }}" />
+                                    <input type="text" name="founderTitleBeforeName" class="form-control" value="{{ old('founderTitleBeforeName') }}" />
                                     @error('founderTitleBeforeName')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -71,7 +71,7 @@
                                         Meno
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input name="founderName" class="form-control" value="{{ old('founderName') }}" />
+                                    <input type="text" name="founderName" class="form-control" value="{{ old('founderName') }}" />
                                     @error('founderName')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -86,7 +86,7 @@
                                         Priezvisko
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input name="founderSurname" class="form-control" value="{{ old('founderSurname') }}" />
+                                    <input type="text" name="founderSurname" class="form-control" value="{{ old('founderSurname') }}" />
                                     @error('founderSurname')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -100,7 +100,7 @@
                                     <label>
                                         Titul za menom
                                     </label>
-                                    <input name="founderTitleAfterName" class="form-control" value="{{ old('founderTitleAfterName') }}" />
+                                    <input type="text" name="founderTitleAfterName" class="form-control" value="{{ old('founderTitleAfterName') }}" />
                                     @error('founderTitleAfterName')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -115,7 +115,7 @@
                                         Ulica / námestie
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input name="founderStreet" class="form-control" placeholder="Názov ulice / námestia" value="{{ old('founderStreet') }}" />
+                                    <input type="text" name="founderStreet" class="form-control" placeholder="Názov ulice / námestia" value="{{ old('founderStreet') }}" />
                                     @error('founderStreet')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -131,14 +131,14 @@
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="input-group">
-                                        <input name="founderStreetRegisterNumber" class="form-control" placeholder="Súpisné číslo" value="{{ old('founderStreetRegisterNumber') }}" />
+                                        <input type="text" name="founderStreetRegisterNumber" class="form-control" placeholder="Súpisné číslo" value="{{ old('founderStreetRegisterNumber') }}" />
                                         @error('founderStreetRegisterNumber')
                                             <div class="invalid-feedback d-inline-block">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                         <span class="d-flex align-items-center mx-1">/</span>
-                                        <input name="founderStreetNumber" class="form-control" placeholder="Orientačné číslo" value="{{ old('founderStreetNumber') }}" />
+                                        <input type="text" name="founderStreetNumber" class="form-control" placeholder="Orientačné číslo" value="{{ old('founderStreetNumber') }}" />
                                         @error('founderStreetNumber')
                                             <div class="invalid-feedback d-inline-block">
                                                 {{ $message }}
@@ -154,7 +154,7 @@
                                         Obec
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input name="founderCity" class="form-control" placeholder="Napr. Bratislava" value="{{ old('founderCity') }}" />
+                                    <input type="text" name="founderCity" class="form-control" placeholder="Napr. Bratislava" value="{{ old('founderCity') }}" />
                                     @error('founderCity')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -169,7 +169,7 @@
                                         PSČ
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input name="founderZip" class="form-control" value="{{ old('founderZip') }}" />
+                                    <input type="text" name="founderZip" class="form-control" value="{{ old('founderZip') }}" />
                                     @error('founderZip')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -245,14 +245,14 @@
                                         <span class="text-danger">*</span>
                                     </label>
                                     <div class="input-group">
-                                        <input name="founderBirthId" class="form-control" value="{{ old('founderBirthId') }}" />
+                                        <input type="text" name="founderBirthId" class="form-control" value="{{ old('founderBirthId') }}" />
                                         @error('founderBirthId')
                                             <div class="invalid-feedback d-inline-block">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                         <span class="d-flex align-items-center mx-1">/</span>
-                                        <input name="founderBirthIdSuffix" class="form-control" value="{{ old('founderBirthIdSuffix') }}" />
+                                        <input type="text" name="founderBirthIdSuffix" class="form-control" value="{{ old('founderBirthIdSuffix') }}" />
                                         @error('founderBirthIdSuffix')
                                             <div class="invalid-feedback d-inline-block">
                                                 {{ $message }}
@@ -268,7 +268,7 @@
                                         Štátna príslúšnosť
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input name="founderNationality" class="form-control" placeholder="Napr. Slovenská" value="{{ old('founderNationality') }}" />
+                                    <input type="text" name="founderNationality" class="form-control" placeholder="Napr. Slovenská" value="{{ old('founderNationality') }}" />
                                     @error('founderNationality')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -302,7 +302,7 @@
                                         Číslo dokladu totožnosti
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input name="founderIdentityDocNumber" class="form-control" value="{{ old('founderIdentityDocNumber') }}" />
+                                    <input type="text" name="founderIdentityDocNumber" class="form-control" value="{{ old('founderIdentityDocNumber') }}" />
                                     @error('founderIdentityDocNumber')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -317,7 +317,7 @@
                                         Výška vkladu
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input name="founderCapital" class="form-control" value="{{ old('founderCapital') }}" />
+                                    <input type="number" name="founderCapital" class="form-control" value="{{ old('founderCapital') }}" />
                                     @error('founderCapital')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -332,7 +332,7 @@
                                         Podiel v spoločnosti
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input name="founderShare" class="form-control" value="{{ old('founderShare') }}" />
+                                    <input type="text" name="founderShare" class="form-control" value="{{ old('founderShare') }}" />
                                     @error('founderShare')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -347,7 +347,7 @@
                                         Rozsah splatenia vkladu
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input name="founderPaid" class="form-control" value="{{ old('founderPaid') }}" />
+                                    <input type="number" name="founderPaid" class="form-control" value="{{ old('founderPaid') }}" />
                                     @error('founderPaid')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -363,13 +363,13 @@
                                     </label>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="usersBenefits" value="1" @change="changeOtherPersons" checked  @checked(old('usersBenefits') == 1)>
+                                            <input type="radio" class="form-check-input" name="usersBenefits" value="1" @change="changeOtherPersons" checked  @checked(old('usersBenefits') == 1)>
                                             Spoločníci / zakladatelia
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="usersBenefits" value="2" @change="changeOtherPersons" @checked(old('usersBenefits') == 2)>
+                                            <input type="radio" class="form-check-input" name="usersBenefits" value="2" @change="changeOtherPersons" @checked(old('usersBenefits') == 2)>
                                             Iné osoby
                                         </label>
                                     </div>

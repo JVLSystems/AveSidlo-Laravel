@@ -28,7 +28,7 @@
                         <span class="text-danger">*</span>
                     </label>
                     <div class="input-group">
-                        <input name="period" class="form-control" placeholder="Zadajte počet mesiac" />
+                        <input type="number" name="period" class="form-control" placeholder="Zadajte počet mesiac" />
                         <div class="input-group-append">
                             <span class="input-group-text line-height-0 py-0">
                                 m

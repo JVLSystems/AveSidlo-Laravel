@@ -68,11 +68,9 @@
                                                 </div>
                                             </div>
 
-
-
-                                            <div v-if="form == 'create_company_form'">
+                                            {{-- <div v-if="form == 'create_company_form'"> --}}
                                                @include('ClientModule.order._forms.create_company_form')
-                                            </div>
+                                            {{-- </div> --}}
 
                                             <div v-if="form == 'create_virtual_form'">
                                                @include('ClientModule.order._forms.create_virtual_form')
@@ -81,8 +79,6 @@
                                             <div v-if="form == 'create_liquidation_form'">
                                                @include('ClientModule.order._forms.create_liquidation_form')
                                             </div>
-
-
 
                                             <div class="form-group">
                                                 <label>
@@ -99,7 +95,7 @@
                                             <div class="form-group">
                                                 <div class="checkbox-inline">
                                                     <label class="checkbox">
-                                                        <input type="checkbox" name="accept" />
+                                                        <input type="checkbox" name="accept" @checked(old('accept'))/>
                                                         <span></span>Súhlasim s obchodnými podmienkami spoločnosti
                                                     </label>
                                                     @error('accept')
@@ -133,6 +129,8 @@
                     form: '{{ $oldService }}',
                     otherPersons: false,
                     otherMethod: false,
+                    invoice: true,
+                    datePicker: false,
                     isSpinning: false,
                     seat: '{{ $oldSeatType }}',
                     spinningClass: 'spinner spinner-white spinner-right',
@@ -162,6 +160,16 @@
                     event.target.value == 2
                         ? this.otherMethod = true
                         : this.otherMethod = false
+                },
+                changeInvoice(event) {
+                    event.target.value == 2
+                        ? this.invoice = false
+                        : this.invoice = true
+                },
+                changeDatePicker(event) {
+                    event.target.value == 2
+                        ? this.datePicker = true
+                        : this.datePicker = false
                 },
 
             }

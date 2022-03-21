@@ -21,7 +21,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input name="businessType" class="form-control" placeholder="Sem vpíšte predmet, činnosť, kľúčové slovo (napr. Obchodná čínnosť)" value="{{ old('businessType') }}" />
+                            <input type="text" name="businessType" class="form-control" placeholder="Sem vpíšte predmet, činnosť, kľúčové slovo (napr. Obchodná čínnosť)" value="{{ old('businessType') }}" />
                             @error('businessType')
                                 <div class="invalid-feedback d-inline-block">
                                     {{ $message }}

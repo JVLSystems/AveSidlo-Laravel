@@ -28,20 +28,20 @@
                         Faktúra za služby portálu bude vystavená na
                         <span class="text-danger">*</span>
                     </label>
-                    <select class="form-control" name="founderIdentityDocType">
+                    <select class="form-control" name="invoice" @change="changeInvoice">
                         {{-- tu bude "vytvorena firma", spoloncici --}}
-                        <option value="">Iná osoba</option>
+                        <option value>Vyberte...</option>
+                        <option value="2">Iná osoba</option>
                     </select>
-                    @error('founderIdentityDocType')
+                    @error('invoice')
                         <div class="invalid-feedback d-inline-block">
                             {{ $message }}
                         </div>
                     @enderror
 
-                    {{-- toto sa zobrazi len ak uzivatel vyberie firmu alebo spolocnika --}}
-                    <div class="form-check my-2">
+                    <div v-if="invoice == true" class="form-check my-2">
                         <label>
-                            <input class="form-check-input" name="sendInvoice" type="checkbox" value="1" checked @checked(old('sendInvoice') == 1)>
+                            <input type="checkbox" class="form-check-input" name="sendInvoice" value="1" checked @checked(old('sendInvoice') == 1)>
                             Faktúru žiadam zaslať emailom.
                             @error('sendInvoice')
                                 <div class="invalid-feedback d-inline-block">
@@ -53,8 +53,9 @@
                 </div>
             </div>
 
-           {{-- ak si uzivatel vyberie "ina osoba" includne sa tu other person form --}}
-           {{-- @include('ClientModule.order._forms.create_other_person_form') --}}
+           <div v-if="invoice == false" class="col-md-12">
+               @include('ClientModule.order._forms.create_other_person_form')
+           </div>
 
             <div class="col-md-12 my-5">
                 <div class="card-title">
@@ -66,18 +67,17 @@
                 <div class="form-group">
                     <div class="form-check my-2">
                         <label>
-                            <input class="form-check-input" name="registerDate" type="radio" value="1" checked @checked(old('registerDate') == 1)>
+                            <input type="radio" class="form-check-input" name="registerDate" value="1" checked  @change="changeDatePicker" @checked(old('registerDate') == 1)>
                             Čo najskôr
                         </label>
                     </div>
                     <div class="form-check my-2">
                         <label>
-                            <input class="form-check-input" name="registerDate" type="radio" value="2" @checked(old('registerDate') == 2)>
+                            <input type="radio" class="form-check-input" name="registerDate" value="2"  @change="changeDatePicker" @checked(old('registerDate') == 2)>
                             Ku konkrétnemu dátumu
                         </label>
                     </div>
-                    {{-- datepicker sa ma zobrait ak si uzivatel vyberie "ku konkretnemu datumu" --}}
-                    <input type="date" class="form-control" name="date" value="{{ old('date') }}">
+                    <input v-if="datePicker == true" type="date" class="form-control" name="date" value="{{ old('date') }}">
                     @error('registerDate')
                         <div class="invalid-feedback d-inline-block">
                             {{ $message }}
