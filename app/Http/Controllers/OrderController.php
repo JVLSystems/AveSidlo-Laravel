@@ -59,7 +59,7 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        // return $request->all();
+        return $request->all();
         $service = Service::findOrFail($request->service);
         $company = Auth::user()->company()->findOrFail($request->company);
 

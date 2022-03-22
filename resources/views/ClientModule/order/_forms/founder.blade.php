@@ -71,7 +71,7 @@
                                         Meno
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" name="founderName" class="form-control" value="{{ old('founderName') }}" />
+                                    <input type="text" name="founderName" class="form-control" v-model="name" value="{{ old('founderName') }}" />
                                     @error('founderName')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -317,7 +317,7 @@
                                         Výška vkladu
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="number" name="founderCapital" class="form-control" value="{{ old('founderCapital') }}" />
+                                    <input type="number" name="founderCapital" class="form-control" v-model="capital" value="{{ old('founderCapital') }}" />
                                     @error('founderCapital')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -332,7 +332,7 @@
                                         Podiel v spoločnosti
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" name="founderShare" class="form-control" value="{{ old('founderShare') }}" />
+                                    <input type="text" name="founderShare" class="form-control" v-model="share" value="{{ old('founderShare') }}" />
                                     @error('founderShare')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -347,7 +347,7 @@
                                         Rozsah splatenia vkladu
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="number" name="founderPaid" class="form-control" value="{{ old('founderPaid') }}" />
+                                    <input type="number" name="founderPaid" class="form-control" v-model="paid" value="{{ old('founderPaid') }}" />
                                     @error('founderPaid')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -364,7 +364,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť</button>
-                <button type="button" class="btn btn-primary">Vložiť zakladateľa</button>
+                <button type="button" class="btn btn-primary" @click.prevent="addFounder">Vložiť zakladateľa</button>
             </div>
 
         </div>

@@ -40,7 +40,7 @@ class OrderRequest extends FormRequest
             'spaceOwner' => 'required_if:seatType,1',
             'seat' => 'required_if:seatType,2',
             'capital' => 'required_if:seatType,1,2|numeric',
-            'paid' => 'required_if:seatType,1,2|numeric|min:0|max:100',
+            'paid' => 'required_if:seatType,1,2|numeric',
             'accept' => 'required',
         ];
     }

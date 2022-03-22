@@ -133,8 +133,12 @@
                     datePicker: false,
                     exists: null,
                     notExists: null,
-                    isNotExist: null,
                     company: '{{ old('companyName') }}',
+                    founders: [],
+                    name: '',
+                    capital: '',
+                    share: '',
+                    paid: '',
                     isSpinning: false,
                     seat: '{{ $oldSeatType }}',
                     spinningClass: 'spinner spinner-white spinner-right',
@@ -187,6 +191,19 @@
                                 : this.notExists = 'Obchodné meno je voľné.'
                         })
                 },
+                addFounder() {
+                    if ( !this.name ) return
+
+                    this.founders.push({
+                        name: this.name,
+                        capital: this.capital,
+                        share: this.share,
+                        paid: this.paid
+                    })
+                },
+                removeFounder(founder) {
+                    this.founders = this.founders.filter( item => item !== founder )
+                }
 
             }
         }).mount('#company')
