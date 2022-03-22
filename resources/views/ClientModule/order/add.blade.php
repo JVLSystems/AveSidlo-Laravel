@@ -68,9 +68,9 @@
                                                 </div>
                                             </div>
 
-                                            {{-- <div v-if="form == 'create_company_form'"> --}}
+                                            <div v-if="form == 'create_company_form'">
                                                @include('ClientModule.order._forms.create_company_form')
-                                            {{-- </div> --}}
+                                            </div>
 
                                             <div v-if="form == 'create_virtual_form'">
                                                @include('ClientModule.order._forms.create_virtual_form')
@@ -131,6 +131,10 @@
                     otherMethod: false,
                     invoice: true,
                     datePicker: false,
+                    exists: null,
+                    notExists: null,
+                    isNotExist: null,
+                    company: '{{ old('companyName') }}',
                     isSpinning: false,
                     seat: '{{ $oldSeatType }}',
                     spinningClass: 'spinner spinner-white spinner-right',
@@ -170,6 +174,18 @@
                     event.target.value == 2
                         ? this.datePicker = true
                         : this.datePicker = false
+                },
+                checkCompany() {
+                    var link = "/klient/objednavky/" + this.company
+                    this.exists = null
+                    this.notExists = null
+
+                    axios.get(link)
+                        .then(response => {
+                            response.data
+                                ? this.exists = 'Obchodné meno nie je voľné.'
+                                : this.notExists = 'Obchodné meno je voľné.'
+                        })
                 },
 
             }

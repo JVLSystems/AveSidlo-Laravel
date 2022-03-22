@@ -356,56 +356,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>
-                                        Konečným užívateľom výhod sú
-                                    </label>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="usersBenefits" value="1" @change="changeOtherPersons" checked  @checked(old('usersBenefits') == 1)>
-                                            Spoločníci / zakladatelia
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="usersBenefits" value="2" @change="changeOtherPersons" @checked(old('usersBenefits') == 2)>
-                                            Iné osoby
-                                        </label>
-                                    </div>
-                                    <div v-if="otherPersons == true" class="row mt-7">
-                                        <div class="col-md-12">
-                                            <textarea name="otherPersons" class="form-control" placeholder="Uveďte mená a priezviská, adresu bydliska, dátum narodenia, rodné číslo, číslo pasu alebo občianskeho preukazu.">{{ old('otherPersons') }}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>
-                                        Spôsob konania konateľov
-                                    </label>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="managersMethod" value="1" @change="changeOtherMethod" checked  @checked(old('managersMethod') == 1)>
-                                            V mene spoločnosti koná a podpisuje každý konateľ samostatne
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="radio" name="managersMethod" value="2" @change="changeOtherMethod" @checked(old('managersMethod') == 2)>
-                                            Iné
-                                        </label>
-                                    </div>
-                                    <div v-if="otherMethod == true" class="row mt-7">
-                                        <div class="col-md-12">
-                                            <textarea name="otherMethod" class="form-control">{{ old('otherMethod') }}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
 

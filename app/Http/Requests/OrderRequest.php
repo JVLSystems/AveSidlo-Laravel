@@ -32,7 +32,7 @@ class OrderRequest extends FormRequest
             'email' => 'required_if:service,1|email',
             'seatType' => 'required_if:service,1|integer|min:1|max:2',
             'street' => 'required_if:seatType,1',
-            'streetRegisterNumber' => 'integer',
+            'streetRegisterNumber' => 'sometimes|nullable|integer',
             'streetNumber' => 'required_if:seatType,1|integer',
             'city' => 'required_if:seatType,1',
             'zip' => 'required_if:seatType,1|regex:/\b\d{5}\b/',
