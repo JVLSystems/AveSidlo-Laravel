@@ -15,11 +15,11 @@ class EnumVatSeeder extends Seeder
      */
     public function run()
     {
-        $vat_states = [
+        $vatStates = [
             'Slovenská DPH' => 20,
         ];
 
-        foreach ( $vat_states as $state => $vat ) {
+        foreach ( $vatStates as $state => $vat ) {
             EnumVat::updateOrCreate([
                 'name' => $state,
                 'percentage' => $vat,

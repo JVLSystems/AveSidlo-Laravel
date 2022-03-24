@@ -7,14 +7,20 @@ use Carbon\Carbon;
 use App\Models\Order;
 use App\Mail\OrderMail;
 use App\Models\Company;
+use App\Models\Founder;
 use App\Models\Invoice;
 use App\Models\Service;
 use App\Models\Supplier;
 use App\Models\EnumState;
 use App\Models\OrderItem;
+use App\Models\EnumGender;
 use App\Models\InvoiceItem;
 use Illuminate\Http\Request;
+use App\Models\EnumCompanySeat;
+use App\Models\EnumTypeOfSpace;
 use App\Http\Requests\OrderRequest;
+use App\Models\EnumIdentityDocType;
+use App\Models\EnumOwnerType;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
@@ -42,8 +48,12 @@ class OrderController extends Controller
 
         return view('ClientModule.order.add', [
             'services' => Service::all(),
+            'typeOfSpaces' => EnumTypeOfSpace::all(),
             'companies' => Company::getUserCompanies(),
             'suppliers' => Supplier::all(),
+            'genders' => EnumGender::all(),
+            'ownerTypes' => EnumOwnerType::all(),
+            'identityDocTypes' => EnumIdentityDocType::all(),
             'states' => EnumState::all(),
             'year' => Carbon::now()->format('Y') - 18,
             'oldService' => Service::getServiceResource(),
@@ -59,9 +69,9 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        return $request->all();
+        // return $request->all();
         $service = Service::findOrFail($request->service);
-        $company = Auth::user()->company()->findOrFail($request->company);
+        $company = $request->company ? Auth::user()->company()->findOrFail($request->company) : null;
 
         $number = Order::createNumber();
 
@@ -80,7 +90,14 @@ class OrderController extends Controller
         $priceWithoutVat = $service->price_without_vat * $quantity;
         $priceWithVat    = $priceWithoutVat * (1 + ($vat / 100));
 
-        $orderItem = OrderItem::insert($quantity, $order, $service, $company, $priceWithoutVat, $priceWithVat, $priceMjWithVat);
+
+        $companySeat = $service->id == 1 ? EnumCompanySeat::insert($request) : null;
+
+
+        $orderItem = OrderItem::insert($request, $quantity, $order, $service, $companySeat, $company, $priceWithoutVat, $priceWithVat, $priceMjWithVat);
+
+        $service->id == 1 ? Founder::insert($request, $orderItem) : null;
+
 
         InvoiceItem::insert($invoice, $order, $orderItem, $service, $priceMjWithVat, $quantity);
 

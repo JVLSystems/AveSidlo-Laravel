@@ -49,7 +49,7 @@ class Company extends Model
     }
 
     /**
-     * @param Request $request
+     * @param \App\Http\Requests\CompanyRequest $request
      * @param \App\Models\Company|null $company
      * @return \App\Models\Company
      */

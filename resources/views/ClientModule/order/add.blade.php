@@ -49,11 +49,11 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>
+                                                        <label for="service">
                                                             Služba
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select class="form-control" @change="changeService" name="service">
+                                                        <select class="form-control" @change="changeService" name="service" id="service">
                                                             <option value="">Vyberte službu...</option>
                                                             @foreach ($services as $service)
                                                                 <option value="{{ $service->id }}" @selected(old('service') == $service->id)>{{ $service->name }}</option>
@@ -84,7 +84,7 @@
                                                 <label>
                                                     Vaša správa
                                                 </label>
-                                                <textarea name="note" class="form-control" placeholder="Sem napíšte vaše poznámky"></textarea>
+                                                <textarea name="note" class="form-control" placeholder="Sem napíšte vaše poznámky">{{ old('note') }}</textarea>
                                                 @error('note')
                                                     <div class="invalid-feedback d-inline-block">
                                                         {{ $message }}

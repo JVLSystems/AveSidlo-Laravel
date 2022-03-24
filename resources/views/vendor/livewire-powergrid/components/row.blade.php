@@ -65,7 +65,7 @@
                     </tr>
                     <tr class="d-flex justify-content-between border-bottom border-dark">
                         <th scope="row">Množstvo</th>
-                        <td>{{ $row->item->quantitz ?? 1 }}</td>
+                        <td>{{ $row->item->quantity ?? 1 }}</td>
                     </tr>
                     <tr class="d-flex justify-content-between border-bottom border-dark">
                         <th scope="row">Vaša správa</th>

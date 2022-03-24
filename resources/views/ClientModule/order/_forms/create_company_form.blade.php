@@ -7,13 +7,13 @@
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <div class="form-group">
-                            <label>
+                            <label for="companyName">
                                 Zvoľte si obchodné meno vašej novej firmy (SRO)
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="form-row">
                                 <div class="col-md-4 mb-2">
-                                    <input type="text" name="companyName" v-model="company" class="form-control" placeholder="Napíšte obchodné meno novej spoločnosti" />
+                                    <input type="text" name="companyName" v-model="company" class="form-control" id="companyName" placeholder="Napíšte obchodné meno novej spoločnosti" />
                                     @error('companyName')
                                         <div class="invalid-feedback d-inline-block">
                                             {{ $message }}
@@ -50,20 +50,6 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label>
-                        Váš email
-                    </label>
-                    <input type="email" name="email" class="form-control" placeholder="E-mail" value="{{ old('email') }}" />
-                    @error('email')
-                        <div class="invalid-feedback d-inline-block">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label>
                         Sídlo spoločnosti
                     </label>
                     <div class="form-check">
@@ -94,39 +80,11 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>
+                            <label for="street">
                                 Ulica
                             </label>
-                            <input type="text" name="street" class="form-control" placeholder="Ulica" value="{{ old('street') }}" />
+                            <input type="text" name="street" class="form-control" id="street" placeholder="Ulica" value="{{ old('street') }}" />
                             @error('street')
-                                <div class="invalid-feedback d-inline-block">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>
-                                Súpisné číslo
-                            </label>
-                            <input type="text" name="streetRegisterNumber" class="form-control" placeholder="Súpisné číslo" value="{{ old('streetRegisterNumber') }}" />
-                            @error('streetRegisterNumber')
-                                <div class="invalid-feedback d-inline-block">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>
-                                Orientačné číslo
-                            </label>
-                            <input type="text" name="streetNumber" class="form-control" placeholder="Orientačné číslo" value="{{ old('streetNumber') }}" />
-                            @error('streetNumber')
                                 <div class="invalid-feedback d-inline-block">
                                     {{ $message }}
                                 </div>
@@ -136,10 +94,37 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>
+                            <label for="streetRegisterNumber">
+                                Súpisné číslo /
+                            </label>
+                            <label for="streetNumber">
+                                &nbsp;Orientačné číslo
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <input type="text" name="streetRegisterNumber" class="form-control" id="streetRegisterNumber" placeholder="Súpisné číslo" value="{{ old('streetRegisterNumber') }}" />
+                                @error('streetRegisterNumber')
+                                    <div class="invalid-feedback d-inline-block">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                                <span class="d-flex align-items-center mx-1">/</span>
+                                <input type="text" name="streetNumber" class="form-control" id="streetNumber" placeholder="Orientačné číslo" value="{{ old('streetNumber') }}" />
+                                @error('streetNumber')
+                                    <div class="invalid-feedback d-inline-block">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="city">
                                 Obec
                             </label>
-                            <input type="text" name="city" class="form-control" placeholder="Obec" value="{{ old('city') }}" />
+                            <input type="text" name="city" class="form-control" id="city" placeholder="Obec" value="{{ old('city') }}" />
                             @error('city')
                                 <div class="invalid-feedback d-inline-block">
                                     {{ $message }}
@@ -150,10 +135,10 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>
+                            <label for="zip">
                                 PSČ
                             </label>
-                            <input type="text" name="zip" class="form-control" placeholder="PSČ" value="{{ old('zip') }}" />
+                            <input type="text" name="zip" class="form-control" id="zip" placeholder="PSČ" value="{{ old('zip') }}" />
                             @error('zip')
                                 <div class="invalid-feedback d-inline-block">
                                     {{ $message }}
@@ -164,15 +149,13 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>
+                            <label for="typeOfSpace">
                                 Druh priestoru
                             </label>
-                            <select name="typeOfSpace" class="form-control" placeholder="Druh priestoru">
-                                <option value="1" @selected(old('typeOfSpace') == 1)>Nebytový priestor</option>
-                                <option value="2" @selected(old('typeOfSpace') == 2)>Byt v bytovom dome</option>
-                                <option value="3" @selected(old('typeOfSpace') == 3)>Iná budova</option>
-                                <option value="4" @selected(old('typeOfSpace') == 4)>Rodinný dom</option>
-                                <option value="5" @selected(old('typeOfSpace') == 5)>Samostatne stojaca garáž</option>
+                            <select name="typeOfSpace" class="form-control" id="typeOfSpace">
+                                @foreach ($typeOfSpaces as $space)
+                                    <option value="{{ $space->id }}" @selected(old('typeOfSpace') == $space->id)>{{ $space->name }}</option>
+                                @endforeach
                             </select>
                             @error('typeOfSpace')
                                 <div class="invalid-feedback d-inline-block">
@@ -184,10 +167,10 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>
+                            <label for="spaceOwner">
                                 Vlastník priestoru
                             </label>
-                            <input type="text" name="spaceOwner" class="form-control" placeholder="Vlastník priestoru" value="{{ old('spaceOwner') }}" />
+                            <input type="text" name="spaceOwner" class="form-control" id="spaceOwner" placeholder="Vlastník priestoru" value="{{ old('spaceOwner') }}" />
                             @error('spaceOwner')
                                 <div class="invalid-feedback d-inline-block">
                                     {{ $message }}
@@ -200,10 +183,10 @@
 
             <div v-if="seat == true" class="col-md-6">
                 <div class="form-group">
-                    <label>
+                    <label for="seat">
                         Sídlo
                     </label>
-                    <select name="seat" class="form-control">
+                    <select name="seat" class="form-control" id="seat">
                         <option selected>Vyberte sídlo...</option>
                        @foreach ($suppliers as $supplier)
                            <option value="{{ $supplier->id }}" @selected(old('seat') == $supplier->id)>{{ $supplier->name }}</option>
@@ -227,10 +210,10 @@
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>
+                    <label for="capital">
                         Výška
                     </label>
-                    <input type="number" class="form-control" name="capital" value="{{ old('capital') }}" />
+                    <input type="number" class="form-control" name="capital" id="capital" value="{{ old('capital') }}" />
                     @error('capital')
                         <div class="invalid-feedback d-inline-block">
                             {{ $message }}
@@ -241,10 +224,10 @@
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>
+                    <label for="paid">
                         Rozsah splatenia
                     </label>
-                    <input type="text" class="form-control" name="paid" value="{{ old('paid') }}" />
+                    <input type="text" class="form-control" name="paid" id="paid" value="{{ old('paid') }}" />
                     @error('paid')
                         <div class="invalid-feedback d-inline-block">
                             {{ $message }}
@@ -279,7 +262,7 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-if="founders.length" v-for="founder in founders">
+                                            <tr v-if="founders.length" v-for="(founder, index) in founders" :key="index">
                                                 <th>@{{ founder.name }}</th>
                                                 <td>@{{ founder.capital }}&euro;</td>
                                                 <td>@{{ founder.share }}</td>
@@ -327,7 +310,7 @@
                 </button>
             </div>
 
-            <div class="col-md-12 text-center">
+            {{-- <div class="col-md-12 text-center">
                 <div class="card-title">
                     <h3>
                         Konatelia
@@ -392,14 +375,14 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-md-12 my-7 text-center">
+            {{-- <div class="col-md-12 my-7 text-center">
                 <button class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#executiveManager" @click.prevent>
                     <span class="fas fa-plus"></span>
                     Pridať konateľa
                 </button>
-            </div>
+            </div> --}}
 
             <div class="col-md-6">
                 <div class="form-group">
@@ -452,7 +435,7 @@
             </div>
 
             @include('ClientModule.order._forms.founder')
-            @include('ClientModule.order._forms.executive_manager')
+            {{-- @include('ClientModule.order._forms.executive_manager') --}}
 
         </div>
     </div>

@@ -18,7 +18,12 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id')->nullable();
             $table->unsignedBigInteger('mj_id')->nullable();
             $table->unsignedBigInteger('service_id')->nullable();
+            $table->unsignedBigInteger('seat_id')->nullable();
+            $table->unsignedBigInteger('virtual_seat_id')->nullable();
             $table->string('name');
+            $table->string('company_name')->nullable();
+            $table->double('capital')->nullable();
+            $table->double('paid')->nullable();
             $table->double('price_without_vat');
             $table->double('price_with_vat');
             $table->double('quantity');
@@ -27,6 +32,8 @@ return new class extends Migration
             $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('mj_id')->references('id')->on('enum__mj');
             $table->foreign('service_id')->references('id')->on('services');
+            $table->foreign('seat_id')->references('id')->on('enum__company_seats');
+            // $table->foreign('virtual_seat_id')->references('id')->on('virtual_seats');
         });
     }
 
