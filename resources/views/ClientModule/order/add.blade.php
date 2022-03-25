@@ -133,13 +133,20 @@
                     datePicker: false,
                     exists: null,
                     notExists: null,
+                    individual: true,
                     company: '{{ old('companyName') }}',
                     founders: [],
+                    founderIco: '{{ old('founderIco') }}',
+                    founderCompanyName: '{{ old('founderCompanyName') }}',
+                    founderAddress: '{{ old('founderAddress') }}',
+                    founderCity: '{{ old('founderCity') }}',
+                    founderZip: '{{ old('founderZip') }}',
                     name: '',
                     capital: '',
                     share: '',
                     paid: '',
                     isSpinning: false,
+                    founderIsSpinning: false,
                     seat: '{{ $oldSeatType }}',
                     spinningClass: 'spinner spinner-white spinner-right',
                 }
@@ -179,6 +186,12 @@
                         ? this.datePicker = true
                         : this.datePicker = false
                 },
+                changeOwnerType(event) {
+                   event.target.value == 1
+                        ? this.individual = true
+                        : this.individual = false
+
+                },
                 checkCompany() {
                     var link = "/klient/objednavky/" + this.company
                     this.exists = null
@@ -203,6 +216,22 @@
                 },
                 removeFounder(founder) {
                     this.founders = this.founders.filter( item => item !== founder )
+                },
+                searchICO() {
+                    if (this.founderIco.length > 3) {
+                        var link = "/klient/spolocnosti/search-orsr-ico/" + this.founderIco
+                        this.founderIsSpinning = true
+
+                        axios.get(link)
+                            .then(response => {
+                                this.founderCompanyName = response.data.name
+                                this.founderAddress = response.data.street
+                                this.founderCity = response.data.city
+                                this.founderZip = response.data.zip
+
+                                this.founderIsSpinning = false
+                            })
+                    }
                 }
 
             }

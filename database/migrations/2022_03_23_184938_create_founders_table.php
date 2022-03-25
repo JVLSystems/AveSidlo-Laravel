@@ -21,6 +21,8 @@ return new class extends Migration
             $table->unsignedBigInteger('state_id')->nullable();
             $table->unsignedBigInteger('owner_type')->nullable();
             $table->unsignedBigInteger('gender')->nullable();
+            $table->string('ico')->nullable();
+            $table->string('company_name')->nullable();
             $table->string('street');
             $table->string('name');
             $table->date('date_of_birth');
